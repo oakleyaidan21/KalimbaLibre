@@ -19,7 +19,8 @@ class Note extends Component {
           style={{
             position: "relative",
             display: "inline",
-            background: this.state.color + ", 0.7)",
+            // background: this.state.color + ", 0.7)",
+            background: "red",
             width: "20px",
             height: "20px",
             border: "0"

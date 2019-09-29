@@ -22,11 +22,17 @@ class Tile extends Component {
       { id: 9, time: 4, rest: false, name: "C" },
       { id: 10, time: 4, rest: false, name: "C" },
       { id: 11, time: 4, rest: false, name: "C" },
-      { id: 12, time: 4, rest: false, name: "C" }
+      { id: 12, time: 4, rest: false, name: "C" },
+      { id: 13, time: 4, rest: false, name: "C" },
+      { id: 14, time: 4, rest: false, name: "C" },
+      { id: 15, time: 4, rest: false, name: "C" },
+      { id: 16, time: 4, rest: false, name: "C" },
+      { id: 17, time: 4, rest: false, name: "C" },
+      { id: 18, time: 4, rest: false, name: "C" }
     ]
   };
   handleClick = () => {
-    console.log(this.state.note);
+    console.log("tile" + this.state.note);
     // this.midiSounds.playChordNow(3, [40], 2.5);
   };
 
@@ -44,23 +50,29 @@ class Tile extends Component {
             position: "relative",
             background: this.props.color + ")",
             width: "28px",
-            height: 500 + this.props.len * 10,
+            // height: 500 + this.props.len * 10,
+            height: 500,
             border: "3px solid black",
             padding: "1px",
             margin: "1px",
             borderRadius: "25px"
           }}
           onClick={this.handleClick.bind(this)}
-        ></button>
-        {/* {this.state.buttons.map(note => (
-          <Note
-            key={note.id}
-            time={note.time}
-            rest={note.rest}
-            name={this.state.note}
-            color={this.state.color}
-          />
-        ))} */}
+        >
+          {this.state.buttons.map(note => (
+            <Note
+              key={note.id}
+              time={note.time}
+              rest={note.rest}
+              name={this.state.note}
+              color={this.state.color}
+              style={{
+                marginBottom: "100px"
+              }}
+            />
+          ))}
+        </button>
+
         {/* <MIDISounds
           ref={ref => (this.midiSounds = ref)}
           appElementName="root"

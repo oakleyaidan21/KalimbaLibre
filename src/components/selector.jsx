@@ -4,7 +4,7 @@ import Badge from "react-bootstrap/Badge";
 
 class Selector extends Component {
   state = {
-    currentNote: "None Selected",
+    currentNote: "N",
     selectors: [
       { label: "4" },
       { label: "8" },
@@ -16,6 +16,15 @@ class Selector extends Component {
   handleSelectionP = childData => {
     this.setState({ currentNote: childData });
   };
+
+  getBadgeClass() {
+    return this.state.currentNote === "N" ? "warning" : "primary";
+  }
+
+  displayNote() {
+    var n = this.state.currentNote;
+    return this.state.currentNote === "N" ? "___" : n;
+  }
 
   render() {
     return (
@@ -36,11 +45,12 @@ class Selector extends Component {
             label={selectorButton.label}
           />
         ))}
-        {/* <p style={{ textAlign: "center" }} className="primary">
-          Current Note: {this.state.currentNote}
-        </p> */}
-        <Badge variant="secondary" style={{ position: "center" }}>
-          Current Note: {this.state.currentNote}
+        <Badge variant="secondary" style={{ marginLeft: 155, marginTop: 80 }}>
+          Current Note
+        </Badge>
+        <br></br>
+        <Badge variant={this.getBadgeClass()} style={{ marginLeft: 185 }}>
+          {this.displayNote()}
         </Badge>
       </div>
     );
