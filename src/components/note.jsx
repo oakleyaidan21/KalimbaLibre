@@ -8,8 +8,14 @@ class Note extends Component {
     color: this.props.color
   };
 
-  handleNoteClick = () => {
-    console.log(this.state.name);
+  handleSelectionE = () => {
+    this.props.onSelectNote("rgb(247,255,0,0.5)");
+    this.state.color = "rgb(0,255,85,0.6)";
+    console.log(this.state.color);
+  };
+  handleSelectionL = () => {
+    this.props.onSelectNote("transparent");
+    this.state.color = "transparent";
   };
 
   render() {
@@ -17,15 +23,17 @@ class Note extends Component {
       <div>
         <button
           style={{
-            position: "relative",
-            display: "inline",
             // background: this.state.color + ", 0.7)",
-            background: "red",
-            width: "20px",
-            height: "20px",
-            border: "0"
+            float: "left",
+            marginLeft: "4px",
+            marginRight: "4px",
+            background: this.state.color,
+            border: 0,
+            width: "24px",
+            height: "40px"
           }}
-          onClick={this.handleNoteClick.bind(this)}
+          onMouseEnter={this.handleSelectionE.bind(this)}
+          onMouseLeave={this.handleSelectionL.bind(this)}
         ></button>
       </div>
     );

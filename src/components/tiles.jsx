@@ -1,7 +1,6 @@
 //emulate the tiles on a kalimba. Contain an indefinite amount of note objects vertically
 
 import React, { Component } from "react";
-import MIDISounds from "midi-sounds-react";
 import Note from "./note";
 
 class Tile extends Component {
@@ -50,34 +49,24 @@ class Tile extends Component {
             position: "relative",
             background: this.props.color + ")",
             width: "28px",
-            // height: 500 + this.props.len * 10,
-            height: 500,
+            height: 500 + this.props.len * 10,
+            // height: 500,
             border: "3px solid black",
-            padding: "1px",
-            margin: "1px",
+            margin: "2px",
             borderRadius: "25px"
           }}
           onClick={this.handleClick.bind(this)}
         >
-          {this.state.buttons.map(note => (
-            <Note
-              key={note.id}
-              time={note.time}
-              rest={note.rest}
-              name={this.state.note}
-              color={this.state.color}
-              style={{
-                marginBottom: "100px"
-              }}
-            />
-          ))}
+          <b
+            style={{
+              bottom: 0,
+              textAlign: "center",
+              position: "absolute"
+            }}
+          >
+            {this.state.note}
+          </b>
         </button>
-
-        {/* <MIDISounds
-          ref={ref => (this.midiSounds = ref)}
-          appElementName="root"
-          instruments={[3]}
-        /> */}
       </div>
     );
   }

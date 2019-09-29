@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import Tile from "./tiles";
-import MIDISounds from "midi-sounds-react";
-import Note from "./note";
-
+import NoteHolder from "./noteHolder";
 class Holder extends Component {
   state = {
     tiles: [
@@ -35,21 +33,16 @@ class Holder extends Component {
       <div
         style={{
           //38%
+          position: "absolute",
           marginLeft: "705px",
-          marginTop: "20px",
-          width: "510px",
-          height: "600px",
+          width: "550px",
+          height: "650px",
           background: "#D4D4D4",
           borderRadius: "25px",
           float: "left",
           cursor: "default"
         }}
       >
-        {/* <MIDISounds
-          ref={ref => (this.midiSounds = ref)}
-          appElementName="root"
-          instruments={[3]}
-        /> */}
         {this.state.tiles.map(tile => (
           <Tile
             key={tile.note}
