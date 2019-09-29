@@ -1,16 +1,16 @@
-# Kalimba Linda
+# Kalimba Libre
 
-A WIP React Web App for creating Kalimba tablatures for free (see: _Linda_)
+A WIP React Web App for creating Kalimba tablatures for free (see: _Libre_)
 
 ## Setup
 
-Clone the repository with
-`git clone https://github.com/oakleyaidan21/KalimbaLinda.git`
+1. Clone the repository with
+   `git clone https://github.com/oakleyaidan21/KalimbaLinda.git`
 
-Run `npm install`
+2. Run `npm install`
 
-Run `npm install react-bootstrap bootstrap`
+3. Run `npm install react-bootstrap bootstrap`
 
-Run `npm start`
+4. Run `npm start`
 
 And you're done! The app will be running on localhost:3000
