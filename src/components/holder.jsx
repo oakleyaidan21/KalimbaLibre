@@ -1,27 +1,10 @@
 import React, { Component } from "react";
 import Tile from "./tiles";
 import NoteHolder from "./noteHolder";
+import TileHolder from "./tileHolder";
+
 class Holder extends Component {
   state = {
-    tiles: [
-      { len: 1, note: "D3", value: 0, color: "rgb(255,255,255" },
-      { len: 2, note: "B2", value: 0, color: "rgb(255,255,255" },
-      { len: 3, note: "G2", value: 0, color: "rgb(0,123,255" },
-      { len: 4, note: "E2", value: 0, color: "rgb(255,255,255" },
-      { len: 5, note: "C2", value: 0, color: "rgb(255,255,255" },
-      { len: 6, note: "A", value: 0, color: "rgb(0,123,255" },
-      { len: 7, note: "F", value: 0, color: "rgb(255,255,255" },
-      { len: 8, note: "D", value: 0, color: "rgb(255,255,255" },
-      { len: 9, note: "C", value: 0, color: "rgb(0,123,255" },
-      { len: 8, note: "E", value: 0, color: "rgb(255,255,255" },
-      { len: 7, note: "G", value: 0, color: "rgb(255,255,255" },
-      { len: 6, note: "B", value: 0, color: "rgb(0,123,255" },
-      { len: 5, note: "D2", value: 0, color: "rgb(255,255,255" },
-      { len: 4, note: "F2", value: 0, color: "rgb(255,255,255" },
-      { len: 3, note: "A2", value: 0, color: "rgb(0,123,255" },
-      { len: 2, note: "C3", value: 0, color: "rgb(255,255,255" },
-      { len: 1, note: "E3", value: 0, color: "rgb(255,255,255" }
-    ]
   };
 
   handleTileClick() {
@@ -29,28 +12,23 @@ class Holder extends Component {
   }
 
   render() {
+    
     return (
-      <div
-        style={{
-          //38%
-          position: "absolute",
-          marginLeft: "705px",
-          width: "550px",
-          height: "650px",
+      <div id="holder"
+        style={{          
+          width: "545px",
+          margin: "0 auto",
+          height: 600,
           background: "#D4D4D4",
-          borderRadius: "25px",
-          float: "left",
-          cursor: "default"
+          borderRadius: "0 0 25px 25px",
+          overflow: "auto",
+          position: "relative"
         }}
       >
-        {this.state.tiles.map(tile => (
-          <Tile
-            key={tile.note}
-            note={tile.note}
-            color={tile.color}
-            len={tile.len}
-          />
-        ))}
+        <TileHolder></TileHolder>
+        <NoteHolder style={{bottom: "0"}}/>
+        
+        
       </div>
     );
   }

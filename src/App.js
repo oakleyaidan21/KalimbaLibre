@@ -6,8 +6,13 @@ import Nav from "react-bootstrap/Nav";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import NoteHolder from "./components/noteHolder";
+import "./App.css"
+
+
+const holderHeight = React.createContext(600);
 
 function App() {
+  
   return (
     <div className="App">
       <Navbar bg="dark" variant="dark">
@@ -21,9 +26,9 @@ function App() {
           <Button variant="outline-info">Search</Button>
         </Form>
       </Navbar>
-      <Holder style={{ position: "absolute", topMargin: "0px" }} />
-      <NoteHolder style={{ position: "absolute" }} />
-      <Selector />
+      
+      <Holder style={{topMargin: "0px" }} />
+      {/* <Selector /> */}
     </div>
   );
 }

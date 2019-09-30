@@ -46,11 +46,9 @@ class Tile extends Component {
         <button
           style={{
             float: "left",
-            position: "relative",
             background: this.props.color + ")",
             width: "28px",
-            height: 500 + this.props.len * 10,
-            // height: 500,
+            height: 1000 + this.props.len * 9,
             border: "3px solid black",
             margin: "2px",
             borderRadius: "25px"
@@ -60,8 +58,9 @@ class Tile extends Component {
           <b
             style={{
               bottom: 0,
-              textAlign: "center",
-              position: "absolute"
+              position: "relative",
+              fontSize: 10,
+              marginRight: 5
             }}
           >
             {this.state.note}

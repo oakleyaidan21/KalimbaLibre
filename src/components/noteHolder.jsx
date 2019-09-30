@@ -20,7 +20,7 @@ class noteHolder extends Component {
   };
   render() {
     return (
-      <div style={{ position: "absolute", marginLeft: 705 }}>
+      <div style={{position: "absolute", zIndex: "10"}}>
         {this.state.totalNotes.map(totalNote => (
           <TotalNote
             key={totalNote.id}
@@ -28,9 +28,6 @@ class noteHolder extends Component {
             rest={totalNote.rest}
             name={this.state.note}
             color={this.state.color}
-            style={{
-              marginBottom: "100px"
-            }}
           />
         ))}
       </div>
