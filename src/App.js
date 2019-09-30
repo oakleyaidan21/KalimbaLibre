@@ -27,19 +27,6 @@ class App extends Component {
 
     this.setState({ instrument: this.instruments.get("kalimba") });
   }
-  // songLoop(index) {
-  //   for (var i = 0; i < this.state.song.length; i++) {
-  //     (function(i) {
-  //       setTimeout(function() {
-  //         this.state.instrument.play(this.state.song(i), 500);
-  //         this.state.playingNotes.get(this.state.song[i]);
-  //         setTimeout(() => {
-  //           this.state.instrument.stop(this.state.song[i]);
-  //         }, 250);
-  //       }, 2000 * i);
-  //     })(i);
-  //   }
-  // }
 
   songLoop(index, iterableArray) {
     if (index >= iterableArray.length) {
@@ -64,7 +51,7 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar bg="dark" variant="dark">
-          <Navbar.Brand href="localhost:3000">Kalimba Linda</Navbar.Brand>
+          <Navbar.Brand href="localhost:3000">Kalimba Libre</Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link href="localhost:3000">Home</Nav.Link>
             <Nav.Link href="localhost:3000">Configure</Nav.Link>
