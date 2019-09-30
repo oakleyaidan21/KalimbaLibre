@@ -5,11 +5,8 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import NoteHolder from "./components/noteHolder";
+
 import "./App.css"
-
-
-const holderHeight = React.createContext(600);
 
 function App() {
   

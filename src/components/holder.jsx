@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Tile from "./tiles";
+
 import NoteHolder from "./noteHolder";
 import TileHolder from "./tileHolder";
 

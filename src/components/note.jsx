@@ -10,12 +10,12 @@ class Note extends Component {
 
   handleSelectionE = () => {
     this.props.onSelectNote("rgb(247,255,0,0.5)");
-    this.state.color = "rgb(0,255,85,0.6)";
+    this.setState({color : "rgb(0,255,85,0.6)"});
     console.log(this.state.color);
   };
   handleSelectionL = () => {
     this.props.onSelectNote("transparent");
-    this.state.color = "transparent";
+    this.setState({color : "transparent"});
   };
 
   render() {
@@ -23,7 +23,6 @@ class Note extends Component {
       <div>
         <button
           style={{
-            // background: this.state.color + ", 0.7)",
             float: "left",
             marginLeft: "4px",
             marginRight: "4px",

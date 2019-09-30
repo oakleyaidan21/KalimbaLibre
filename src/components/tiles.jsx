@@ -1,7 +1,7 @@
 //emulate the tiles on a kalimba. Contain an indefinite amount of note objects vertically
 
 import React, { Component } from "react";
-import Note from "./note";
+
 
 class Tile extends Component {
   state = {
@@ -40,7 +40,6 @@ class Tile extends Component {
   };
 
   render() {
-    var templen = this.props.len + "550";
     return (
       <div>
         <button
