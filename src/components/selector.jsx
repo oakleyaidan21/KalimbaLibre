@@ -6,8 +6,8 @@ class Selector extends Component {
   state = {
     currentNote: "N",
     selectors: [
-      { label: "1"},
-      { label: "2"},
+      { label: "1" },
+      { label: "2" },
       { label: "4" },
       { label: "8" },
       { label: "16" },
@@ -18,6 +18,10 @@ class Selector extends Component {
   handleSelectionP = childData => {
     this.setState({ currentNote: childData });
   };
+
+  handlePlay() {
+    console.log("play pressed");
+  }
 
   getBadgeClass() {
     return this.state.currentNote === "N" ? "warning" : "primary";

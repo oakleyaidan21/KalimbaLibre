@@ -16,8 +16,12 @@ class SelectorButton extends Component {
   };
 
   handleSelection = () => {
-    console.log(this.state.label);
-    this.props.onSelectNote(this.state.label);
+    if (this.state.label === "PLAY") {
+      this.props.onPlay();
+    } else {
+      console.log(this.state.label);
+      this.props.onSelectNote(this.state.label);
+    }
   };
 
   render() {

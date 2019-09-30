@@ -2,7 +2,6 @@
 
 import React, { Component } from "react";
 
-
 class Tile extends Component {
   state = {
     note: this.props.note,
@@ -32,7 +31,6 @@ class Tile extends Component {
   };
   handleClick = () => {
     console.log("tile" + this.state.note);
-    // this.midiSounds.playChordNow(3, [40], 2.5);
   };
 
   printNote = () => {
@@ -47,7 +45,7 @@ class Tile extends Component {
             float: "left",
             background: this.props.color + ")",
             width: "28px",
-            height: 1000 + this.props.len * 9,
+            height: 480 + this.props.len * 9,
             border: "3px solid black",
             margin: "2px",
             borderRadius: "25px"

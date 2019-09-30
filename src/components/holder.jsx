@@ -4,18 +4,17 @@ import NoteHolder from "./noteHolder";
 import TileHolder from "./tileHolder";
 
 class Holder extends Component {
-  state = {
-  };
+  state = {};
 
   handleTileClick() {
     console.log("hi");
   }
 
   render() {
-    
     return (
-      <div id="holder"
-        style={{          
+      <div
+        id="holder"
+        style={{
           width: "545px",
           margin: "0 auto",
           height: 600,
@@ -26,9 +25,7 @@ class Holder extends Component {
         }}
       >
         <TileHolder></TileHolder>
-        <NoteHolder style={{bottom: "0"}}/>
-        
-        
+        <NoteHolder />
       </div>
     );
   }

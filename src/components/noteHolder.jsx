@@ -3,33 +3,32 @@ import TotalNote from "./totalNote";
 
 class noteHolder extends Component {
   state = {
-    totalNotes: [
-      { note: "D3", value: 0, color: "rgb(255,255,255" },
-      { note: "B2", value: 0, color: "rgb(255,255,255" },
-      { note: "G2", value: 0, color: "rgb(0,123,255" },
-      { note: "E2", value: 0, color: "rgb(255,255,255" },
-      { note: "C2", value: 0, color: "rgb(255,255,255" },
-      { note: "A", value: 0, color: "rgb(0,123,255" },
-      { note: "F", value: 0, color: "rgb(255,255,255" },
-      { note: "D", value: 0, color: "rgb(255,255,255" },
-      { note: "C", value: 0, color: "rgb(0,123,255" },
-      { note: "E", value: 0, color: "rgb(255,255,255" },
-      { note: "G", value: 0, color: "rgb(255,255,255" },
-      { note: "B", value: 0, color: "rgb(0,123,255" },
-      
-    ]
+    totalNotes: []
   };
-  // componentDidMount() {
-  //   for(var i = 0; i < 20; i++) {
-  //     this.setState(prevState=> ({
-  //       totalNotes: [prevState.totalNotes, { note: i, value: 0, color: "rgb(255,255,255" }]
-  //     }))
-  //   }
-  //}
-  
+
+  componentDidMount() {
+    var temp = [];
+    for (var i = 0; i < 16; i++) {
+      var four = false;
+      if (i % 4 === 0) {
+        four = true;
+      }
+      temp = temp.concat({
+        note: "A3",
+        value: 0,
+        color: "rgb(255,255,255)",
+        is4: four
+      });
+    }
+    this.setState({ totalNotes: temp });
+  }
+
   render() {
     return (
-      <div style={{position: "absolute", top: 517, zIndex: "10"}}>
+      <div
+        id="noteHolder"
+        style={{ position: "absolute", zIndex: "10", bottom: 0, float: "left" }}
+      >
         {this.state.totalNotes.map(totalNote => (
           <TotalNote
             key={totalNote.id}
@@ -37,6 +36,7 @@ class noteHolder extends Component {
             rest={totalNote.rest}
             name={this.state.note}
             color={this.state.color}
+            is4={totalNote.is4}
           />
         ))}
       </div>
