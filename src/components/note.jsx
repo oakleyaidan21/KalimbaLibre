@@ -1,6 +1,11 @@
 import React, { Component } from "react";
+import {getInstruments} from 'mobx-music';
+
+
+
 
 class Note extends Component {
+  
   state = {
     time: this.props.time,
     rest: this.props.rest,
@@ -8,18 +13,38 @@ class Note extends Component {
     color: this.props.color
   };
 
+
   handleSelectionE = () => {
     this.props.onSelectNote("rgb(247,255,0,0.5)");
     this.setState({color : "rgb(0,255,85,0.6)"});
-    console.log(this.state.color);
   };
   handleSelectionL = () => {
     this.props.onSelectNote("transparent");
     this.setState({color : "transparent"});
   };
 
+
+
+  handleNoteClick = () => {
+    console.log(this.state.name);
+    (async () => {
+      var {instruments, playingNotes} = await getInstruments(["kalimba"]);
+      var instrument = instruments.get("kalimba");
+      instrument.play(this.state.name, 500);
+      playingNotes.get(this.state.name);
+      setTimeout(() => {
+        instrument.stop(this.state.name);
+      }, 250);
+    })()
+
+    
+  }
+
+  
+
   render() {
-    return (
+   
+    return ( 
       <div>
         <button
           style={{
@@ -33,6 +58,7 @@ class Note extends Component {
           }}
           onMouseEnter={this.handleSelectionE.bind(this)}
           onMouseLeave={this.handleSelectionL.bind(this)}
+          onClick={this.handleNoteClick.bind(this)}
         ></button>
       </div>
     );
