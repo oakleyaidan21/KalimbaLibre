@@ -15,12 +15,21 @@ class noteHolder extends Component {
       { note: "C", value: 0, color: "rgb(0,123,255" },
       { note: "E", value: 0, color: "rgb(255,255,255" },
       { note: "G", value: 0, color: "rgb(255,255,255" },
-      { note: "B", value: 0, color: "rgb(0,123,255" }
+      { note: "B", value: 0, color: "rgb(0,123,255" },
+      
     ]
   };
+  // componentDidMount() {
+  //   for(var i = 0; i < 20; i++) {
+  //     this.setState(prevState=> ({
+  //       totalNotes: [prevState.totalNotes, { note: i, value: 0, color: "rgb(255,255,255" }]
+  //     }))
+  //   }
+  //}
+  
   render() {
     return (
-      <div style={{position: "absolute", zIndex: "10"}}>
+      <div style={{position: "absolute", top: 517, zIndex: "10"}}>
         {this.state.totalNotes.map(totalNote => (
           <TotalNote
             key={totalNote.id}

@@ -6,6 +6,8 @@ class Selector extends Component {
   state = {
     currentNote: "N",
     selectors: [
+      { label: "1"},
+      { label: "2"},
       { label: "4" },
       { label: "8" },
       { label: "16" },
@@ -34,9 +36,9 @@ class Selector extends Component {
           height: "200px",
           background: "#D4D4D4",
           borderRadius: "25px",
-          float: "left",
-          marginLeft: "50px",
-          marginTop: "20px"
+          right: 20,
+          top: 60,
+          position: "absolute"
         }}
       >
         {this.state.selectors.map(selectorButton => (

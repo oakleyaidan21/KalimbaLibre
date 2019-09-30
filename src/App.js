@@ -26,9 +26,9 @@ function App() {
           <Button variant="outline-info">Search</Button>
         </Form>
       </Navbar>
+      <Selector style={{topMargin: "0px"}}/>
+      <Holder />
       
-      <Holder style={{topMargin: "0px" }} />
-      {/* <Selector /> */}
     </div>
   );
 }

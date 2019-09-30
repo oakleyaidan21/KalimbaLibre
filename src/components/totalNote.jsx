@@ -36,7 +36,7 @@ class TotalNote extends Component {
           width: 550,
           height: 40,
           background: this.state.backgroundcolor,
-          borderBottom: "3px solid black",
+          borderBottom: "2px solid black",
         }}
       >
         {this.state.notes.map(note => (
