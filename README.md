@@ -5,7 +5,7 @@ A WIP React Web App for creating Kalimba tablatures for free (see: _Libre_)
 ## Setup
 
 1. Clone the repository with
-   `git clone https://github.com/oakleyaidan21/KalimbaLinda.git`
+   `git clone https://github.com/oakleyaidan21/KalimbaLibre.git`
 
 2. Run `npm install`
 
