@@ -7,6 +7,8 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "./App.css";
 import AbcjsContainer from "./components/abcjsContainer";
+import MIDISounds from "midi-sounds-react";
+import {Router, Link} from "@reach/router";
 
 class App extends Component {
   state = {
@@ -16,9 +18,11 @@ class App extends Component {
     abcjsSong: ""
   };
 
+  //for now, just highlights each unit of rhythm 
   handlePlay = () => {
     // console.log("rendering abcjs");
-    this.setState({ renderAbcjs: true });
+    // this.setState({ renderAbcjs: true });
+    
   };
 
   handleLastPassUp = (passID, passName) => {
@@ -27,7 +31,6 @@ class App extends Component {
       return a.passID - b.passID;
     });
     this.setState({ song: temp });
-    // console.log(this.state.song);
   };
 
   render() {
@@ -36,14 +39,15 @@ class App extends Component {
         <Navbar bg="dark" variant="dark">
           <Navbar.Brand href="localhost:3000">Kalimba Libre</Navbar.Brand>
           <Nav className="mr-auto">
-            <Nav.Link href="localhost:3000">Home</Nav.Link>
-            <Nav.Link href="localhost:3000">Configure</Nav.Link>
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/config">Configure</Nav.Link>
             <Nav.Link href="localhost:3000">Export</Nav.Link>
           </Nav>
           <Form inline>
             <Button variant="outline-info" onClick={this.handlePlay}>
               PLAY
             </Button>
+            
           </Form>
         </Navbar>
 
@@ -55,9 +59,12 @@ class App extends Component {
             song={this.state.song}
           />
         ) : null}
+        {/* will not display */}
+        <MIDISounds style={{display: "none"}} ref={(ref) => (this.midiSounds = ref)} appElementName="root" instruments={[3]}/>
       </div>
     );
   }
 }
+
 
 export default App;

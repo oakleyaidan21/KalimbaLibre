@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@reach/router": "^1.2.1",
     "abcjs": "^5.8.1",
     "bootstrap": "^4.3.1",
+    "midi-sounds-react": "^1.2.54",
     "mobx-music": "^1.1.1",
     "react": "^16.10.1",
+    "react-abcjs": "^0.1.2",
     "react-bootstrap": "^1.0.0-beta.12",
     "react-dom": "^16.10.1",
     "react-mobx-music": "^1.1.0",
