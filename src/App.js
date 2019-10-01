@@ -48,13 +48,6 @@ class App extends Component {
   };
 
   handleLastPassUp = (passID, passName) => {
-    // var temp = this.state.song.concat({ childData });
-    // temp.sort(function(a, b) {
-    //   return a - b;
-    // });
-    // this.setState({ song: temp });
-
-    // console.log(temp);
     var temp = this.state.song.concat({ passID, passName });
     temp.sort(function(a, b) {
       return a.passID - b.passID;
