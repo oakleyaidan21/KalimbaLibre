@@ -15,6 +15,12 @@ A WIP React Web App for creating Kalimba tablatures for free (see: _Libre_)
 
 And you're done! The app will be running on `localhost:3000`.
 
+## Current Look
+
+Here's how the app looks at this stage in development:
+
+![alt_text](./public/wipS.png)
+
 ## TO-DO
 
 1. Align noteHolder so that it starts from the bottom of the holder div
