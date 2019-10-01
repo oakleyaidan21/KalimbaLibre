@@ -125,11 +125,16 @@ class TotalNote extends Component {
       }
     ],
     backgroundcolor: "transparent",
-    is4: this.props.is4
+    is4: this.props.is4,
+    id: this.props.id
   };
 
   handleSelection = childData => {
     this.setState({ backgroundcolor: childData });
+  };
+
+  handleNoteClick = (passID, passName) => {
+    this.props.onPassingUpNote(passID, passName);
   };
 
   render() {
@@ -153,7 +158,9 @@ class TotalNote extends Component {
             rest={note.rest}
             name={note.name}
             color={note.color}
+            id={this.state.id}
             onSelectNote={this.handleSelection}
+            onHandleNoteClick={this.handleNoteClick}
           />
         ))}
       </div>

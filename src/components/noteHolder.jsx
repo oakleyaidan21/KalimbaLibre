@@ -14,6 +14,7 @@ class noteHolder extends Component {
         four = true;
       }
       temp = temp.concat({
+        id: i,
         note: "A3",
         value: 0,
         color: "rgb(255,255,255)",
@@ -22,6 +23,10 @@ class noteHolder extends Component {
     }
     this.setState({ totalNotes: temp });
   }
+
+  handlePassingUpNote = (passID, passName) => {
+    this.props.onHolderPassUp(passID, passName);
+  };
 
   render() {
     return (
@@ -37,6 +42,8 @@ class noteHolder extends Component {
             name={this.state.note}
             color={this.state.color}
             is4={totalNote.is4}
+            onPassingUpNote={this.handlePassingUpNote}
+            id={totalNote.id}
           />
         ))}
       </div>

@@ -7,7 +7,8 @@ class Note extends Component {
     rest: this.props.rest,
     name: this.props.name,
     color: this.props.color,
-    selected: this.props.selected
+    selected: this.props.selected,
+    id: this.props.id
   };
 
   handleSelectionE = () => {
@@ -24,6 +25,10 @@ class Note extends Component {
   };
 
   handleNoteClick = () => {
+    let passID = this.state.id;
+    let passName = this.state.name;
+    // let obj = { passID, passName };
+    this.props.onHandleNoteClick(passID, passName);
     console.log(this.state.name);
     this.setState({ selected: true });
     this.setState({ color: "purple" });

@@ -10,7 +10,7 @@ import { getInstruments } from "mobx-music";
 
 class App extends Component {
   state = {
-    song: ["C4", "D4", "E4", "F4", "G4"],
+    song: [{ passID: "0", passName: "" }],
     instruments: null,
     playingNotes: null,
     instrument: null
@@ -47,6 +47,22 @@ class App extends Component {
     this.songLoop(0, this.state.song);
   };
 
+  handleLastPassUp = (passID, passName) => {
+    // var temp = this.state.song.concat({ childData });
+    // temp.sort(function(a, b) {
+    //   return a - b;
+    // });
+    // this.setState({ song: temp });
+
+    // console.log(temp);
+    var temp = this.state.song.concat({ passID, passName });
+    temp.sort(function(a, b) {
+      return a.passID - b.passID;
+    });
+    this.setState({ song: temp });
+    console.log(this.state.song);
+  };
+
   render() {
     return (
       <div className="App">
@@ -64,7 +80,7 @@ class App extends Component {
           </Form>
         </Navbar>
         <Selector style={{ topMargin: "0px" }} />
-        <Holder />
+        <Holder onLastPassUp={this.handleLastPassUp} />
       </div>
     );
   }
