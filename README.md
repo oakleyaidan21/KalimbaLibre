@@ -19,7 +19,7 @@ And you're done! The app will be running on `localhost:3000`.
 
 Here's how the app looks at this stage in development:
 
-![alt_text](./public/wipS.png)
+![alt_text](https://github.com/oakleyaidan21/KalimbaLibre/blob/master/public/wipS.PNG)
 
 ## TO-DO
 
