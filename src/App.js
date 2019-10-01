@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import Holder from "./components/holder";
-import Selector from "./components/selector";
+import Holder from "./components/display-components/holder";
+import Selector from "./components/display-components/selector";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "./App.css";
-import AbcjsContainer from "./components/abcjsContainer";
+import AbcjsContainer from "./components/music-components/abcjsContainer";
 
 
 class App extends Component {

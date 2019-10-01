@@ -3,7 +3,8 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Holder from "./holder";
+import Holder from "./components/display-components/holder";
+import InfoContainer from "./components/display-components/infoContainer";
 
 class Config extends Component {
     state = {  }
@@ -24,6 +25,7 @@ class Config extends Component {
 
                 </Form>
             </Navbar>
+            <InfoContainer desc={"Config:\n Use this page to set up notes your kalimba will use, as well as your desired time signature, temp, etc. You can also use it to extend the kalimba's length"}></InfoContainer>
             <Holder />
             </div>
         );

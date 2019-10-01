@@ -5,7 +5,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Router} from "@reach/router";
-import Config from "./components/config";
+import Config from "./config";
 
 
 

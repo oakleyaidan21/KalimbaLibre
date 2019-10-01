@@ -32,7 +32,7 @@ class noteHolder extends Component {
     return (
       <div
         id="noteHolder"
-        style={{ position: "absolute", zIndex: "10", bottom: 0, float: "left" }}
+        style={{ position: "absolute", zIndex: "10", bottom: 0, float: "left", overflow: "auto"}}
       >
         {this.state.totalNotes.map(totalNote => (
           <TotalNote
