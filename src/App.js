@@ -8,13 +8,15 @@ import Button from "react-bootstrap/Button";
 import "./App.css";
 import AbcjsContainer from "./components/music-components/abcjsContainer";
 import ConfigHolder from "./components/display-components/configHolder";
+import { getInstruments } from "mobx-music";
+import { delay } from "q";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       song: [{ passID: 1, passName: "D3" }],
-      instruments: null,
+      instrument: null,
       playingNotes: null,
       renderAbcjs: false,
       abcjsSong: ""
@@ -24,8 +26,38 @@ class App extends Component {
 
   componentDidMount() {}
 
-  handlePlay = instruments => {
-    console.log("play clicked");
+  //returns a structure that the player can read
+  convertSong = () => {
+    var temp = [[]];
+    for (var i = 0; i < this.state.song.length; i++) {
+      temp.push([""]);
+    }
+
+    var curID = this.state.song[0].passID;
+    console.log(curID);
+
+    for (var j = 0; i < this.state.song.length; i++) {
+      console.log("p");
+      temp[this.state.song.passID] += this.state.song[i].passName + " ";
+    }
+    console.log("temp " + temp);
+    // for (var i = 0; i < this.state.song.length; i++) {
+    //   if(temp.indexOf())
+    // }
+  };
+
+  handlePlay = async () => {
+    const { instruments, playingNotes } = await getInstruments(["kalimba"]);
+    const kalimba = instruments.get("kalimba");
+    this.convertSong();
+
+    for (var i = this.state.song.length - 1; i >= 0; i--) {
+      await delay(1000);
+      kalimba.play(this.state.song[i].passName, 500);
+      playingNotes.get(this.state.song[i].passName);
+    }
+
+    console.log(kalimba);
   };
 
   handleLastPassUp = (passID, passName) => {
@@ -33,6 +65,7 @@ class App extends Component {
     temp.sort(function(a, b) {
       return a.passID - b.passID;
     });
+    console.log(this.state.song);
     this.setState({ song: temp });
   };
 
