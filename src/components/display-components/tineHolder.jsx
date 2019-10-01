@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Tile from "./tiles";
+import Tile from "./tine";
 
 class TileHolder extends Component {
   state = {
@@ -21,9 +21,11 @@ class TileHolder extends Component {
       { len: 3, note: "A5", value: 0, color: "rgb(0,123,255" },
       { len: 2, note: "C6", value: 0, color: "rgb(255,255,255" },
       { len: 1, note: "E6", value: 0, color: "rgb(255,255,255" }
-    ]
+    ],
+    isConfig: this.props.isConfig
   };
   render() {
+    console.log("isconfig? " + this.state.isConfig);
     return (
       <div
         style={{
@@ -40,6 +42,7 @@ class TileHolder extends Component {
             note={tile.note}
             color={tile.color}
             len={tile.len}
+            isConfig={this.state.isConfig}
           />
         ))}
       </div>

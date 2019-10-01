@@ -30,7 +30,13 @@ class Tile extends Component {
     ]
   };
   handleClick = () => {
-    console.log("tile" + this.state.note);
+    console.log("tile " + this.state.note);
+    var newNote = "";
+    while (newNote === "") {
+      newNote = prompt("Please enter a new note");
+    }
+
+    this.setState({ note: newNote });
   };
 
   printNote = () => {

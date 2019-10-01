@@ -47,6 +47,7 @@ class Selector extends Component {
       >
         {this.state.selectors.map(selectorButton => (
           <SelectorButton
+            key={selectorButton.label}
             onSelectNote={this.handleSelectionP}
             label={selectorButton.label}
           />

@@ -4,19 +4,13 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Router} from "@reach/router";
-import Config from "./config";
-
-
-
+import { Router } from "@reach/router";
 
 ReactDOM.render(
-<Router>
-    <App path="/"/>
-    <Config path="config" />
-</Router>
-    , 
-    document.getElementById("root")
+  <Router>
+    <App path="/" />
+  </Router>,
+  document.getElementById("root")
 );
 
 var myDiv = document.getElementById("holder");

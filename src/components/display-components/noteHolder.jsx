@@ -6,14 +6,6 @@ class noteHolder extends Component {
     totalNotes: []
   };
 
-  highLight =() => {
-    console.log("play clicked: ");
-    for(var i = 0; i < this.state.totalNotes.length; i++) {
-      
-    }
-  }
-  
-
   componentDidMount() {
     var temp = [];
     for (var i = 0; i < 16; i++) {
@@ -40,7 +32,13 @@ class noteHolder extends Component {
     return (
       <div
         id="noteHolder"
-        style={{ position: "absolute", zIndex: "10", bottom: 0, float: "left", overflow: "auto"}}
+        style={{
+          position: "absolute",
+          zIndex: "10",
+          bottom: 0,
+          float: "left",
+          overflow: "auto"
+        }}
       >
         {this.state.totalNotes.map(totalNote => (
           <TotalNote
@@ -54,7 +52,6 @@ class noteHolder extends Component {
             id={totalNote.id}
           />
         ))}
-        <button onClick={this.highLight}>PLAY</button>
       </div>
     );
   }

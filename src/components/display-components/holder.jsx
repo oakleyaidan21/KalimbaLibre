@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import NoteHolder from "./noteHolder";
-import TileHolder from "./tileHolder";
+import TileHolder from "./tineHolder";
 
 class Holder extends Component {
   state = {};
