@@ -45,7 +45,7 @@ class Tile extends Component {
             float: "left",
             background: this.props.color + ")",
             width: "28px",
-            height: 480 + this.props.len * 9,
+            height: 700 + this.props.len * 9,
             border: "3px solid black",
             margin: "2px",
             borderRadius: "25px"

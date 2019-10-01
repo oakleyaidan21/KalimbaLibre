@@ -7,8 +7,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "./App.css";
 import AbcjsContainer from "./components/abcjsContainer";
-import MIDISounds from "midi-sounds-react";
-import {Router, Link} from "@reach/router";
+
 
 class App extends Component {
   state = {
@@ -50,7 +49,7 @@ class App extends Component {
             
           </Form>
         </Navbar>
-
+        {/* <InfoContainer desc={"First container"}></InfoContainer>  */}
         <Selector style={{ topMargin: "0px" }} />
         <Holder onLastPassUp={this.handleLastPassUp} />
         {this.state.renderAbcjs ? (
@@ -59,8 +58,7 @@ class App extends Component {
             song={this.state.song}
           />
         ) : null}
-        {/* will not display */}
-        <MIDISounds style={{display: "none"}} ref={(ref) => (this.midiSounds = ref)} appElementName="root" instruments={[3]}/>
+
       </div>
     );
   }
