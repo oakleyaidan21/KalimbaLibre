@@ -6,45 +6,19 @@ import Nav from "react-bootstrap/Nav";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "./App.css";
-import { getInstruments } from "mobx-music";
+import AbcjsContainer from "./components/abcjsContainer";
 
 class App extends Component {
   state = {
-    song: [{ passID: "0", passName: "" }],
+    song: [{ passID: 1, passName: "D3" }],
     instruments: null,
-    playingNotes: null,
-    instrument: null
+    renderAbcjs: false,
+    abcjsSong: ""
   };
 
-  async instrumentCall() {
-    // {this.state.instruments, this.stateplayingNotes } = await getInstruments([
-    //   "kalimba"
-    // ]);
-    this.setState(
-      { instruments: await getInstruments(["kalimba"]) },
-      { playingNotes: await getInstruments(["kalimba"]) }
-    );
-
-    this.setState({ instrument: this.instruments.get("kalimba") });
-  }
-
-  songLoop(index, iterableArray) {
-    if (index >= iterableArray.length) {
-      return;
-    }
-
-    console.log(iterableArray[index]);
-    // this.state.instrument.play(iterableArray[index], 500);
-    // this.state.playingNotes.get(iterableArray[index]);
-    // setTimeout(() => {
-    //   this.state.instrument.stop(this.state.song[index]);
-    // }, 250);
-    index++;
-    setTimeout(this.songLoop.bind({}, index, iterableArray), 2000);
-  }
-
   handlePlay = () => {
-    this.songLoop(0, this.state.song);
+    // console.log("rendering abcjs");
+    this.setState({ renderAbcjs: true });
   };
 
   handleLastPassUp = (passID, passName) => {
@@ -53,7 +27,7 @@ class App extends Component {
       return a.passID - b.passID;
     });
     this.setState({ song: temp });
-    console.log(this.state.song);
+    // console.log(this.state.song);
   };
 
   render() {
@@ -72,8 +46,15 @@ class App extends Component {
             </Button>
           </Form>
         </Navbar>
+
         <Selector style={{ topMargin: "0px" }} />
         <Holder onLastPassUp={this.handleLastPassUp} />
+        {this.state.renderAbcjs ? (
+          <AbcjsContainer
+            isRendered={this.state.renderAbcjs}
+            song={this.state.song}
+          />
+        ) : null}
       </div>
     );
   }
