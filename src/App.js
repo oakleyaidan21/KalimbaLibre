@@ -19,8 +19,8 @@ class App extends Component {
 
   //for now, just highlights each unit of rhythm 
   handlePlay = () => {
-    // console.log("rendering abcjs");
-    // this.setState({ renderAbcjs: true });
+    console.log("play clicked");
+    
     
   };
 

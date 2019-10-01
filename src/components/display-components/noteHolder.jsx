@@ -6,6 +6,14 @@ class noteHolder extends Component {
     totalNotes: []
   };
 
+  highLight =() => {
+    console.log("play clicked: ");
+    for(var i = 0; i < this.state.totalNotes.length; i++) {
+      
+    }
+  }
+  
+
   componentDidMount() {
     var temp = [];
     for (var i = 0; i < 16; i++) {
@@ -46,6 +54,7 @@ class noteHolder extends Component {
             id={totalNote.id}
           />
         ))}
+        <button onClick={this.highLight}>PLAY</button>
       </div>
     );
   }
