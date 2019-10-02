@@ -15,7 +15,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      song: [{ passID: 1, passName: "D3" }],
+      song: [],
       instrument: null,
       playingNotes: null,
       renderAbcjs: false,
@@ -28,34 +28,56 @@ class App extends Component {
 
   //returns a structure that the player can read
   convertSong = () => {
+    console.log(this.state.song);
     var temp = [[]];
-    for (var i = 0; i < this.state.song.length; i++) {
-      temp.push([""]);
+    var len = 0;
+    if (
+      this.state.song.length >
+      this.state.song[this.state.song.length - 1].passID
+    ) {
+      len = this.state.song.length;
+    } else {
+      len = this.state.song[this.state.song.length - 1].passID;
+    }
+    for (var i = 0; i < len; i++) {
+      temp.push([]);
     }
 
     var curID = this.state.song[0].passID;
     console.log(curID);
 
-    for (var j = 0; i < this.state.song.length; i++) {
-      console.log("p");
-      temp[this.state.song.passID] += this.state.song[i].passName + " ";
+    for (var j = 0; j < this.state.song.length; j++) {
+      // console.log("p");
+      // console.log(
+      //   "to be pushed into temp: " +
+      //     this.state.song[j].passID +
+      //     " " +
+      //     this.state.song[j].passName
+      // );
+      temp[this.state.song[j].passID].push(this.state.song[j].passName);
     }
-    console.log("temp " + temp);
-    // for (var i = 0; i < this.state.song.length; i++) {
-    //   if(temp.indexOf())
-    // }
+    // console.log("temp " + temp);
+    return temp;
   };
 
   handlePlay = async () => {
     const { instruments, playingNotes } = await getInstruments(["kalimba"]);
     const kalimba = instruments.get("kalimba");
-    this.convertSong();
+    var songArray = this.convertSong();
+    console.log(songArray);
 
-    for (var i = this.state.song.length - 1; i >= 0; i--) {
-      await delay(1000);
-      kalimba.play(this.state.song[i].passName, 500);
-      playingNotes.get(this.state.song[i].passName);
+    for (var i = songArray.length - 1; i >= 0; i--) {
+      await delay(500);
+      for (var j = 0; j < songArray[i].length; j++) {
+        kalimba.play(songArray[i][j], 500);
+        playingNotes.get(songArray[i][j]);
+      }
     }
+    // for (var i = this.state.song.length - 1; i >= 0; i--) {
+    //   await delay(1000);
+    //   kalimba.play(this.state.song[i].passName, 500);
+    //   playingNotes.get(this.state.song[i].passName);
+    // }
 
     console.log(kalimba);
   };
