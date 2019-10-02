@@ -52,6 +52,7 @@ class App extends Component {
     return temp;
   };
 
+  //can probably handle the page issue by having it image the holder, then manually scroll up and do it again
   handleExport = () => {
     var input = document.getElementById("holder");
     var tine = document.getElementById("tine");

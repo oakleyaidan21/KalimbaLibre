@@ -14,11 +14,14 @@ class noteHolder extends Component {
       if (i !== this.state.amountOfTNotes - 1) {
         temp[i + 1].color = "transparent";
       }
-      console.log("color 1: " + this.state.totalNotes[i].color);
       await delay(500);
       temp[i].color = "rgb(247,255,0,0.5)";
       this.setState({ totalNotes: temp });
+
+      console.log("selected: " + this.state.totalNotes[i].notes[0].selected);
     }
+    temp[0].color = "transparent";
+    this.setState({ totalNotes: temp });
   };
 
   componentWillMount = async () => {
@@ -34,10 +37,135 @@ class noteHolder extends Component {
         note: "A3",
         value: 0,
         color: "transparent",
-        is4: four
+        is4: four,
+        notes: [
+          {
+            time: 4,
+            rest: false,
+            name: "D6",
+            color: "transparent",
+            selected: false
+          },
+          {
+            time: 4,
+            rest: false,
+            name: "B5",
+            color: "transparent",
+            selected: false
+          },
+          {
+            time: 4,
+            rest: false,
+            name: "G5",
+            color: "transparent",
+            selected: false
+          },
+          {
+            time: 4,
+            rest: false,
+            name: "E5",
+            color: "transparent",
+            selected: false
+          },
+          {
+            time: 4,
+            rest: false,
+            name: "C5",
+            color: "transparent",
+            selected: false
+          },
+          {
+            time: 4,
+            rest: false,
+            name: "A4",
+            color: "transparent",
+            selected: false
+          },
+          {
+            time: 4,
+            rest: false,
+            name: "F4",
+            color: "transparent",
+            selected: false
+          },
+          {
+            time: 4,
+            rest: false,
+            name: "D4",
+            color: "transparent",
+            selected: false
+          },
+          {
+            time: 4,
+            rest: false,
+            name: "C4",
+            color: "transparent",
+            selected: false
+          },
+          {
+            time: 4,
+            rest: false,
+            name: "E4",
+            color: "transparent",
+            selected: false
+          },
+          {
+            time: 4,
+            rest: false,
+            name: "G4",
+            color: "transparent",
+            selected: false
+          },
+          {
+            time: 4,
+            rest: false,
+            name: "B4",
+            color: "transparent",
+            selected: false
+          },
+          {
+            time: 4,
+            rest: false,
+            name: "D5",
+            color: "transparent",
+            selected: false
+          },
+          {
+            time: 4,
+            rest: false,
+            name: "F5",
+            color: "transparent",
+            selected: false
+          },
+          {
+            time: 4,
+            rest: false,
+            name: "A5",
+            color: "transparent",
+            selected: false
+          },
+          {
+            time: 4,
+            rest: false,
+            name: "C6",
+            color: "transparent",
+            selected: false
+          },
+          {
+            time: 4,
+            rest: false,
+            name: "E6",
+            color: "transparent",
+            selected: false
+          }
+        ]
       });
     }
     this.setState({ totalNotes: temp });
+  };
+
+  testGoThrough = async () => {
+    this.goThroughEach();
   };
 
   handlePassingUpNote = (passID, passName, color) => {
@@ -56,6 +184,8 @@ class noteHolder extends Component {
           float: "left"
         }}
       >
+        {" "}
+        <button onClick={this.testGoThrough}>test</button>
         {this.state.totalNotes.map(totalNote => (
           <TotalNote
             key={totalNote.id}
@@ -66,6 +196,7 @@ class noteHolder extends Component {
             is4={totalNote.is4}
             onPassingUpNote={this.handlePassingUpNote}
             id={totalNote.id}
+            notes={totalNote.notes}
           />
         ))}
       </div>

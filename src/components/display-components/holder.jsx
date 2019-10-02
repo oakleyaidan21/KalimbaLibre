@@ -21,7 +21,7 @@ class Holder extends Component {
       <div
         id="holder"
         style={{
-          width: "545px",
+          width: "570px",
           margin: "0 auto",
           height: 600,
           background: "#D4D4D4",

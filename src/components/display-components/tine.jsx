@@ -6,7 +6,7 @@ class Tine extends Component {
   state = {
     note: this.props.note,
     color: this.props.color,
-    len: this.props.len * 20 + this.props.amountOfTNotes * 40,
+    len: this.props.len * 15 + this.props.amountOfTNotes * 40,
     value: 1,
     buttons: [
       { id: 1, time: 4, rest: false, name: "C" },
@@ -35,8 +35,9 @@ class Tine extends Component {
     while (newNote === "") {
       newNote = prompt("Please enter a new note");
     }
-
-    this.setState({ note: newNote });
+    if (newNote !== null) {
+      this.setState({ note: newNote });
+    }
   };
 
   printNote = () => {
@@ -48,6 +49,7 @@ class Tine extends Component {
       <div id="tine">
         <button
           style={{
+            paddingTop: this.state.len,
             float: "left",
             background: this.props.color + ")",
             width: "28px",
@@ -60,7 +62,6 @@ class Tine extends Component {
         >
           <b
             style={{
-              top: this.state.len - 1300,
               position: "relative",
               fontSize: 10,
               marginRight: 5

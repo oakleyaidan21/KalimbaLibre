@@ -23,7 +23,7 @@ Here's how the app looks at this stage in development:
 
 ## TO-DO
 
-1. Align noteHolder so that it starts from the bottom of the holder div
+1. ~~Align noteHolder so that it starts from the bottom of the holder div~~
 
 2. Make function to highlight totalNotes going up the holder
 
