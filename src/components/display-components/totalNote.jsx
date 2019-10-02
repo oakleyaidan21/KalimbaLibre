@@ -124,10 +124,16 @@ class TotalNote extends Component {
         selected: false
       }
     ],
-    backgroundcolor: "transparent",
+    backgroundcolor: this.props.color,
     is4: this.props.is4,
     id: this.props.id
   };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.color !== this.props.color) {
+      this.setState({ backgroundcolor: this.props.color });
+    }
+  }
 
   handleSelection = childData => {
     this.setState({ backgroundcolor: childData });

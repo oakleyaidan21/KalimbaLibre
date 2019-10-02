@@ -34,9 +34,10 @@ class Note extends Component {
       );
       this.setState({ color: "transparent" });
     } else {
+      //adding stuff
       let passID = this.state.id;
       let passName = this.state.name;
-      // let obj = { passID, passName };
+
       this.props.onHandleNoteClick(passID, passName, this.state.color);
       console.log(this.state.name);
       this.setState({ selected: true });
