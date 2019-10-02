@@ -20,7 +20,9 @@ class App extends Component {
       instrument: null,
       playingNotes: null,
       renderAbcjs: false,
-      abcjsSong: ""
+      abcjsSong: "",
+      isPlaying: false,
+      playingID: 0
     };
     this.handlePlay = this.handlePlay.bind(this);
   }
@@ -103,7 +105,7 @@ class App extends Component {
       console.log(songArray);
 
       for (var i = songArray.length - 1; i >= 0; i--) {
-        await delay(500);
+        await delay(200);
         for (var j = 0; j < songArray[i].length; j++) {
           kalimba.play(songArray[i][j], 1000);
           playingNotes.get(songArray[i][j]);
@@ -158,6 +160,8 @@ class App extends Component {
         <KalimbaContainer
           onLastPassUp={this.handleLastPassUp}
           amountOfTNotes={40}
+          isPlaying={this.state.isPlaying}
+          playingID={this.state.playingID}
         />
         <ConfigContainer />
       </div>

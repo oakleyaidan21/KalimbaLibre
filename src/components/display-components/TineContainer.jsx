@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Tile from "../music-components/Tine";
+import Tine from "../music-components/Tine";
 
 class TineContainer extends Component {
   state = {
@@ -37,7 +37,7 @@ class TineContainer extends Component {
         }}
       >
         {this.state.tiles.map(tile => (
-          <Tile
+          <Tine
             key={tile.note}
             note={tile.note}
             color={tile.color}

@@ -5,15 +5,18 @@ import { delay } from "q";
 class NoteContainer extends Component {
   state = {
     totalNotes: [],
-    amountOfTNotes: this.props.amountOfTNotes
+    amountOfTNotes: this.props.amountOfTNotes,
+    isPlaying: this.props.isPlaying,
+    playingID: this.props.playingID
   };
 
-  goThroughEach = async () => {
+  goThroughEachTotalNote = async () => {
+    var temp = this.state.totalNotes;
     for (var i = this.state.amountOfTNotes - 1; i >= 0; i--) {
-      var temp = this.state.totalNotes;
       if (i !== this.state.amountOfTNotes - 1) {
         temp[i + 1].color = "transparent";
       }
+      console.log(temp[i]);
       await delay(500);
       temp[i].color = "rgb(247,255,0,0.5)";
       this.setState({ totalNotes: temp });
@@ -37,6 +40,7 @@ class NoteContainer extends Component {
         value: 0,
         color: "transparent",
         is4: four,
+        measure: m,
         notes: [
           {
             time: 4,
@@ -157,25 +161,21 @@ class NoteContainer extends Component {
             color: "transparent",
             selected: false
           }
-        ],
-        measure: m
+        ]
       });
     }
     this.setState({ totalNotes: temp });
   };
 
   testGoThrough = async () => {
-    this.goThroughEach();
+    this.goThroughEachTotalNote();
   };
 
   handlePassingUpNote = (passID, passName, color) => {
-    console.log("notecontainer : " + color);
-    console.log("passID: " + passID);
     var temp = this.state.totalNotes;
     temp[passID].color = color;
     this.setState({ totalNotes: temp });
     this.props.onHolderPassUp(passID, passName, color);
-    console.log("after: " + this.state.totalNotes[passID].color);
   };
 
   render() {
@@ -203,6 +203,8 @@ class NoteContainer extends Component {
             id={totalNote.id}
             notes={totalNote.notes}
             measure={totalNote.measure}
+            isPlaying={this.state.isPlaying}
+            playingID={this.state.playingID}
           />
         ))}
       </div>

@@ -7,7 +7,7 @@ class Note extends Component {
     rest: this.props.rest,
     name: this.props.name,
     color: this.props.color,
-    selected: this.props.selected,
+    selected: false,
     id: this.props.id
   };
 
@@ -26,8 +26,8 @@ class Note extends Component {
   };
 
   handleNoteClick = () => {
+    //if already present in the song array, then delete
     if (this.state.color === "purple") {
-      //delete stuff
       this.props.onHandleNoteClick(
         this.state.id,
         this.state.name,
@@ -35,14 +35,12 @@ class Note extends Component {
       );
       this.setState({ color: "transparent" });
     } else {
-      //adding stuff
       let passID = this.state.id;
       let passName = this.state.name;
-
+      //setting state here
+      this.setState({ selected: true, color: "purple" });
       this.props.onHandleNoteClick(passID, passName, this.state.color);
-
-      this.setState({ selected: true });
-      this.setState({ color: "purple" });
+      //async function to play the note on click
       (async () => {
         var { instruments, playingNotes } = await getInstruments(["kalimba"]);
         var instrument = instruments.get("kalimba");
@@ -53,6 +51,9 @@ class Note extends Component {
         }, 250);
       })();
     }
+    //this returns false, even though selected was set to true
+    console.log(this.state.selected);
+    console.log(this.state.color);
   };
 
   render() {

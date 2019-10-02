@@ -8,7 +8,8 @@ class TotalNote extends Component {
     id: this.props.id,
     notes: this.props.notes,
     measure: this.props.measure,
-    isblack: false
+    isPlaying: this.props.isPlaying,
+    playingID: this.props.playingID
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -23,12 +24,15 @@ class TotalNote extends Component {
 
   handleNoteClick = (passID, passName, color) => {
     console.log("total note: " + color);
-    this.setState({ isblack: true });
     this.props.onPassingUpNote(passID, passName, color);
   };
 
   render() {
     var border = "transparent";
+    var background = "transparent";
+    if (this.state.isPlaying && this.state.id === this.state.playingID) {
+      background = "black";
+    }
     if (this.state.is4) {
       border = "black";
     }
@@ -38,7 +42,7 @@ class TotalNote extends Component {
         style={{
           width: 550,
           height: 40,
-          background: this.state.backgroundcolor,
+          background: background,
           borderBottom: "2px solid " + border
         }}
       >
