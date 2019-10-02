@@ -23,14 +23,9 @@ Here's how the app looks at this stage in development:
 
 ## TO-DO
 
-1. - [x] Align noteHolder so that it starts from the bottom of the holder div
-
-2. - [ ]Make function to highlight totalNotes going up the holder
-
-3. Actually nail down a midi player to use going forward
-
-4. Start skeleton of the config page to place variables (like note names, tempo, etc) in their repsective places
-
-5. Refactor components for better reusability
-
-6. Everything else! :^)
+- [x] Align noteHolder so that it starts from the bottom of the holder div
+- [ ] Make function to highlight totalNotes going up the holder
+- [x] Actually nail down a midi player to use going forward
+      ~~Start skeleton of the config page to place variables (like note names, tempo, etc) in their repsective places~~ no longer using config page
+- [ ] Refactor components for better reusability
+- [ ] Everything else! :^)
