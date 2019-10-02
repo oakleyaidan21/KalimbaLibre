@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 
-import NoteHolder from "./noteHolder";
-import TineHolder from "./tineHolder";
+import NoteContainer from "./NoteContainer";
+import TineContainer from "./TineContainer";
 
-class Holder extends Component {
+class KalimbaContainer extends Component {
   state = {
     amountOfTNotes: this.props.amountOfTNotes
   };
@@ -30,14 +30,15 @@ class Holder extends Component {
           position: "relative"
         }}
       >
-        <TineHolder amountOfTNotes={this.state.amountOfTNotes}></TineHolder>
-        <NoteHolder
+        <TineContainer amountOfTNotes={this.state.amountOfTNotes} />
+        <NoteContainer
           onHolderPassUp={this.handleHolderPassUp}
           amountOfTNotes={this.state.amountOfTNotes}
         />
+        <button onClick={this.onScrollClick}>Test</button>
       </div>
     );
   }
 }
 
-export default Holder;
+export default KalimbaContainer;

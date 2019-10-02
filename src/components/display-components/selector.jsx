@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import SelectorButton from "./selectorButton";
+import SelectorButton from "./SelectorButton";
 import Badge from "react-bootstrap/Badge";
 
 class Selector extends Component {

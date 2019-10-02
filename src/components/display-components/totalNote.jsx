@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import Note from "../music-components/note";
+import Note from "../music-components/Note";
 
 class TotalNote extends Component {
   state = {
     backgroundcolor: this.props.color,
     is4: this.props.is4,
     id: this.props.id,
-    notes: this.props.notes
+    notes: this.props.notes,
+    measure: this.props.measure
   };
 
   componentDidUpdate(prevProps, prevState) {

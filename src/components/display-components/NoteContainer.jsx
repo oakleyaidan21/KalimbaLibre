@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import TotalNote from "./totalNote";
+import TotalNote from "./TotalNote";
 import { delay } from "q";
 
-class noteHolder extends Component {
+class NoteContainer extends Component {
   state = {
     totalNotes: [],
     amountOfTNotes: this.props.amountOfTNotes
@@ -29,8 +29,10 @@ class noteHolder extends Component {
     var temp = [];
     for (var i = 0; i < this.state.amountOfTNotes; i++) {
       var four = false;
+      var m = null;
       if (i % 4 === 0 || i === this.state.amountOfTNotes - 1) {
         four = true;
+        m = i / 4;
       }
       temp = temp.concat({
         id: i,
@@ -158,7 +160,8 @@ class noteHolder extends Component {
             color: "transparent",
             selected: false
           }
-        ]
+        ],
+        measure: m
       });
     }
     this.setState({ totalNotes: temp });
@@ -185,7 +188,7 @@ class noteHolder extends Component {
         }}
       >
         {" "}
-        <button onClick={this.testGoThrough}>test</button>
+        {/* <button onClick={this.testGoThrough}>test</button> */}
         {this.state.totalNotes.map(totalNote => (
           <TotalNote
             key={totalNote.id}
@@ -197,6 +200,7 @@ class noteHolder extends Component {
             onPassingUpNote={this.handlePassingUpNote}
             id={totalNote.id}
             notes={totalNote.notes}
+            measure={totalNote.measure}
           />
         ))}
       </div>
@@ -204,4 +208,4 @@ class noteHolder extends Component {
   }
 }
 
-export default noteHolder;
+export default NoteContainer;

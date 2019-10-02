@@ -3,7 +3,7 @@ import Badge from "react-bootstrap/Badge";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-class ConfigHolder extends Component {
+class ConfigContainer extends Component {
   state = {
     time: "4/4",
     key: "C Major",
@@ -85,4 +85,4 @@ class ConfigHolder extends Component {
   }
 }
 
-export default ConfigHolder;
+export default ConfigContainer;

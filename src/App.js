@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-import Holder from "./components/display-components/holder";
-import Selector from "./components/display-components/selector";
+import KalimbaContainer from "./components/display-components/KalimbaContainer";
+import Selector from "./components/display-components/Selector";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "./App.css";
-import AbcjsContainer from "./components/music-components/abcjsContainer";
-import ConfigHolder from "./components/display-components/configHolder";
+import ConfigContainer from "./components/display-components/ConfigContainer";
 import { getInstruments } from "mobx-music";
 import { delay } from "q";
 import html2canvas from "html2canvas";
@@ -158,14 +157,11 @@ class App extends Component {
           </Form>
         </Navbar>
         <Selector style={{ topMargin: "0px" }} />
-        <Holder onLastPassUp={this.handleLastPassUp} amountOfTNotes={40} />
-        {this.state.renderAbcjs ? (
-          <AbcjsContainer
-            isRendered={this.state.renderAbcjs}
-            song={this.state.song}
-          />
-        ) : null}
-        <ConfigHolder />
+        <KalimbaContainer
+          onLastPassUp={this.handleLastPassUp}
+          amountOfTNotes={40}
+        />
+        <ConfigContainer />
       </div>
     );
   }
