@@ -17,15 +17,12 @@ class NoteContainer extends Component {
       await delay(500);
       temp[i].color = "rgb(247,255,0,0.5)";
       this.setState({ totalNotes: temp });
-
-      console.log("selected: " + this.state.totalNotes[i].notes[0].selected);
     }
     temp[0].color = "transparent";
     this.setState({ totalNotes: temp });
   };
 
   componentWillMount = async () => {
-    console.log(this.state.amountOfTNotes);
     var temp = [];
     for (var i = 0; i < this.state.amountOfTNotes; i++) {
       var four = false;
@@ -172,11 +169,16 @@ class NoteContainer extends Component {
   };
 
   handlePassingUpNote = (passID, passName, color) => {
+    console.log("notecontainer : " + color);
+    console.log("passID: " + passID);
+    var temp = this.state.totalNotes;
+    temp[passID].color = color;
+    this.setState({ totalNotes: temp });
     this.props.onHolderPassUp(passID, passName, color);
+    console.log("after: " + this.state.totalNotes[passID].color);
   };
 
   render() {
-    console.log(this.state.totalNotes.length);
     return (
       <div
         id="noteHolder"
@@ -188,7 +190,7 @@ class NoteContainer extends Component {
         }}
       >
         {" "}
-        {/* <button onClick={this.testGoThrough}>test</button> */}
+        <button onClick={this.testGoThrough}>test</button>
         {this.state.totalNotes.map(totalNote => (
           <TotalNote
             key={totalNote.id}

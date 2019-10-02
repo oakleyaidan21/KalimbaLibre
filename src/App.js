@@ -117,8 +117,6 @@ class App extends Component {
   handleLastPassUp = (passID, passName, color) => {
     if (color === "purple") {
       console.log("thing to remove: " + passID + " " + passName);
-
-      // var index = this.state.song.indexOf({ passID, passName });
       var index = this.state.song.findIndex(
         element => element.passID === passID && element.passName === passName
       );

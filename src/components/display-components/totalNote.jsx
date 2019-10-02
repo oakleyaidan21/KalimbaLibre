@@ -7,7 +7,8 @@ class TotalNote extends Component {
     is4: this.props.is4,
     id: this.props.id,
     notes: this.props.notes,
-    measure: this.props.measure
+    measure: this.props.measure,
+    isblack: false
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -21,6 +22,8 @@ class TotalNote extends Component {
   };
 
   handleNoteClick = (passID, passName, color) => {
+    console.log("total note: " + color);
+    this.setState({ isblack: true });
     this.props.onPassingUpNote(passID, passName, color);
   };
 

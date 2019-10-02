@@ -24,9 +24,11 @@ Here's how the app looks at this stage in development:
 ## TO-DO
 
 - [x] Align noteHolder so that it starts from the bottom of the holder div
-- [ ] Make function to highlight totalNotes going up the holder
+- [x] Make function to highlight totalNotes going up the holder
 - [x] Actually nail down a midi player to use going forward
 - [x] Find way to export the kalimba holder _though it's not entirely working yet_
-- ~~Start skeleton of the config page to place variables (like note names, tempo, etc) in their repsective places~~ no longer using config page
+- [ ] Make config and selector elements actually control variables that App uses
+- [ ] Update selector to have note icons instead of numbers
+- [ ] Render note icons instead of purple squares on kalimba
 - [ ] Refactor components for better reusability
 - [ ] Everything else! :^)

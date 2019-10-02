@@ -17,6 +17,7 @@ class Note extends Component {
     }
     this.props.onSelectNote("rgb(247,255,0,0.5)");
   };
+
   handleSelectionL = () => {
     if (this.state.color !== "purple") {
       this.setState({ color: "transparent" });
@@ -39,7 +40,7 @@ class Note extends Component {
       let passName = this.state.name;
 
       this.props.onHandleNoteClick(passID, passName, this.state.color);
-      console.log(this.state.name);
+
       this.setState({ selected: true });
       this.setState({ color: "purple" });
       (async () => {
