@@ -13,6 +13,10 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
+// html2canvas(document.querySelector("#capture")).then(canvas => {
+//   document.body.appendChild(canvas);
+// });
+
 var myDiv = document.getElementById("holder");
 myDiv.scrollTop = myDiv.scrollHeight;
 

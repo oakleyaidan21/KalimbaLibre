@@ -10,6 +10,8 @@ import AbcjsContainer from "./components/music-components/abcjsContainer";
 import ConfigHolder from "./components/display-components/configHolder";
 import { getInstruments } from "mobx-music";
 import { delay } from "q";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 class App extends Component {
   constructor(props) {
@@ -48,6 +50,49 @@ class App extends Component {
     }
 
     return temp;
+  };
+
+  handleExport = () => {
+    var input = document.getElementById("holder");
+    var tine = document.getElementById("tine");
+    var HTML_Width = input.clientWidth;
+    var HTML_Height = tine.clientHeight;
+    var top_left_margin = 15;
+    var PDF_Width = HTML_Width + top_left_margin * 2;
+    var PDF_Height = PDF_Width * 1.5 + top_left_margin * 2;
+    var canvas_image_width = HTML_Width;
+    var canvas_image_height = HTML_Height;
+
+    var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+
+    html2canvas(input, { allowTaint: true }).then(function(canvas) {
+      canvas.getContext("2d");
+      console.log(canvas.height + " " + canvas.width);
+
+      var imgData = canvas.toDataURL("image/jpeg", 1.0);
+      var pdf = new jsPDF("p", "pt", [PDF_Width, PDF_Height]);
+      pdf.addImage(
+        imgData,
+        "JPG",
+        top_left_margin,
+        top_left_margin,
+        canvas_image_width,
+        canvas_image_height
+      );
+
+      for (var i = 1; i <= totalPDFPages; i++) {
+        pdf.addPage(PDF_Width, PDF_Height);
+        pdf.addImage(
+          imgData,
+          "JPG",
+          top_left_margin,
+          -(PDF_Height * i) + top_left_margin * 4,
+          canvas_image_width,
+          canvas_image_height
+        );
+      }
+      pdf.save("kalimba-tabs.pdf");
+    });
   };
 
   handlePlay = async () => {
@@ -97,16 +142,20 @@ class App extends Component {
           <Navbar.Brand href="localhost:3000">Kalimba Libre</Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="localhost:3000">Export</Nav.Link>
           </Nav>
           <Form inline>
+            <Button
+              variant="outline-info"
+              onClick={this.handleExport}
+              style={{ marginRight: 10 }}
+            >
+              EXPORT
+            </Button>
             <Button variant="outline-info" onClick={this.handlePlay}>
               PLAY
             </Button>
           </Form>
         </Navbar>
-        {/* <InfoContainer desc={"First container"}></InfoContainer>  */}
-
         <Selector style={{ topMargin: "0px" }} />
         <Holder onLastPassUp={this.handleLastPassUp} />
         {this.state.renderAbcjs ? (
@@ -116,18 +165,6 @@ class App extends Component {
           />
         ) : null}
         <ConfigHolder />
-        {/* <ReactMobxMusic instrumentNames={["kalimba"]}>
-          {({isLoading, instruments}) => 
-        isLoading ? (<div>Loading</div>) 
-        : (<div>Loaded!<button onClick={ () => {setTimeout(function() {
-          console.log("wait");
-          instruments.get("kalimba").play("A4");
-        }, 2000);
-         setTimeout(function() {
-          console.log("wait");
-          instruments.get("kalimba").play("B4");
-        }, 2000); }}>Play</button></div>)}
-        </ReactMobxMusic> */}
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import NoteHolder from "./noteHolder";
-import TileHolder from "./tineHolder";
+import TineHolder from "./tineHolder";
 
 class Holder extends Component {
   state = {};
@@ -28,7 +28,7 @@ class Holder extends Component {
           position: "relative"
         }}
       >
-        <TileHolder></TileHolder>
+        <TineHolder></TineHolder>
         <NoteHolder onHolderPassUp={this.handleHolderPassUp} />
       </div>
     );

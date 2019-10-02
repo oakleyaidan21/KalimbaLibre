@@ -2,11 +2,11 @@
 
 import React, { Component } from "react";
 
-class Tile extends Component {
+class Tine extends Component {
   state = {
     note: this.props.note,
     color: this.props.color,
-    len: this.props.len * 3 + 500,
+    len: this.props.len * 9 + 700,
     value: 1,
     buttons: [
       { id: 1, time: 4, rest: false, name: "C" },
@@ -45,13 +45,13 @@ class Tile extends Component {
 
   render() {
     return (
-      <div>
+      <div id="tine">
         <button
           style={{
             float: "left",
             background: this.props.color + ")",
             width: "28px",
-            height: 700 + this.props.len * 9,
+            height: this.state.len,
             border: "3px solid black",
             margin: "2px",
             borderRadius: "25px"
@@ -74,4 +74,4 @@ class Tile extends Component {
   }
 }
 
-export default Tile;
+export default Tine;

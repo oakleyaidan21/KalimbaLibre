@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Tile from "./tine";
 
-class TileHolder extends Component {
+class TineHolder extends Component {
   state = {
     tiles: [
       { len: 1, note: "D6", value: 0, color: "rgb(255,255,255" },
@@ -50,4 +50,4 @@ class TileHolder extends Component {
   }
 }
 
-export default TileHolder;
+export default TineHolder;
