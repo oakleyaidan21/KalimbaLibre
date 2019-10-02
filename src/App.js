@@ -157,7 +157,7 @@ class App extends Component {
           </Form>
         </Navbar>
         <Selector style={{ topMargin: "0px" }} />
-        <Holder onLastPassUp={this.handleLastPassUp} />
+        <Holder onLastPassUp={this.handleLastPassUp} amountOfTNotes={40} />
         {this.state.renderAbcjs ? (
           <AbcjsContainer
             isRendered={this.state.renderAbcjs}

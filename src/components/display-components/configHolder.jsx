@@ -12,7 +12,7 @@ class ConfigHolder extends Component {
   render() {
     return (
       <div
-        id="holder"
+        id="configHolder"
         style={{
           width: 400,
           left: 10,

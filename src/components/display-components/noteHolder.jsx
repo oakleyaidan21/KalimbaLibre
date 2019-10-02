@@ -5,7 +5,7 @@ import { delay } from "q";
 class noteHolder extends Component {
   state = {
     totalNotes: [],
-    amountOfTNotes: 16
+    amountOfTNotes: this.props.amountOfTNotes
   };
 
   goThroughEach = async () => {
@@ -21,11 +21,12 @@ class noteHolder extends Component {
     }
   };
 
-  componentDidMount = async () => {
+  componentWillMount = async () => {
+    console.log(this.state.amountOfTNotes);
     var temp = [];
     for (var i = 0; i < this.state.amountOfTNotes; i++) {
       var four = false;
-      if (i % 4 === 0) {
+      if (i % 4 === 0 || i === this.state.amountOfTNotes - 1) {
         four = true;
       }
       temp = temp.concat({
@@ -44,15 +45,15 @@ class noteHolder extends Component {
   };
 
   render() {
+    console.log(this.state.totalNotes.length);
     return (
       <div
         id="noteHolder"
         style={{
           position: "absolute",
           zIndex: "10",
-          bottom: 0,
-          float: "left",
-          overflow: "auto"
+          top: 0,
+          float: "left"
         }}
       >
         {this.state.totalNotes.map(totalNote => (

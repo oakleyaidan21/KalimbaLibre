@@ -150,6 +150,7 @@ class TotalNote extends Component {
     }
     return (
       <div
+        id="totalNote"
         style={{
           width: 550,
           height: 40,

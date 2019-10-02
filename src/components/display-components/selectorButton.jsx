@@ -26,7 +26,7 @@ class SelectorButton extends Component {
 
   render() {
     return (
-      <div>
+      <div id="selector">
         <button
           onClick={this.handleSelection.bind(this)}
           style={this.buttonStyle}

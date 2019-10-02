@@ -4,7 +4,9 @@ import NoteHolder from "./noteHolder";
 import TineHolder from "./tineHolder";
 
 class Holder extends Component {
-  state = {};
+  state = {
+    amountOfTNotes: this.props.amountOfTNotes
+  };
 
   handleTileClick() {
     console.log("hi");
@@ -28,8 +30,11 @@ class Holder extends Component {
           position: "relative"
         }}
       >
-        <TineHolder></TineHolder>
-        <NoteHolder onHolderPassUp={this.handleHolderPassUp} />
+        <TineHolder amountOfTNotes={this.state.amountOfTNotes}></TineHolder>
+        <NoteHolder
+          onHolderPassUp={this.handleHolderPassUp}
+          amountOfTNotes={this.state.amountOfTNotes}
+        />
       </div>
     );
   }

@@ -6,7 +6,7 @@ class Tine extends Component {
   state = {
     note: this.props.note,
     color: this.props.color,
-    len: this.props.len * 9 + 700,
+    len: this.props.len * 20 + this.props.amountOfTNotes * 40,
     value: 1,
     buttons: [
       { id: 1, time: 4, rest: false, name: "C" },
@@ -60,7 +60,7 @@ class Tine extends Component {
         >
           <b
             style={{
-              bottom: 0,
+              top: this.state.len - 1300,
               position: "relative",
               fontSize: 10,
               marginRight: 5

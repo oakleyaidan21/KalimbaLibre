@@ -22,17 +22,17 @@ class TineHolder extends Component {
       { len: 2, note: "C6", value: 0, color: "rgb(255,255,255" },
       { len: 1, note: "E6", value: 0, color: "rgb(255,255,255" }
     ],
-    isConfig: this.props.isConfig
+    amountOfTNotes: this.props.amountOfTNotes
   };
   render() {
-    console.log("isconfig? " + this.state.isConfig);
     return (
       <div
+        id="tineHolder"
         style={{
-          width: "550px",
-          height: "600px",
+          width: 550,
+          height: 600,
           position: "absolute",
-          zIndex: "5",
+          zIndex: 5,
           bottom: 0
         }}
       >
@@ -43,6 +43,7 @@ class TineHolder extends Component {
             color={tile.color}
             len={tile.len}
             isConfig={this.state.isConfig}
+            amountOfTNotes={this.state.amountOfTNotes}
           />
         ))}
       </div>
