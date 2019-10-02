@@ -25,22 +25,32 @@ class Note extends Component {
   };
 
   handleNoteClick = () => {
-    let passID = this.state.id;
-    let passName = this.state.name;
-    // let obj = { passID, passName };
-    this.props.onHandleNoteClick(passID, passName);
-    console.log(this.state.name);
-    this.setState({ selected: true });
-    this.setState({ color: "purple" });
-    (async () => {
-      var { instruments, playingNotes } = await getInstruments(["kalimba"]);
-      var instrument = instruments.get("kalimba");
-      instrument.play(this.state.name, 500);
-      playingNotes.get(this.state.name);
-      setTimeout(() => {
-        instrument.stop(this.state.name);
-      }, 250);
-    })();
+    if (this.state.color === "purple") {
+      //delete stuff
+      this.props.onHandleNoteClick(
+        this.state.id,
+        this.state.name,
+        this.state.color
+      );
+      this.setState({ color: "transparent" });
+    } else {
+      let passID = this.state.id;
+      let passName = this.state.name;
+      // let obj = { passID, passName };
+      this.props.onHandleNoteClick(passID, passName, this.state.color);
+      console.log(this.state.name);
+      this.setState({ selected: true });
+      this.setState({ color: "purple" });
+      (async () => {
+        var { instruments, playingNotes } = await getInstruments(["kalimba"]);
+        var instrument = instruments.get("kalimba");
+        instrument.play(this.state.name, 500);
+        playingNotes.get(this.state.name);
+        setTimeout(() => {
+          instrument.stop(this.state.name);
+        }, 250);
+      })();
+    }
   };
 
   render() {

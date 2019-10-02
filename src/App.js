@@ -43,52 +43,51 @@ class App extends Component {
       temp.push([]);
     }
 
-    var curID = this.state.song[0].passID;
-    console.log(curID);
-
     for (var j = 0; j < this.state.song.length; j++) {
-      // console.log("p");
-      // console.log(
-      //   "to be pushed into temp: " +
-      //     this.state.song[j].passID +
-      //     " " +
-      //     this.state.song[j].passName
-      // );
       temp[this.state.song[j].passID].push(this.state.song[j].passName);
     }
-    // console.log("temp " + temp);
+
     return temp;
   };
 
   handlePlay = async () => {
-    const { instruments, playingNotes } = await getInstruments(["kalimba"]);
-    const kalimba = instruments.get("kalimba");
-    var songArray = this.convertSong();
-    console.log(songArray);
+    if (this.state.song.length !== 0) {
+      const { instruments, playingNotes } = await getInstruments(["kalimba"]);
+      const kalimba = instruments.get("kalimba");
+      var songArray = this.convertSong();
+      console.log(songArray);
 
-    for (var i = songArray.length - 1; i >= 0; i--) {
-      await delay(500);
-      for (var j = 0; j < songArray[i].length; j++) {
-        kalimba.play(songArray[i][j], 500);
-        playingNotes.get(songArray[i][j]);
+      for (var i = songArray.length - 1; i >= 0; i--) {
+        await delay(500);
+        for (var j = 0; j < songArray[i].length; j++) {
+          kalimba.play(songArray[i][j], 1000);
+          playingNotes.get(songArray[i][j]);
+        }
       }
-    }
-    // for (var i = this.state.song.length - 1; i >= 0; i--) {
-    //   await delay(1000);
-    //   kalimba.play(this.state.song[i].passName, 500);
-    //   playingNotes.get(this.state.song[i].passName);
-    // }
 
-    console.log(kalimba);
+      console.log(kalimba);
+    }
   };
 
-  handleLastPassUp = (passID, passName) => {
-    var temp = this.state.song.concat({ passID, passName });
-    temp.sort(function(a, b) {
-      return a.passID - b.passID;
-    });
-    console.log(this.state.song);
-    this.setState({ song: temp });
+  handleLastPassUp = (passID, passName, color) => {
+    if (color === "purple") {
+      console.log("thing to remove: " + passID + " " + passName);
+
+      // var index = this.state.song.indexOf({ passID, passName });
+      var index = this.state.song.findIndex(
+        element => element.passID === passID && element.passName === passName
+      );
+      console.log("thing it thinks it's removing: " + index);
+      this.state.song.splice(index, 1);
+    } else {
+      var temp = this.state.song.concat({ passID, passName });
+      temp.sort(function(a, b) {
+        return a.passID - b.passID;
+      });
+
+      console.log(this.state.song);
+      this.setState({ song: temp });
+    }
   };
 
   render() {

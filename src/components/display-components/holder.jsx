@@ -10,8 +10,8 @@ class Holder extends Component {
     console.log("hi");
   }
 
-  handleHolderPassUp = (passID, passName) => {
-    this.props.onLastPassUp(passID, passName);
+  handleHolderPassUp = (passID, passName, color) => {
+    this.props.onLastPassUp(passID, passName, color);
   };
 
   render() {

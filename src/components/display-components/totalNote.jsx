@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Note from "./note";
+import Note from "../music-components/note";
 
 class TotalNote extends Component {
   state = {
@@ -133,8 +133,8 @@ class TotalNote extends Component {
     this.setState({ backgroundcolor: childData });
   };
 
-  handleNoteClick = (passID, passName) => {
-    this.props.onPassingUpNote(passID, passName);
+  handleNoteClick = (passID, passName, color) => {
+    this.props.onPassingUpNote(passID, passName, color);
   };
 
   render() {

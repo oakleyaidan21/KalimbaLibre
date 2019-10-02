@@ -24,8 +24,8 @@ class noteHolder extends Component {
     this.setState({ totalNotes: temp });
   }
 
-  handlePassingUpNote = (passID, passName) => {
-    this.props.onHolderPassUp(passID, passName);
+  handlePassingUpNote = (passID, passName, color) => {
+    this.props.onHolderPassUp(passID, passName, color);
   };
 
   render() {
