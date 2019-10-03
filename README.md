@@ -1,3 +1,5 @@
+**Refactor branch in case I bork anything**
+
 # Kalimba Libre
 
 A WIP React Web App for creating Kalimba tablatures for free (see: _Libre_)
@@ -29,6 +31,7 @@ Here's how the app looks at this stage in development:
 - [x] Find way to export the `KalimbaContainer` _though it's not entirely working yet_
 - [ ] _Refactor components to be less confusing_ (this project started as a way to learn react, so component hiearchy is kinda borked) Should probably combine components into each other, as some don't need to be reused (i.e., Note)
 - [ ] Make config and selector elements actually control variables that App uses
+-
 - [ ] Update selector to have note icons instead of numbers
 - [ ] Render note icons instead of purple squares on kalimba
 - [ ] Everything else! :^)
