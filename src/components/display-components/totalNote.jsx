@@ -17,15 +17,13 @@ class TotalNote extends Component {
     this.setState({ backgroundcolor: childData });
   };
 
-  handleNoteClick = (passID, color) => {
+  handleNoteClick = (passID, tnID) => {
+    console.log("clicked! " + passID);
+    console.log(this.state.notes[passID].color);
     // var temp = this.state.notes;
     // temp[passID].color = color;
     // this.setState({ notes: temp });
-    // this.props.onPassingUpNote(passID, passName, color);
-    console.log("clicked! " + passID + " " + color);
-    var temp = this.state.notes;
-    temp[passID].color = color;
-    this.setState({ notes: temp });
+    // s
   };
 
   render() {

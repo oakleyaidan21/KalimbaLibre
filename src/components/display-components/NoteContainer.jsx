@@ -159,8 +159,11 @@ class NoteContainer extends Component {
     const kalimba = instruments.get("kalimba");
 
     var temp = this.state.totalNotes;
-    for (var i = this.props.amountOfTNotes - 1; i >= 0; i--) {
+    for (var i = temp.length - 1; i >= 0; i--) {
       await delay(500);
+      if (i !== this.props.amountOfTNotes - 1) {
+        temp[i + 1].color = "transparent";
+      }
       for (var j = 0; j < temp[i].notes.length; j++) {
         if (temp[i].notes[j].color === "purple") {
           console.log("play " + temp[i].notes[j].name);
@@ -168,9 +171,7 @@ class NoteContainer extends Component {
           playingNotes.get(temp[i].notes[j].name);
         }
       }
-      if (i !== this.props.amountOfTNotes - 1) {
-        temp[i + 1].color = "transparent";
-      }
+
       // await delay(500);
       temp[i].color = "rgb(247,255,0,0.5)";
       this.setState({ totalNotes: temp });
@@ -200,11 +201,10 @@ class NoteContainer extends Component {
     this.setState({ totalNotes: temp });
   };
 
-  handlePassingUpNote = (passID, passName, color) => {
+  handlePassingUpNote = (passID, tnID, color) => {
     var temp = this.state.totalNotes;
-    temp[passID].color = color;
+    temp[tnID].notes[passID].color = color;
     this.setState({ totalNotes: temp });
-    this.props.onHolderPassUp(passID, passName, color);
   };
 
   render() {
@@ -227,7 +227,7 @@ class NoteContainer extends Component {
               rest={totalNote.rest}
               color={totalNote.color}
               is4={totalNote.is4}
-              onPassingUpNote={totalNote.onPassingUpNote}
+              onPassingUpNote={this.handlePassingUpNote}
               id={totalNote.id}
               notes={totalNote.notes}
             />
