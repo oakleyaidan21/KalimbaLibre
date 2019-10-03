@@ -18,33 +18,29 @@ class App extends Component {
     this.state = {
       song: [],
       instrument: null,
-      playingNotes: null,
-      renderAbcjs: false,
-      abcjsSong: "",
       tineNotes: [
-        { len: 1, note: "D6", value: 0, color: "rgb(255,255,255" },
-        { len: 2, note: "B5", value: 0, color: "rgb(255,255,255" },
-        { len: 3, note: "G5", value: 0, color: "rgb(0,123,255" },
-        { len: 4, note: "E5", value: 0, color: "rgb(255,255,255" },
-        { len: 5, note: "C5", value: 0, color: "rgb(255,255,255" },
-        { len: 6, note: "A4", value: 0, color: "rgb(0,123,255" },
-        { len: 7, note: "Beep4", value: 0, color: "rgb(255,255,255" },
-        { len: 8, note: "D4", value: 0, color: "rgb(255,255,255" },
-        { len: 9, note: "C4", value: 0, color: "rgb(0,123,255" },
-        { len: 8, note: "E4", value: 0, color: "rgb(255,255,255" },
-        { len: 7, note: "G4", value: 0, color: "rgb(255,255,255" },
-        { len: 6, note: "B4", value: 0, color: "rgb(0,123,255" },
-        { len: 5, note: "D5", value: 0, color: "rgb(255,255,255" },
-        { len: 4, note: "F5", value: 0, color: "rgb(255,255,255" },
-        { len: 3, note: "A5", value: 0, color: "rgb(0,123,255" },
-        { len: 2, note: "C6", value: 0, color: "rgb(255,255,255" },
-        { len: 1, note: "E6", value: 0, color: "rgb(255,255,255" }
-      ]
+        { note: "D6", color: "white", len: 1 },
+        { note: "B5", color: "white", len: 2 },
+        { note: "G5", color: "rgb(0,123,255)", len: 3 },
+        { note: "E5", color: "white", len: 4 },
+        { note: "C5", color: "white", len: 5 },
+        { note: "A4", color: "rgb(0,123,255)", len: 6 },
+        { note: "F4", color: "white", len: 7 },
+        { note: "D4", color: "white", len: 8 },
+        { note: "C4", color: "rgb(0,123,255)", len: 9 },
+        { note: "E4", color: "white", len: 8 },
+        { note: "G4", color: "white", len: 7 },
+        { note: "B4", color: "rgb(0,123,255)", len: 6 },
+        { note: "D5", color: "white", len: 5 },
+        { note: "F5", color: "white", len: 4 },
+        { note: "A5", color: "rgb(0,123,255)", len: 3 },
+        { note: "C6", color: "white", len: 2 },
+        { note: "E6", color: "white", len: 1 }
+      ],
+      kalimbaLength: 40
     };
     this.handlePlay = this.handlePlay.bind(this);
   }
-
-  componentDidMount() {}
 
   //returns a structure that the player can read
   convertSong = () => {
@@ -174,8 +170,8 @@ class App extends Component {
         <Selector style={{ topMargin: "0px" }} />
         <KalimbaContainer
           onLastPassUp={this.handleLastPassUp}
-          amountOfTNotes={40}
-          tineNotes={this.tineNotes}
+          amountOfTNotes={this.state.kalimbaLength}
+          tineNotes={this.state.tineNotes}
         />
         <ConfigContainer />
       </div>

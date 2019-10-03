@@ -2,17 +2,15 @@ import React, { Component } from "react";
 import Note from "../music-components/Note";
 
 class TotalNote extends Component {
-  state = {
-    backgroundcolor: this.props.color,
-    is4: this.props.is4,
-    id: this.props.id,
-    notes: this.props.notes
-  };
+  constructor(props) {
+    super(props);
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.color !== this.props.color) {
-      this.setState({ backgroundcolor: this.props.color });
-    }
+    this.state = {
+      backgroundcolor: this.props.color,
+      is4: this.props.is4,
+      id: this.props.id,
+      notes: this.props.notes
+    };
   }
 
   handleSelection = childData => {
@@ -20,7 +18,9 @@ class TotalNote extends Component {
   };
 
   handleNoteClick = (passID, passName, color) => {
-    console.log("total note: " + color);
+    var temp = this.state.notes;
+    temp[passID].color = color;
+    this.setState({ notes: temp });
     this.props.onPassingUpNote(passID, passName, color);
   };
 
@@ -35,13 +35,12 @@ class TotalNote extends Component {
         style={{
           width: 550,
           height: 40,
-          background: this.state.backgroundcolor,
+          background: this.props.color,
           borderBottom: "2px solid " + border
         }}
       >
         {this.state.notes.map(note => (
           <Note
-            key={note.name}
             time={note.time}
             rest={note.rest}
             name={note.name}
@@ -49,6 +48,7 @@ class TotalNote extends Component {
             id={this.state.id}
             onSelectNote={this.handleSelection}
             onHandleNoteClick={this.handleNoteClick}
+            noteID={note.noteID}
           />
         ))}
       </div>

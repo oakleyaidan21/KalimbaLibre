@@ -2,14 +2,18 @@ import React, { Component } from "react";
 import { getInstruments } from "mobx-music";
 
 class Note extends Component {
-  state = {
-    time: this.props.time,
-    rest: this.props.rest,
-    name: this.props.name,
-    color: this.props.color,
-    selected: false,
-    id: this.props.id
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      time: this.props.time,
+      rest: this.props.rest,
+      name: this.props.name,
+      color: this.props.color,
+      selected: false,
+      id: this.props.id,
+      noteID: this.props.noteID
+    };
+  }
 
   handleSelectionE = () => {
     if (this.state.color !== "purple") {
@@ -26,34 +30,11 @@ class Note extends Component {
   };
 
   handleNoteClick = () => {
-    //if already present in the song array, then delete
     if (this.state.color === "purple") {
-      this.props.onHandleNoteClick(
-        this.state.id,
-        this.state.name,
-        this.state.color
-      );
       this.setState({ color: "transparent" });
     } else {
-      let passID = this.state.id;
-      let passName = this.state.name;
-      //setting state here
-      this.setState({ selected: true, color: "purple" });
-      this.props.onHandleNoteClick(passID, passName, this.state.color);
-      //async function to play the note on click
-      (async () => {
-        var { instruments, playingNotes } = await getInstruments(["kalimba"]);
-        var instrument = instruments.get("kalimba");
-        instrument.play(this.state.name, 500);
-        playingNotes.get(this.state.name);
-        setTimeout(() => {
-          instrument.stop(this.state.name);
-        }, 250);
-      })();
+      this.setState({ color: "purple" });
     }
-    //this returns false, even though selected was set to true
-    console.log(this.state.selected);
-    console.log(this.state.color);
   };
 
   render() {

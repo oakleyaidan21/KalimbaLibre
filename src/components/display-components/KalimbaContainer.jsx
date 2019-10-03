@@ -4,10 +4,11 @@ import NoteContainer from "./NoteContainer";
 import TineContainer from "./TineContainer";
 
 class KalimbaContainer extends Component {
-  state = {
-    amountOfTNotes: this.props.amountOfTNotes,
-    tineNotes: this.props.tineNotes
-  };
+  constructor(props) {
+    super(props);
+    console.log(this.props);
+    this.state = {};
+  }
 
   handleHolderPassUp = (passID, passName, color) => {
     this.props.onLastPassUp(passID, passName, color);
@@ -28,12 +29,13 @@ class KalimbaContainer extends Component {
         }}
       >
         <TineContainer
-          amountOfTNotes={this.state.amountOfTNotes}
-          tineNotes={this.state.tineNotes}
+          amountOfTNotes={this.props.amountOfTNotes}
+          tineNotes={this.props.tineNotes}
         />
         <NoteContainer
           onHolderPassUp={this.handleHolderPassUp}
-          amountOfTNotes={this.state.amountOfTNotes}
+          amountOfTNotes={this.props.amountOfTNotes}
+          tineNotes={this.props.tineNotes}
         />
       </div>
     );
