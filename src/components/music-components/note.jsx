@@ -32,8 +32,10 @@ class Note extends Component {
   handleNoteClick = () => {
     if (this.state.color === "purple") {
       this.setState({ color: "transparent" });
+      this.props.onHandleNoteClick(this.state.noteID, "transparent");
     } else {
       this.setState({ color: "purple" });
+      this.props.onHandleNoteClick(this.state.noteID, "purple");
     }
   };
 

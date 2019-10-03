@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import TotalNote from "./TotalNote";
 import { delay } from "q";
+import { getInstruments } from "mobx-music";
 
 class NoteContainer extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class NoteContainer extends Component {
         {
           time: 4,
           rest: false,
-          name: this.props.tineNotes[0],
+          name: this.props.tineNotes[0].note,
           color: "transparent",
           selected: false,
           noteID: 0
@@ -20,7 +21,7 @@ class NoteContainer extends Component {
         {
           time: 4,
           rest: false,
-          name: this.props.tineNotes[1],
+          name: this.props.tineNotes[1].note,
           color: "transparent",
           selected: false,
           noteID: 1
@@ -28,7 +29,7 @@ class NoteContainer extends Component {
         {
           time: 4,
           rest: false,
-          name: this.props.tineNotes[2],
+          name: this.props.tineNotes[2].note,
           color: "transparent",
           selected: false,
           noteID: 2
@@ -36,7 +37,7 @@ class NoteContainer extends Component {
         {
           time: 4,
           rest: false,
-          name: this.props.tineNotes[3],
+          name: this.props.tineNotes[3].note,
           color: "transparent",
           selected: false,
           noteID: 3
@@ -44,7 +45,7 @@ class NoteContainer extends Component {
         {
           time: 4,
           rest: false,
-          name: this.props.tineNotes[4],
+          name: this.props.tineNotes[4].note,
           color: "transparent",
           selected: false,
           noteID: 4
@@ -52,7 +53,7 @@ class NoteContainer extends Component {
         {
           time: 4,
           rest: false,
-          name: this.props.tineNotes[5],
+          name: this.props.tineNotes[5].note,
           color: "transparent",
           selected: false,
           noteID: 5
@@ -60,7 +61,7 @@ class NoteContainer extends Component {
         {
           time: 4,
           rest: false,
-          name: this.props.tineNotes[6],
+          name: this.props.tineNotes[6].note,
           color: "transparent",
           selected: false,
           noteID: 6
@@ -68,7 +69,7 @@ class NoteContainer extends Component {
         {
           time: 4,
           rest: false,
-          name: this.props.tineNotes[7],
+          name: this.props.tineNotes[7].note,
           color: "transparent",
           selected: false,
           noteID: 7
@@ -76,7 +77,7 @@ class NoteContainer extends Component {
         {
           time: 4,
           rest: false,
-          name: this.props.tineNotes[8],
+          name: this.props.tineNotes[8].note,
           color: "transparent",
           selected: false,
           noteID: 8
@@ -84,7 +85,7 @@ class NoteContainer extends Component {
         {
           time: 4,
           rest: false,
-          name: this.props.tineNotes[9],
+          name: this.props.tineNotes[9].note,
           color: "transparent",
           selected: false,
           noteID: 9
@@ -92,7 +93,7 @@ class NoteContainer extends Component {
         {
           time: 4,
           rest: false,
-          name: this.props.tineNotes[10],
+          name: this.props.tineNotes[10].note,
           color: "transparent",
           selected: false,
           noteID: 10
@@ -100,7 +101,7 @@ class NoteContainer extends Component {
         {
           time: 4,
           rest: false,
-          name: this.props.tineNotes[11],
+          name: this.props.tineNotes[11].note,
           color: "transparent",
           selected: false,
           noteID: 11
@@ -108,7 +109,7 @@ class NoteContainer extends Component {
         {
           time: 4,
           rest: false,
-          name: this.props.tineNotes[12],
+          name: this.props.tineNotes[12].note,
           color: "transparent",
           selected: false,
           noteID: 12
@@ -116,7 +117,7 @@ class NoteContainer extends Component {
         {
           time: 4,
           rest: false,
-          name: this.props.tineNotes[13],
+          name: this.props.tineNotes[13].note,
           color: "transparent",
           selected: false,
           noteID: 13
@@ -124,7 +125,7 @@ class NoteContainer extends Component {
         {
           time: 4,
           rest: false,
-          name: this.props.tineNotes[14],
+          name: this.props.tineNotes[14].note,
           color: "transparent",
           selected: false,
           noteID: 14
@@ -132,7 +133,7 @@ class NoteContainer extends Component {
         {
           time: 4,
           rest: false,
-          name: this.props.tineNotes[15],
+          name: this.props.tineNotes[15].note,
           color: "transparent",
           selected: false,
           noteID: 15
@@ -140,7 +141,7 @@ class NoteContainer extends Component {
         {
           time: 4,
           rest: false,
-          name: this.props.tineNotes[16],
+          name: this.props.tineNotes[16].note,
           color: "transparent",
           selected: false,
           noteID: 16
@@ -154,35 +155,23 @@ class NoteContainer extends Component {
 
   //goes through each totalNote and highlights them
   goThroughEachTotalNote = async () => {
+    const { instruments, playingNotes } = await getInstruments(["kalimba"]);
+    const kalimba = instruments.get("kalimba");
+
     var temp = this.state.totalNotes;
-    // console.log(
-    //   "go through each " +
-    //     this.state.totalNotes.length +
-    //     " " +
-    //     this.state.totalNotes
-    // );
-    // console.log("0: ", this.state.totalNotes[0].color);
-    // temp[0].color = "purple";
-    // console.log(this.state.totalNotes[0].color);
-    // this.setState({ totalNotes: temp });
-    // for (var i = this.props.amountOfTNotes; i >= 0; i--) {
-    //   // temp[i].color = "blue";
-    //   // this.setState({ totalNotes: temp });
-    //   if (i !== this.props.amountOfTNotes - 1) {
-    //     temp[i + 1].color = "transparent";
-    //   }
-    //   await delay(500);
-    //   temp[i].color = "rgb(247,255,0,0.5)";
-    //   this.setState({ totalNotes: temp });
-    // }
-    // temp[0].color = "transparent";
-    // this.setState({ totalNotes: temp });
     for (var i = this.props.amountOfTNotes - 1; i >= 0; i--) {
+      await delay(500);
+      for (var j = 0; j < temp[i].notes.length; j++) {
+        if (temp[i].notes[j].color === "purple") {
+          console.log("play " + temp[i].notes[j].name);
+          kalimba.play(temp[i].notes[j].name, 1000);
+          playingNotes.get(temp[i].notes[j].name);
+        }
+      }
       if (i !== this.props.amountOfTNotes - 1) {
         temp[i + 1].color = "transparent";
       }
-      await delay(500);
-      console.log("temp");
+      // await delay(500);
       temp[i].color = "rgb(247,255,0,0.5)";
       this.setState({ totalNotes: temp });
     }
