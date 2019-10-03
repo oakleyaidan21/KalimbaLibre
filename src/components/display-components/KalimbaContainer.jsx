@@ -9,10 +9,6 @@ class KalimbaContainer extends Component {
     tineNotes: this.props.tineNotes
   };
 
-  handleTileClick() {
-    console.log("hi");
-  }
-
   handleHolderPassUp = (passID, passName, color) => {
     this.props.onLastPassUp(passID, passName, color);
   };
