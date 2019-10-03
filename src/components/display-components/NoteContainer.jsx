@@ -202,9 +202,6 @@ class NoteContainer extends Component {
             onPassingUpNote={this.handlePassingUpNote}
             id={totalNote.id}
             notes={totalNote.notes}
-            measure={totalNote.measure}
-            isPlaying={this.state.isPlaying}
-            playingID={this.state.playingID}
           />
         ))}
       </div>

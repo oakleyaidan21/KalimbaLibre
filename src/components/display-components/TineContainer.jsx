@@ -22,6 +22,7 @@ class TineContainer extends Component {
       { len: 2, note: "C6", value: 0, color: "rgb(255,255,255" },
       { len: 1, note: "E6", value: 0, color: "rgb(255,255,255" }
     ],
+    tines: this.props.tineNotes,
     amountOfTNotes: this.props.amountOfTNotes
   };
   render() {
@@ -36,12 +37,12 @@ class TineContainer extends Component {
           bottom: 0
         }}
       >
-        {this.state.tiles.map(tile => (
+        {this.state.tiles.map(tine => (
           <Tine
-            key={tile.note}
-            note={tile.note}
-            color={tile.color}
-            len={tile.len}
+            key={tine.note}
+            note={tine.note}
+            color={tine.color}
+            len={tine.len}
             isConfig={this.state.isConfig}
             amountOfTNotes={this.state.amountOfTNotes}
           />

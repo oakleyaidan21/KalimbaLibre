@@ -6,8 +6,7 @@ import TineContainer from "./TineContainer";
 class KalimbaContainer extends Component {
   state = {
     amountOfTNotes: this.props.amountOfTNotes,
-    isPlaying: this.props.isPlaying,
-    playingID: this.props.playingID
+    tineNotes: this.props.tineNotes
   };
 
   handleTileClick() {
@@ -32,12 +31,13 @@ class KalimbaContainer extends Component {
           position: "relative"
         }}
       >
-        <TineContainer amountOfTNotes={this.state.amountOfTNotes} />
+        <TineContainer
+          amountOfTNotes={this.state.amountOfTNotes}
+          tineNotes={this.state.tineNotes}
+        />
         <NoteContainer
           onHolderPassUp={this.handleHolderPassUp}
           amountOfTNotes={this.state.amountOfTNotes}
-          isPlaying={this.state.isPlaying}
-          playingID={this.state.PlayingID}
         />
       </div>
     );

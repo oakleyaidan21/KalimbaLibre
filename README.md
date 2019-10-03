@@ -27,6 +27,7 @@ Here's how the app looks at this stage in development:
 - [x] Make function to highlight totalNotes going up the holder
 - [x] Actually nail down a midi player to use going forward
 - [x] Find way to export the kalimba holder _though it's not entirely working yet_
+- [ ] Refactor components to be less confusing (this project started as a way to learn react, so component hiearchy is kinda borked)
 - [ ] Make config and selector elements actually control variables that App uses
 - [ ] Update selector to have note icons instead of numbers
 - [ ] Render note icons instead of purple squares on kalimba

@@ -6,10 +6,7 @@ class TotalNote extends Component {
     backgroundcolor: this.props.color,
     is4: this.props.is4,
     id: this.props.id,
-    notes: this.props.notes,
-    measure: this.props.measure,
-    isPlaying: this.props.isPlaying,
-    playingID: this.props.playingID
+    notes: this.props.notes
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -29,10 +26,6 @@ class TotalNote extends Component {
 
   render() {
     var border = "transparent";
-    var background = "transparent";
-    if (this.state.isPlaying && this.state.id === this.state.playingID) {
-      background = "black";
-    }
     if (this.state.is4) {
       border = "black";
     }
@@ -42,7 +35,7 @@ class TotalNote extends Component {
         style={{
           width: 550,
           height: 40,
-          background: background,
+          background: this.state.backgroundcolor,
           borderBottom: "2px solid " + border
         }}
       >
