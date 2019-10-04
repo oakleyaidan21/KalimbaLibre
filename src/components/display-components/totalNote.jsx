@@ -171,7 +171,7 @@ class TotalNote extends Component {
         style={{
           width: 550,
           height: 40,
-          background: this.state.backgroundcolor,
+          background: this.props.color,
           borderBottom: "2px solid transparent"
         }}
       >
