@@ -1,5 +1,5 @@
+//contains every component that has to do with inputting notes into the kalimba's song
 import React, { Component } from "react";
-
 import NoteContainer from "./NoteContainer";
 import TineContainer from "./TineContainer";
 

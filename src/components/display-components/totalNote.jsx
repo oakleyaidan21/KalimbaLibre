@@ -1,3 +1,4 @@
+//horizontal container of 14 notes that go across the tines
 import React, { Component } from "react";
 import Note from "../music-components/Note";
 

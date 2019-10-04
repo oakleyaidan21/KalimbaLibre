@@ -1,3 +1,4 @@
+//contains TotalNote objects that span over all of the tines
 import React, { Component } from "react";
 import TotalNote from "./TotalNote";
 import { delay } from "q";

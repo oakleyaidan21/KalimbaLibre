@@ -1,5 +1,4 @@
-//emulate the tiles on a kalimba. Contain an indefinite amount of note objects vertically
-
+//emulate the tiles on a kalimba
 import React, { Component } from "react";
 
 class Tine extends Component {

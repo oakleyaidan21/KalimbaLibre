@@ -1,3 +1,5 @@
+//contains the tines you see on screen
+
 import React, { Component } from "react";
 import Tine from "../music-components/Tine";
 

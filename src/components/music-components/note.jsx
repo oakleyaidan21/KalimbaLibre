@@ -1,3 +1,4 @@
+//buttons in layed over the tines for playing notes
 import React, { Component } from "react";
 
 class Note extends Component {
@@ -31,6 +32,7 @@ class Note extends Component {
     this.props.onSelectNote("transparent");
   };
 
+  //changes the clicked note to an image of a note, and also sends which notes to play to the NoteContainer
   handleNoteClick = () => {
     if (this.state.color === "purple") {
       this.setState({ color: "transparent" });
@@ -40,7 +42,6 @@ class Note extends Component {
         this.state.name
       );
     } else {
-      // this.setState({ color: "purple" });
       this.setState({ selected: true });
       this.props.instrument.play(this.state.name);
       this.props.onHandleNoteClick(

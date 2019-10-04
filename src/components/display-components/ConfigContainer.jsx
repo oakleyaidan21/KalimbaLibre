@@ -1,3 +1,4 @@
+//component that contains the forms to input things like song title, time signature, tempo, etc
 import React, { Component } from "react";
 import Badge from "react-bootstrap/Badge";
 import Form from "react-bootstrap/Form";

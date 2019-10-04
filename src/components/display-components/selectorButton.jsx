@@ -1,3 +1,4 @@
+//buttons for selecting note types
 import React, { Component } from "react";
 
 class SelectorButton extends Component {

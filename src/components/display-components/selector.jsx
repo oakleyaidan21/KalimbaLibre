@@ -1,3 +1,4 @@
+//contains buttons for selecting the type of note to input into the kalimba song
 import React, { Component } from "react";
 import SelectorButton from "./SelectorButton";
 import Badge from "react-bootstrap/Badge";
