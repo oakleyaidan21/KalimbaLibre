@@ -35,6 +35,7 @@ class Note extends Component {
   //changes the clicked note to an image of a note, and also sends which notes to play to the NoteContainer
   handleNoteClick = () => {
     if (this.state.color === "purple") {
+      this.setState({ selected: false });
       this.setState({ color: "transparent" });
       this.props.onHandleNoteClick(
         this.state.noteID,
@@ -43,6 +44,7 @@ class Note extends Component {
       );
     } else {
       this.setState({ selected: true });
+      this.setState({color: "purple"});
       this.props.instrument.play(this.state.name);
       this.props.onHandleNoteClick(
         this.state.noteID,
@@ -57,7 +59,7 @@ class Note extends Component {
       console.log("render click");
       return (
         <img
-          src="https://cdn1.iconfinder.com/data/icons/musical-notes-1/100/Music_Note2-01-512.png"
+          src="src\quarter_note.png"
           alt=""
           style={{
             maxWidth: "100%",
