@@ -36,6 +36,7 @@ class KalimbaContainer extends Component {
           onHolderPassUp={this.handleHolderPassUp}
           amountOfTNotes={this.props.amountOfTNotes}
           tineNotes={this.props.tineNotes}
+          kalimba={this.props.kalimba}
         />
       </div>
     );

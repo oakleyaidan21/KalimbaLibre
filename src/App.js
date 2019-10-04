@@ -37,10 +37,18 @@ class App extends Component {
         { note: "C6", color: "white", len: 2 },
         { note: "E6", color: "white", len: 1 }
       ],
-      kalimbaLength: 40
+      kalimbaLength: 40,
+      kalimba: null
     };
     this.handlePlay = this.handlePlay.bind(this);
   }
+
+  componentDidMount = async () => {
+    await delay(500);
+    const { instruments, playingNotes } = await getInstruments(["kalimba"]);
+    this.setState({ kalimba: instruments.get("kalimba") });
+    console.log(this.state.kalimba);
+  };
 
   //returns a structure that the player can read
   convertSong = () => {
@@ -172,6 +180,7 @@ class App extends Component {
           onLastPassUp={this.handleLastPassUp}
           amountOfTNotes={this.state.kalimbaLength}
           tineNotes={this.state.tineNotes}
+          kalimba={this.state.kalimba}
         />
         <ConfigContainer />
       </div>

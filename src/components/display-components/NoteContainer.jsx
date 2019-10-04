@@ -155,28 +155,23 @@ class NoteContainer extends Component {
 
   //goes through each totalNote and highlights them
   goThroughEachTotalNote = async () => {
-    const { instruments, playingNotes } = await getInstruments(["kalimba"]);
-    const kalimba = instruments.get("kalimba");
-
-    var temp = this.state.totalNotes;
-    for (var i = temp.length - 1; i >= 0; i--) {
-      await delay(500);
-      if (i !== this.props.amountOfTNotes - 1) {
-        temp[i + 1].color = "transparent";
-      }
-      for (var j = 0; j < temp[i].notes.length; j++) {
-        if (temp[i].notes[j].color === "purple") {
-          console.log("play " + temp[i].notes[j].name);
-          kalimba.play(temp[i].notes[j].name, 1000);
-          playingNotes.get(temp[i].notes[j].name);
-        }
-      }
-
-      // await delay(500);
-      temp[i].color = "rgb(247,255,0,0.5)";
-      this.setState({ totalNotes: temp });
-    }
-    this.setState({ totalNotes: temp });
+    // var temp = this.state.totalNotes;
+    // for (var i = temp.length - 1; i >= 0; i--) {
+    //   await delay(500);
+    //   if (i !== this.props.amountOfTNotes - 1) {
+    //     temp[i + 1].color = "transparent";
+    //   }
+    //   for (var j = 0; j < temp[i].notes.length; j++) {
+    //     if (temp[i].notes[j].color === "purple") {
+    //       console.log("play " + temp[i].notes[j].name);
+    //       this.state.kalimba.play(temp[i].notes[j].name, 1000);
+    //     }
+    //   }
+    //   // await delay(500);
+    //   temp[i].color = "rgb(247,255,0,0.5)";
+    //   this.setState({ totalNotes: temp });
+    // }
+    // this.setState({ totalNotes: temp });
   };
 
   //populates the totalNotes Array
