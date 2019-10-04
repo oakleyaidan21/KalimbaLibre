@@ -38,14 +38,15 @@ class App extends Component {
         { note: "E6", color: "white", len: 1 }
       ],
       kalimbaLength: 40,
-      kalimba: null
+      kalimba: null,
+      playing: false
     };
     this.handlePlay = this.handlePlay.bind(this);
   }
 
   componentDidMount = async () => {
     await delay(500);
-    const { instruments, playingNotes } = await getInstruments(["kalimba"]);
+    const { instruments } = await getInstruments(["kalimba"]);
     this.setState({ kalimba: instruments.get("kalimba") });
     console.log(this.state.kalimba);
   };
@@ -119,22 +120,7 @@ class App extends Component {
   };
 
   handlePlay = async () => {
-    if (this.state.song.length !== 0) {
-      const { instruments, playingNotes } = await getInstruments(["kalimba"]);
-      const kalimba = instruments.get("kalimba");
-      var songArray = this.convertSong();
-      console.log(songArray);
-
-      for (var i = songArray.length - 1; i >= 0; i--) {
-        await delay(200);
-        for (var j = 0; j < songArray[i].length; j++) {
-          kalimba.play(songArray[i][j], 1000);
-          playingNotes.get(songArray[i][j]);
-        }
-      }
-
-      console.log(kalimba);
-    }
+    this.refs.child.handleTopLevelPlay();
   };
 
   handleLastPassUp = (passID, passName, color) => {
@@ -181,6 +167,8 @@ class App extends Component {
           amountOfTNotes={this.state.kalimbaLength}
           tineNotes={this.state.tineNotes}
           kalimba={this.state.kalimba}
+          playing={this.state.playing}
+          ref="child"
         />
         <ConfigContainer />
       </div>

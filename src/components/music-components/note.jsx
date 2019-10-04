@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { getInstruments } from "mobx-music";
 
 class Note extends Component {
   constructor(props) {
@@ -13,6 +12,9 @@ class Note extends Component {
       id: this.props.id,
       noteID: this.props.noteID
     };
+    this.handleNoteClick = this.handleNoteClick.bind(this);
+    this.handleSelectionE = this.handleSelectionE.bind(this);
+    this.handleSelectionL = this.handleSelectionL.bind(this);
   }
 
   handleSelectionE = () => {
@@ -39,7 +41,12 @@ class Note extends Component {
       );
     } else {
       this.setState({ color: "purple" });
-      this.props.onHandleNoteClick(this.state.noteID);
+      this.props.instrument.play(this.state.name);
+      this.props.onHandleNoteClick(
+        this.state.noteID,
+        this.state.id,
+        this.state.name
+      );
     }
   };
 
@@ -56,9 +63,9 @@ class Note extends Component {
             width: "24px",
             height: "40px"
           }}
-          onMouseEnter={this.handleSelectionE.bind(this)}
-          onMouseLeave={this.handleSelectionL.bind(this)}
-          onClick={this.handleNoteClick.bind(this)}
+          onMouseEnter={this.handleSelectionE}
+          onMouseLeave={this.handleSelectionL}
+          onClick={this.handleNoteClick}
         ></button>
       </div>
     );

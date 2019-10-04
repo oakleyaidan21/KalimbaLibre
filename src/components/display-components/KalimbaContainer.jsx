@@ -14,6 +14,10 @@ class KalimbaContainer extends Component {
     this.props.onLastPassUp(passID, passName, color);
   };
 
+  handleTopLevelPlay = () => {
+    this.refs.noteChild.goThroughEachTotalNote();
+  };
+
   render() {
     return (
       <div
@@ -37,6 +41,8 @@ class KalimbaContainer extends Component {
           amountOfTNotes={this.props.amountOfTNotes}
           tineNotes={this.props.tineNotes}
           kalimba={this.props.kalimba}
+          playing={this.props.playing}
+          ref="noteChild"
         />
       </div>
     );
