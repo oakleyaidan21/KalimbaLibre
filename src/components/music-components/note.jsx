@@ -37,10 +37,11 @@ class Note extends Component {
       this.props.onHandleNoteClick(
         this.state.noteID,
         this.state.id,
-        "transparent"
+        this.state.name
       );
     } else {
-      this.setState({ color: "purple" });
+      // this.setState({ color: "purple" });
+      this.setState({ selected: true });
       this.props.instrument.play(this.state.name);
       this.props.onHandleNoteClick(
         this.state.noteID,
@@ -49,6 +50,23 @@ class Note extends Component {
       );
     }
   };
+
+  renderIcon(selected) {
+    if (this.state.selected) {
+      console.log("render click");
+      return (
+        <img
+          src="https://cdn1.iconfinder.com/data/icons/musical-notes-1/100/Music_Note2-01-512.png"
+          alt=""
+          style={{
+            maxWidth: "100%",
+            height: "auto"
+          }}
+        />
+      );
+    }
+    return <></>;
+  }
 
   render() {
     return (
@@ -66,7 +84,9 @@ class Note extends Component {
           onMouseEnter={this.handleSelectionE}
           onMouseLeave={this.handleSelectionL}
           onClick={this.handleNoteClick}
-        ></button>
+        >
+          {this.renderIcon()}
+        </button>
       </div>
     );
   }
