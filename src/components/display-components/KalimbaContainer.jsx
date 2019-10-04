@@ -10,10 +10,6 @@ class KalimbaContainer extends Component {
     this.state = {};
   }
 
-  handleHolderPassUp = (passID, passName, color) => {
-    this.props.onLastPassUp(passID, passName, color);
-  };
-
   handleTopLevelPlay = () => {
     this.refs.noteChild.goThroughEachTotalNote();
   };

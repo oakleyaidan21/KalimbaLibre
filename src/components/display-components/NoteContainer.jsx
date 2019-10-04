@@ -10,7 +10,6 @@ class NoteContainer extends Component {
       totalNotes: []
     };
 
-    // this.componentDidMount = this.componentDidMount.bind(this);
     this.goThroughEachTotalNote = this.goThroughEachTotalNote.bind(this);
   }
 

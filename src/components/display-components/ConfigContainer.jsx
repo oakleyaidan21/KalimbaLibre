@@ -14,8 +14,6 @@ class ConfigContainer extends Component {
       <div
         id="configHolder"
         style={{
-          // width: 400,
-          // left: 10,
           display: "inline-block",
           height: 650,
           width: 400,
@@ -59,7 +57,6 @@ class ConfigContainer extends Component {
             size="sm"
             onClick={() => {
               console.log("clicked");
-              //   this.setState({ time: this.input.value });
             }}
           >
             Change
@@ -90,7 +87,7 @@ class ConfigContainer extends Component {
         </Form>
         <br></br>
         <b>
-          You can set individual notes by clicking on the bottom of the tines{" "}
+          You can set individual notes by clicking on the bottom of the tines
         </b>
       </div>
     );
