@@ -16,7 +16,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      song: [],
       instrument: null,
       tineNotes: [
         { note: "D6", color: "white", len: 1 },
@@ -121,23 +120,6 @@ class App extends Component {
 
   handlePlay = async () => {
     this.refs.child.handleTopLevelPlay();
-  };
-
-  handleLastPassUp = (passID, passName, color) => {
-    if (color === "purple") {
-      var index = this.state.song.findIndex(
-        element => element.passID === passID && element.passName === passName
-      );
-      this.state.song.splice(index, 1);
-    } else {
-      var temp = this.state.song.concat({ passID, passName });
-      temp.sort(function(a, b) {
-        return a.passID - b.passID;
-      });
-
-      console.log(this.state.song);
-      this.setState({ song: temp });
-    }
   };
 
   render() {
