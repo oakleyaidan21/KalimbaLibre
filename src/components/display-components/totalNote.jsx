@@ -7,7 +7,6 @@ class TotalNote extends Component {
 
     this.state = {
       backgroundcolor: this.props.color,
-      is4: this.props.is4,
       id: this.props.id,
       notes: [
         {
@@ -166,18 +165,14 @@ class TotalNote extends Component {
   };
 
   render() {
-    var border = "transparent";
-    if (this.state.is4) {
-      border = "black";
-    }
     return (
       <div
         id="totalNote"
         style={{
           width: 550,
           height: 40,
-          background: this.props.color,
-          borderBottom: "2px solid " + border
+          background: this.state.backgroundcolor,
+          borderBottom: "2px solid transparent"
         }}
       >
         {this.state.notes.map(note => (

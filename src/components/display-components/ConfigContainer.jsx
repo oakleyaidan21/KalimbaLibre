@@ -14,21 +14,37 @@ class ConfigContainer extends Component {
       <div
         id="configHolder"
         style={{
+          // width: 400,
+          // left: 10,
+          display: "inline-block",
+          height: 650,
           width: 400,
-          left: 10,
-          height: 535,
           background: "#D4D4D4",
           borderRadius: 25,
           top: 60,
           position: "absolute",
           padding: 10
-          //   textAlign: "center",
-          //   fontSize: 30
         }}
       >
         <div style={{ textAlign: "center" }}>
           <Badge variant="info large">Config</Badge>
         </div>
+        <Form>
+          <Form.Group controlId="formBasic">
+            <Form.Label>Title</Form.Label>
+            <Form.Control size="sm" placeholder={"Title"} />
+          </Form.Group>
+          <Button
+            variant="primary"
+            type="submit"
+            size="sm"
+            onClick={() => {
+              console.log("clicked");
+            }}
+          >
+            Set Title
+          </Button>
+        </Form>
         <Form>
           <Form.Group controlId="formBasic">
             <Form.Label>Time Signature</Form.Label>
@@ -50,9 +66,9 @@ class ConfigContainer extends Component {
           </Button>
         </Form>
         <Form>
-          <Form.Group controlId="formBasicEmail">
+          <Form.Group controlId="formBasic">
             <Form.Label>Key Signature</Form.Label>
-            <Form.Control size="sm" type="email" placeholder={this.state.key} />
+            <Form.Control size="sm" placeholder={this.state.key} />
             <Form.Text className="text-muted">
               Example: "C Major". Make sure it follows the form of
               "Note(space)Quality"
@@ -63,13 +79,9 @@ class ConfigContainer extends Component {
           </Button>
         </Form>
         <Form>
-          <Form.Group controlId="formBasicEmail">
+          <Form.Group controlId="formBasic">
             <Form.Label>Tempo</Form.Label>
-            <Form.Control
-              size="sm"
-              type="email"
-              placeholder={this.state.tempo}
-            />
+            <Form.Control size="sm" placeholder={this.state.tempo} />
             <Form.Text className="text-muted">Example: "120"</Form.Text>
           </Form.Group>
           <Button variant="primary" type="submit" size="sm">
