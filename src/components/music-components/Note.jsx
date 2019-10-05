@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import Quarter from "../../quarter_note.png";
 import Eighth from "../../eighth_note.png";
+import Half from "../../half_note.png";
 
 class Note extends Component {
   constructor(props) {
@@ -65,6 +66,10 @@ class Note extends Component {
         console.log("set to 8");
         this.setState({ imageToRender: Eighth });
       }
+      if (this.state.time === 2) {
+        console.log("set to 2");
+        this.setState({ imageToRender: Half });
+      }
       this.props.instrument.play(this.state.name);
       this.props.onHandleNoteClick(
         this.state.noteID,
@@ -94,6 +99,18 @@ class Note extends Component {
         return (
           <img
             src={require("../../eighth_note.png")}
+            alt=""
+            style={{
+              maxWidth: "100%",
+              height: "auto"
+            }}
+          />
+        );
+      }
+      if (this.state.imageToRender === Half) {
+        return (
+          <img
+            src={require("../../half_note.png")}
             alt=""
             style={{
               maxWidth: "100%",
