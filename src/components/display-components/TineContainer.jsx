@@ -6,8 +6,14 @@ import Tine from "../music-components/Tine";
 class TineContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      tineNotes: this.props.tineNotes
+    };
   }
+
+  componentWillReceiveProps = nextProps => {
+    this.setState({ tineNotes: nextProps.tineNotes });
+  };
 
   render() {
     return (

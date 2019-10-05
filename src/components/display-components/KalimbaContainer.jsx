@@ -7,7 +7,9 @@ class KalimbaContainer extends Component {
   constructor(props) {
     super(props);
     console.log(this.props);
-    this.state = {};
+    this.state = {
+      tineNotes: this.props.tineNotes
+    };
   }
 
   handleTopLevelPlay = () => {
@@ -16,6 +18,7 @@ class KalimbaContainer extends Component {
 
   componentWillReceiveProps = nextProps => {
     this.setState({ curTime: nextProps.curTime });
+    this.setState({ tineNotes: nextProps.tineNotes });
   };
 
   render() {
@@ -39,7 +42,7 @@ class KalimbaContainer extends Component {
         <NoteContainer
           onHolderPassUp={this.handleHolderPassUp}
           amountOfTNotes={this.props.amountOfTNotes}
-          tineNotes={this.props.tineNotes}
+          tineNotes={this.state.tineNotes}
           kalimba={this.props.kalimba}
           playing={this.props.playing}
           ref="noteChild"

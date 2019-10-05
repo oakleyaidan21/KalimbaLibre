@@ -11,6 +11,7 @@ import { getInstruments } from "mobx-music";
 import { delay } from "q";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import scaleKeys from "./constants.js";
 
 class App extends Component {
   constructor(props) {
@@ -122,6 +123,20 @@ class App extends Component {
     }
     if (type === "key") {
       this.setState({ keySig: value });
+      console.log(value);
+      var index = 0;
+      for (var i = 0; i < scaleKeys.keySignatures.length; i++) {
+        if (scaleKeys.keySignatures[i][0] === value) {
+          index = i;
+          break;
+        }
+      }
+      var temp = this.state.tineNotes;
+      for (var j = 1; j < temp.length; j++) {
+        temp[j].note = scaleKeys.keySignatures[index][j];
+        console.log(temp[j].note);
+      }
+      this.setState({ tineNotes: temp });
     }
     if (type === "time") {
       this.setState({ time: value });

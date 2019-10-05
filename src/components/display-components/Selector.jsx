@@ -24,7 +24,12 @@ class Selector extends Component {
   handleSelectionP = childData => {
     if (childData !== ".") {
       this.setState({ currentNote: childData });
+    } else {
+      var temp = this.state.currentNote;
+      temp += " dotted";
+      this.setState({ currentNote: temp });
     }
+
     this.props.onChangeNoteTime(childData);
   };
 
