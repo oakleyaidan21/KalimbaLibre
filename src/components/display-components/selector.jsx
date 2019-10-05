@@ -4,34 +4,39 @@ import SelectorButton from "./SelectorButton";
 import Badge from "react-bootstrap/Badge";
 
 class Selector extends Component {
-  state = {
-    currentNote: "N",
-    selectors: [
-      { label: "1" },
-      { label: "2" },
-      { label: "4" },
-      { label: "8" },
-      { label: "16" },
-      { label: "32" }
-    ]
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentNote: this.props.curNote,
+      selectors: [
+        { label: "1" },
+        { label: "2" },
+        { label: "4" },
+        { label: "8" },
+        { label: "16" },
+        { label: "32" }
+      ]
+    };
+    this.handleSelectionP = this.handleSelectionP.bind(this);
+  }
 
   handleSelectionP = childData => {
     this.setState({ currentNote: childData });
+    this.props.onChangeNoteTime(childData);
   };
 
   handlePlay() {
     console.log("play pressed");
   }
 
-  getBadgeClass() {
-    return this.state.currentNote === "N" ? "warning" : "primary";
-  }
+  getBadgeClass = () => {
+    return "primary";
+  };
 
-  displayNote() {
-    var n = this.state.currentNote;
-    return this.state.currentNote === "N" ? "___" : n;
-  }
+  displayNote = () => {
+    // var n = this.state.currentNote;
+    return this.state.currentNote;
+  };
 
   render() {
     return (

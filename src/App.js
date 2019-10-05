@@ -42,10 +42,17 @@ class App extends Component {
       tempo: 120,
       songTitle: "No Title",
       keySig: "C",
-      time: "4/4"
+      time: "4/4",
+      curTime: 4
     };
     this.handlePlay = this.handlePlay.bind(this);
+    this.changeNoteTime = this.changeNoteTime.bind(this);
   }
+
+  changeNoteTime = childData => {
+    this.setState({ curTime: childData });
+    console.log(this.state.curTime);
+  };
 
   componentDidMount = async () => {
     await delay(500);
@@ -139,7 +146,10 @@ class App extends Component {
             </Button>
           </Form>
         </Navbar>
-        <Selector style={{ topMargin: "0px" }} />
+        <Selector
+          onChangeNoteTime={this.changeNoteTime}
+          curNote={this.state.curTime}
+        />
         <KalimbaContainer
           onLastPassUp={this.handleLastPassUp}
           amountOfTNotes={this.state.kalimbaLength}
@@ -148,6 +158,7 @@ class App extends Component {
           tempo={this.state.tempo}
           playing={this.state.playing}
           ref="child"
+          curTime={this.state.curTime}
         />
         <ConfigContainer
           title={this.state.songTitle}

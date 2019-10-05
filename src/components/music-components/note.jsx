@@ -16,6 +16,7 @@ class Note extends Component {
     this.handleNoteClick = this.handleNoteClick.bind(this);
     this.handleSelectionE = this.handleSelectionE.bind(this);
     this.handleSelectionL = this.handleSelectionL.bind(this);
+    this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
   }
 
   handleSelectionE = () => {
@@ -23,6 +24,10 @@ class Note extends Component {
       this.setState({ color: "rgb(0,255,85,0.6)" });
     }
     this.props.onSelectNote("rgb(247,255,0,0.5)");
+  };
+
+  componentWillReceiveProps = nextProps => {
+    this.setState({ time: nextProps.time });
   };
 
   handleSelectionL = () => {
@@ -42,23 +47,25 @@ class Note extends Component {
         this.state.noteID,
         this.state.id,
         this.state.name,
+        this.state.time,
         true
       );
     } else {
       //add it to the notes to be played
-      console.log("adding");
+      console.log("adding " + this.state.time);
       this.setState({ selected: true });
       this.props.instrument.play(this.state.name);
       this.props.onHandleNoteClick(
         this.state.noteID,
         this.state.id,
         this.state.name,
+        this.state.time,
         false
       );
     }
   };
 
-  renderIcon(selected) {
+  renderIcon() {
     if (this.state.selected) {
       return (
         <img

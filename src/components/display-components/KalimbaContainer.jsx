@@ -14,6 +14,10 @@ class KalimbaContainer extends Component {
     this.refs.noteChild.goThroughEachTotalNote();
   };
 
+  componentWillReceiveProps = nextProps => {
+    this.setState({ curTime: nextProps.curTime });
+  };
+
   render() {
     return (
       <div
@@ -40,6 +44,7 @@ class KalimbaContainer extends Component {
           playing={this.props.playing}
           ref="noteChild"
           tempo={this.props.tempo}
+          curTime={this.props.curTime}
         />
       </div>
     );

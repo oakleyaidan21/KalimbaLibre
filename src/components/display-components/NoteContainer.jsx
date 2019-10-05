@@ -13,23 +13,45 @@ class NoteContainer extends Component {
     };
 
     this.goThroughEachTotalNote = this.goThroughEachTotalNote.bind(this);
+    this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
   }
+
+  getSmallestTimeInterval = array => {
+    return Math.max.apply(
+      Math,
+      array.map(function(o) {
+        return o.time;
+      })
+    );
+  };
+
+  componentWillReceiveProps = nextProps => {
+    this.setState({ curTime: nextProps.curTime });
+  };
 
   //goes through each totalNote and highlights them
   goThroughEachTotalNote = async () => {
-    console.log(this.state.tempo);
+    console.log(this.props.tempo);
+    console.log(this.props.kalimba);
+    var smallestTimeInterval = 4;
     var temp = this.state.totalNotes;
     for (var i = temp.length - 1; i >= this.state.idToPlayUntil; i--) {
-      await delay(1000 / (this.props.tempo / 60));
+      if (smallestTimeInterval < 0) {
+        smallestTimeInterval = 4;
+      }
+      console.log(smallestTimeInterval);
+      await delay(
+        (4 * (1000 / (this.props.tempo / 60))) / smallestTimeInterval
+      );
       if (i !== this.props.amountOfTNotes - 1) {
         temp[i + 1].color = "transparent";
       }
-      console.log(temp[i].coloredNotes);
       temp[i].color = "rgb(247,255,0,0.5)";
       this.setState({ totalNotes: temp });
       for (var j = 0; j < temp[i].coloredNotes.length; j++) {
-        this.props.kalimba.play(temp[i].coloredNotes[j], 1000);
+        this.props.kalimba.play(temp[i].coloredNotes[j].noteName);
       }
+      smallestTimeInterval = this.getSmallestTimeInterval(temp[i].coloredNotes);
     }
     temp[this.state.idToPlayUntil].color = "transparent";
     this.setState({ totalNotes: temp });
@@ -57,11 +79,11 @@ class NoteContainer extends Component {
     this.setState({ totalNotes: temp });
   };
 
-  handlePassingUpNote = (tNote, noteName, remove) => {
+  handlePassingUpNote = (tNote, noteName, time, remove) => {
     var temp = this.state.totalNotes;
     if (remove) {
       temp[tNote].coloredNotes.splice(
-        temp[tNote].coloredNotes.indexOf(noteName),
+        temp[tNote].coloredNotes.indexOf({ noteName, time }),
         1
       );
       if (this.state.idToPlayUntil === tNote) {
@@ -74,7 +96,7 @@ class NoteContainer extends Component {
       }
 
       this.setState({ idToPlayUntil: tNote });
-      temp[tNote].coloredNotes.push(noteName);
+      temp[tNote].coloredNotes.push({ noteName, time });
       this.setState({ totalNotes: temp });
     }
   };
@@ -102,6 +124,7 @@ class NoteContainer extends Component {
               id={totalNote.id}
               tineNotes={this.props.tineNotes}
               instrument={this.props.kalimba}
+              curTime={this.props.curTime}
             />
           ))}
         </>
