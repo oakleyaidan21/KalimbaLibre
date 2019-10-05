@@ -50,7 +50,13 @@ class App extends Component {
   }
 
   changeNoteTime = childData => {
-    this.setState({ curTime: childData });
+    if (childData === ".") {
+      var addition = this.state.curTime - (this.state.curTime / 2 - 1);
+      this.setState({ curTime: addition });
+    } else {
+      this.setState({ curTime: childData });
+    }
+
     console.log(this.state.curTime);
   };
 

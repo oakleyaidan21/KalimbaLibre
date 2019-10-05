@@ -9,19 +9,22 @@ class Selector extends Component {
     this.state = {
       currentNote: this.props.curNote,
       selectors: [
-        { label: "1" },
-        { label: "2" },
-        { label: "4" },
-        { label: "8" },
-        { label: "16" },
-        { label: "32" }
+        { label: 1 },
+        { label: 2 },
+        { label: 4 },
+        { label: 8 },
+        { label: 16 },
+        { label: 32 },
+        { label: "." }
       ]
     };
     this.handleSelectionP = this.handleSelectionP.bind(this);
   }
 
   handleSelectionP = childData => {
-    this.setState({ currentNote: childData });
+    if (childData !== ".") {
+      this.setState({ currentNote: childData });
+    }
     this.props.onChangeNoteTime(childData);
   };
 

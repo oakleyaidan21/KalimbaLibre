@@ -1,5 +1,7 @@
 //buttons in layed over the tines for playing notes
 import React, { Component } from "react";
+import Quarter from "../../quarter_note.png";
+import Eighth from "../../eighth_note.png";
 
 class Note extends Component {
   constructor(props) {
@@ -11,7 +13,8 @@ class Note extends Component {
       color: this.props.color,
       selected: false,
       id: this.props.id,
-      noteID: this.props.noteID
+      noteID: this.props.noteID,
+      imageToRender: null
     };
     this.handleNoteClick = this.handleNoteClick.bind(this);
     this.handleSelectionE = this.handleSelectionE.bind(this);
@@ -54,6 +57,14 @@ class Note extends Component {
       //add it to the notes to be played
       console.log("adding " + this.state.time);
       this.setState({ selected: true });
+      if (this.state.time === 4) {
+        this.setState({ imageToRender: Quarter });
+        console.log("set to 4");
+      }
+      if (this.state.time === 8) {
+        console.log("set to 8");
+        this.setState({ imageToRender: Eighth });
+      }
       this.props.instrument.play(this.state.name);
       this.props.onHandleNoteClick(
         this.state.noteID,
@@ -67,16 +78,30 @@ class Note extends Component {
 
   renderIcon() {
     if (this.state.selected) {
-      return (
-        <img
-          src={require("../../quarter_note.png")}
-          alt=""
-          style={{
-            maxWidth: "100%",
-            height: "auto"
-          }}
-        />
-      );
+      if (this.state.imageToRender === Quarter) {
+        return (
+          <img
+            src={require("../../quarter_note.png")}
+            alt=""
+            style={{
+              maxWidth: "100%",
+              height: "auto"
+            }}
+          />
+        );
+      }
+      if (this.state.imageToRender === Eighth) {
+        return (
+          <img
+            src={require("../../eighth_note.png")}
+            alt=""
+            style={{
+              maxWidth: "100%",
+              height: "auto"
+            }}
+          />
+        );
+      }
     }
     return <></>;
   }
