@@ -39,6 +39,7 @@ class KalimbaContainer extends Component {
           kalimba={this.props.kalimba}
           playing={this.props.playing}
           ref="noteChild"
+          tempo={this.props.tempo}
         />
       </div>
     );

@@ -34,32 +34,35 @@ class Note extends Component {
 
   //changes the clicked note to an image of a note, and also sends which notes to play to the NoteContainer
   handleNoteClick = () => {
-    if (this.state.color === "purple") {
+    if (this.state.selected === true) {
+      //remove it from the notes to be played
       this.setState({ selected: false });
       this.setState({ color: "transparent" });
       this.props.onHandleNoteClick(
         this.state.noteID,
         this.state.id,
-        this.state.name
+        this.state.name,
+        true
       );
     } else {
+      //add it to the notes to be played
+      console.log("adding");
       this.setState({ selected: true });
-      this.setState({color: "purple"});
       this.props.instrument.play(this.state.name);
       this.props.onHandleNoteClick(
         this.state.noteID,
         this.state.id,
-        this.state.name
+        this.state.name,
+        false
       );
     }
   };
 
   renderIcon(selected) {
     if (this.state.selected) {
-      console.log("render click");
       return (
         <img
-          src="src\quarter_note.png"
+          src={require("../../quarter_note.png")}
           alt=""
           style={{
             maxWidth: "100%",

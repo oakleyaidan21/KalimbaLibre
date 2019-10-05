@@ -156,14 +156,23 @@ class TotalNote extends Component {
     this.setState({ backgroundcolor: childData });
   };
 
-  handleNoteClick = (passID, tnID, notename) => {
-    console.log("clicked! " + passID + " " + tnID);
-    console.log(this.state.notes[passID].color);
+  componentWillReceiveProps(nextProps) {
+    this.setState({ backgroundcolor: nextProps.color });
+  }
+
+  handleNoteClick = (passID, tnID, notename, remove) => {
     var temp = this.state.notes;
-    temp[passID].color = "purple";
-    temp[passID].selected = true;
-    this.setState({ notes: temp });
-    this.props.onPassingUpNote(tnID, notename);
+    if (remove) {
+      temp[passID].color = "transparent";
+      temp[passID].selected = false;
+      this.setState({ notes: temp });
+      this.props.onPassingUpNote(tnID, notename, remove);
+    } else {
+      temp[passID].color = "purple";
+      temp[passID].selected = true;
+      this.setState({ notes: temp });
+      this.props.onPassingUpNote(tnID, notename, remove);
+    }
   };
 
   render() {
@@ -173,7 +182,7 @@ class TotalNote extends Component {
         style={{
           width: 550,
           height: 40,
-          background: this.props.color,
+          background: this.state.backgroundcolor,
           borderBottom: "2px solid transparent"
         }}
       >

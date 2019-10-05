@@ -38,7 +38,11 @@ class App extends Component {
       ],
       kalimbaLength: 40,
       kalimba: null,
-      playing: false
+      playing: false,
+      tempo: 120,
+      songTitle: "No Title",
+      keySig: "C",
+      time: "4/4"
     };
     this.handlePlay = this.handlePlay.bind(this);
   }
@@ -47,31 +51,7 @@ class App extends Component {
     await delay(500);
     const { instruments } = await getInstruments(["kalimba"]);
     this.setState({ kalimba: instruments.get("kalimba") });
-    console.log(this.state.kalimba);
-  };
-
-  //returns a structure that the player can read
-  convertSong = () => {
-    console.log(this.state.song);
-    var temp = [[]];
-    var len = 0;
-    if (
-      this.state.song.length >
-      this.state.song[this.state.song.length - 1].passID
-    ) {
-      len = this.state.song.length;
-    } else {
-      len = this.state.song[this.state.song.length - 1].passID;
-    }
-    for (var i = 0; i < len; i++) {
-      temp.push([]);
-    }
-
-    for (var j = 0; j < this.state.song.length; j++) {
-      temp[this.state.song[j].passID].push(this.state.song[j].passName);
-    }
-
-    return temp;
+    console.log("kalimba loaded");
   };
 
   //can probably handle the page issue by having it image the holder, then manually scroll up and do it again
@@ -122,6 +102,22 @@ class App extends Component {
     this.refs.child.handleTopLevelPlay();
   };
 
+  configure = (value, type) => {
+    if (type === "title") {
+      console.log(value);
+      this.setState({ songTitle: value });
+    }
+    if (type === "key") {
+      this.setState({ keySig: value });
+    }
+    if (type === "time") {
+      this.setState({ time: value });
+    }
+    if (type === "tempo") {
+      this.setState({ tempo: value });
+    }
+  };
+
   render() {
     return (
       <div className="App">
@@ -149,10 +145,17 @@ class App extends Component {
           amountOfTNotes={this.state.kalimbaLength}
           tineNotes={this.state.tineNotes}
           kalimba={this.state.kalimba}
+          tempo={this.state.tempo}
           playing={this.state.playing}
           ref="child"
         />
-        <ConfigContainer />
+        <ConfigContainer
+          title={this.state.songTitle}
+          keySig={this.state.keySig}
+          time={this.state.time}
+          tempo={this.state.tempo}
+          onConfigButton={this.configure}
+        />
       </div>
     );
   }

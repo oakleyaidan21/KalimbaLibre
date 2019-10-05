@@ -8,7 +8,8 @@ class NoteContainer extends Component {
     super(props);
 
     this.state = {
-      totalNotes: []
+      totalNotes: [],
+      idToPlayUntil: -1
     };
 
     this.goThroughEachTotalNote = this.goThroughEachTotalNote.bind(this);
@@ -16,18 +17,22 @@ class NoteContainer extends Component {
 
   //goes through each totalNote and highlights them
   goThroughEachTotalNote = async () => {
+    console.log(this.state.tempo);
     var temp = this.state.totalNotes;
-    for (var i = temp.length - 1; i >= 0; i--) {
-      await delay(500);
+    for (var i = temp.length - 1; i >= this.state.idToPlayUntil; i--) {
+      await delay(1000 / (this.props.tempo / 60));
       if (i !== this.props.amountOfTNotes - 1) {
         temp[i + 1].color = "transparent";
       }
+      console.log(temp[i].coloredNotes);
       temp[i].color = "rgb(247,255,0,0.5)";
       this.setState({ totalNotes: temp });
       for (var j = 0; j < temp[i].coloredNotes.length; j++) {
         this.props.kalimba.play(temp[i].coloredNotes[j], 1000);
       }
     }
+    temp[this.state.idToPlayUntil].color = "transparent";
+    this.setState({ totalNotes: temp });
   };
 
   //populates the totalNotes Array
@@ -52,11 +57,26 @@ class NoteContainer extends Component {
     this.setState({ totalNotes: temp });
   };
 
-  handlePassingUpNote = (tNote, noteName) => {
-    console.log(noteName);
+  handlePassingUpNote = (tNote, noteName, remove) => {
     var temp = this.state.totalNotes;
-    temp[tNote].coloredNotes.push(noteName);
-    this.setState({ totalNotes: temp });
+    if (remove) {
+      temp[tNote].coloredNotes.splice(
+        temp[tNote].coloredNotes.indexOf(noteName),
+        1
+      );
+      if (this.state.idToPlayUntil === tNote) {
+        var t = this.state.idToPlayUntil - 1;
+        this.setState({ idToPlayUntil: t });
+      }
+    } else {
+      if (tNote < this.state.idToPlayUntil || this.state.idToPlayUntil === -1) {
+        this.setState({ idToPlayUntil: tNote });
+      }
+
+      this.setState({ idToPlayUntil: tNote });
+      temp[tNote].coloredNotes.push(noteName);
+      this.setState({ totalNotes: temp });
+    }
   };
 
   render() {

@@ -5,11 +5,50 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 class ConfigContainer extends Component {
-  state = {
-    time: "4/4",
-    key: "C Major",
-    tempo: "120"
+  constructor(props) {
+    super(props);
+    this.state = {
+      stringToGive: "",
+      title: this.props.title,
+      keySig: this.props.keySig,
+      tempo: this.props.tempo,
+      time: this.props.time
+    };
+  }
+
+  componentWillReceiveProps = nextProps => {
+    if (this.props !== nextProps) {
+      this.setState({
+        title: nextProps.title,
+        keySig: nextProps.keySig,
+        tempo: nextProps.tempo,
+        time: nextProps.time
+      });
+      console.log(this.state.title);
+    }
   };
+
+  configStrings = event => {
+    this.setState({ stringToGive: event.target.value });
+  };
+
+  configTitle = () => {
+    console.log(this.state.stringToGive);
+    this.props.onConfigButton(this.state.stringToGive, "title");
+  };
+  configTime() {
+    console.log("hi");
+    this.props.onConfigButton(this.state.stringToGive, "time");
+  }
+  configKey() {
+    this.props.onConfigButton(this.state.stringToGive, "key");
+    console.log("hi");
+  }
+  configTempo() {
+    this.props.onConfigButton(this.state.stringToGive, "tempo");
+    console.log("hi");
+  }
+
   render() {
     return (
       <div
@@ -31,14 +70,20 @@ class ConfigContainer extends Component {
         <Form>
           <Form.Group controlId="formBasic">
             <Form.Label>Title</Form.Label>
-            <Form.Control size="sm" placeholder={"Title"} />
+            <Form.Control
+              size="sm"
+              placeholder={this.state.title}
+              onChange={this.configStrings}
+            />
           </Form.Group>
           <Button
             variant="primary"
             type="submit"
             size="sm"
-            onClick={() => {
-              console.log("clicked");
+            id="confBtn"
+            onClick={event => {
+              event.preventDefault();
+              this.configTitle(event);
             }}
           >
             Set Title
@@ -47,7 +92,11 @@ class ConfigContainer extends Component {
         <Form>
           <Form.Group controlId="formBasic">
             <Form.Label>Time Signature</Form.Label>
-            <Form.Control size="sm" placeholder={this.state.time} />
+            <Form.Control
+              size="sm"
+              placeholder={this.state.time}
+              onChange={this.configStrings}
+            />
             <Form.Text className="text-muted">
               Example: "4/4". Make sure it follows the form of "X/Y"
             </Form.Text>
@@ -56,34 +105,59 @@ class ConfigContainer extends Component {
             variant="primary"
             type="submit"
             size="sm"
-            onClick={() => {
-              console.log("clicked");
+            onClick={event => {
+              event.preventDefault();
+              this.configTime();
             }}
           >
-            Change
+            Set Time Signature
           </Button>
         </Form>
         <Form>
           <Form.Group controlId="formBasic">
             <Form.Label>Key Signature</Form.Label>
-            <Form.Control size="sm" placeholder={this.state.key} />
+            <Form.Control
+              size="sm"
+              placeholder={this.state.keySig}
+              onChange={this.configStrings}
+            />
             <Form.Text className="text-muted">
-              Example: "C Major". Make sure it follows the form of
-              "Note(space)Quality"
+              Example: "C", where uppercase letter = major and lowercase letter
+              = minor
             </Form.Text>
           </Form.Group>
-          <Button variant="primary" type="submit" size="sm">
-            Change
+          <Button
+            variant="primary"
+            type="submit"
+            size="sm"
+            onClick={event => {
+              event.preventDefault();
+              this.configKey();
+            }}
+          >
+            Set Major
           </Button>
         </Form>
         <Form>
           <Form.Group controlId="formBasic">
             <Form.Label>Tempo</Form.Label>
-            <Form.Control size="sm" placeholder={this.state.tempo} />
+            <Form.Control
+              size="sm"
+              placeholder={this.state.tempo}
+              onChange={this.configStrings}
+            />
             <Form.Text className="text-muted">Example: "120"</Form.Text>
           </Form.Group>
-          <Button variant="primary" type="submit" size="sm">
-            Change
+          <Button
+            variant="primary"
+            type="submit"
+            size="sm"
+            onClick={event => {
+              event.preventDefault();
+              this.configTempo();
+            }}
+          >
+            Set Tempo
           </Button>
         </Form>
         <br></br>
