@@ -159,11 +159,14 @@ class App extends Component {
       this.state.keySig +
       "\n" +
       this.state.tempo +
+      "\n" +
+      this.state.kalimbaLength +
       "\n";
     var sequence = "";
     for (var i = this.state.songNotes.length - 1; i >= 0; i--) {
       var shortestTime = 0;
       for (var j = 1; j < this.state.songNotes[i].length; j++) {
+        sequence += i + " ";
         if (this.state.songNotes[i][j].time >= shortestTime) {
           shortestTime = this.state.songNotes[i][j].time;
         }
