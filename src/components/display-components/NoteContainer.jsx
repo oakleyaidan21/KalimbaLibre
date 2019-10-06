@@ -9,7 +9,7 @@ class NoteContainer extends Component {
 
     this.state = {
       totalNotes: [],
-      idToPlayUntil: -1
+      idToPlayUntil: 0
     };
 
     this.goThroughEachTotalNote = this.goThroughEachTotalNote.bind(this);
@@ -35,23 +35,27 @@ class NoteContainer extends Component {
     console.log(this.props.kalimba);
     var smallestTimeInterval = 4;
     var temp = this.state.totalNotes;
+    var counter = 1;
     for (var i = temp.length - 1; i >= this.state.idToPlayUntil; i--) {
       if (smallestTimeInterval < 0) {
         smallestTimeInterval = 4;
       }
-      console.log(smallestTimeInterval);
+
       await delay(
         (4 * (1000 / (this.props.tempo / 60))) / smallestTimeInterval
       );
       if (i !== this.props.amountOfTNotes - 1) {
         temp[i + 1].color = "transparent";
       }
+
       temp[i].color = "rgb(247,255,0,0.5)";
       this.setState({ totalNotes: temp });
       for (var j = 0; j < temp[i].coloredNotes.length; j++) {
         this.props.kalimba.play(temp[i].coloredNotes[j].noteName);
       }
       smallestTimeInterval = this.getSmallestTimeInterval(temp[i].coloredNotes);
+      document.getElementById("holder").scrollTop = 1375 - 40 * counter;
+      counter++;
     }
     temp[this.state.idToPlayUntil].color = "transparent";
     this.setState({ totalNotes: temp });

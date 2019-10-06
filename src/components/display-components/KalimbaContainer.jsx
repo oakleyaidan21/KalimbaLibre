@@ -8,12 +8,24 @@ class KalimbaContainer extends Component {
     super(props);
     console.log(this.props);
     this.state = {
+      curScroll: 1615 - 400
       // tineNotes: this.props.tineNotes
     };
   }
 
   handleTopLevelPlay = () => {
     this.refs.noteChild.goThroughEachTotalNote();
+  };
+
+  handleScrollBottom = () => {
+    // console.log(this.state.curScroll);
+    // var temp = this.state.curScroll - 400;
+    // document.getElementById("holder").scrollTop = temp;
+    // this.setState({ curScroll: temp });
+    // console.log("hi");
+    document.getElementById("holder").scrollTop = document.getElementById(
+      "holder"
+    ).scrollHeight;
   };
 
   componentWillReceiveProps = nextProps => {

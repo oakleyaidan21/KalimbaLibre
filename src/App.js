@@ -165,8 +165,8 @@ class App extends Component {
     var sequence = "";
     for (var i = this.state.songNotes.length - 1; i >= 0; i--) {
       var shortestTime = 0;
+      sequence += i + " ";
       for (var j = 1; j < this.state.songNotes[i].length; j++) {
-        sequence += i + " ";
         if (this.state.songNotes[i][j].time >= shortestTime) {
           shortestTime = this.state.songNotes[i][j].time;
         }
@@ -207,6 +207,11 @@ class App extends Component {
     this.setState({ songNotes: temp });
   };
 
+  scrollToBottom = () => {
+    console.log("scroll to bottom");
+    this.refs.child.handleScrollBottom();
+  };
+
   render() {
     return (
       <div className="App">
@@ -233,6 +238,13 @@ class App extends Component {
               style={{ margin: 10 }}
             >
               EXPORT SONG TO TXT
+            </Button>
+            <Button
+              onClick={this.scrollToBottom}
+              id="my-input"
+              variant="outline-info"
+            >
+              TO BOTTOM
             </Button>
           </Form>
         </Navbar>
