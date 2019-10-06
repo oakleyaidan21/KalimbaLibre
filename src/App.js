@@ -181,7 +181,7 @@ class App extends Component {
       type: "text/plain"
     });
     element.href = URL.createObjectURL(file);
-    element.download = "song.txt";
+    element.download = this.state.songTitle;
     document.body.appendChild(element);
     element.click();
   };
