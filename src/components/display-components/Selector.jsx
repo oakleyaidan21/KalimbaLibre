@@ -55,7 +55,7 @@ class Selector extends Component {
           background: "#D4D4D4",
           borderRadius: "25px",
           right: 20,
-          top: 60,
+          top: 75,
           position: "absolute"
         }}
       >

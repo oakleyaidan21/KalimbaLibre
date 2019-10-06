@@ -146,6 +146,23 @@ class App extends Component {
     }
   };
 
+  handleNoteExport() {
+    // const fs = require("browserify-fs");
+    // let data = "learning how to write in a file";
+    // fs.writeFile("output.txt", data, err => {
+    //   if (err) throw err;
+    // });
+    const element = document.createElement("a");
+    //put song string in here
+    const file = new Blob(["hi"], {
+      type: "text/plain"
+    });
+    element.href = URL.createObjectURL(file);
+    element.download = "song.txt";
+    document.body.appendChild(element);
+    element.click();
+  }
+
   render() {
     console.log(this.state.tineNotes);
     return (
@@ -159,12 +176,20 @@ class App extends Component {
             <Button
               variant="outline-info"
               onClick={this.handleExport}
-              style={{ marginRight: 10 }}
+              style={{ margin: 10 }}
             >
-              EXPORT
+              EXPORT SONG TO PDF
             </Button>
             <Button variant="outline-info" onClick={this.handlePlay}>
               PLAY
+            </Button>
+            <Button
+              id="my-input"
+              variant="outline-info"
+              onClick={this.handleNoteExport}
+              style={{ margin: 10 }}
+            >
+              EXPORT SONG TO TXT
             </Button>
           </Form>
         </Navbar>
