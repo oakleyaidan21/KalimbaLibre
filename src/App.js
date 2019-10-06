@@ -76,24 +76,41 @@ class App extends Component {
 
   //can probably handle the page issue by having it image the holder, then manually scroll up and do it again
   handleExport = () => {
-    console.log("unimplemented!");
+    /** oc = new jsPdf();
+        ...
+        pageHeight= doc.internal.pageSize.height;
+
+        // Before adding new content
+        y = 500 // Height position of new content
+        if (y >= pageHeight)
+        {
+          doc.addPage();
+          y = 0 // Restart height position
+        }
+        doc.text(x, y, "value");*/
     var input = document.getElementById("holder");
     html2canvas(input).then(canvas => {
-      // document.getElementById("holder").scrollTop = 1615 - 700;
       let pdf = new jsPDF("p", "mm", "a4");
+      var hold = document.getElementById("holder");
+      hold.style.overflow = "visible";
       for (var i = 0; i < 4; i++) {
         pdf.addImage(
           canvas.toDataURL("image/png"),
           "PNG",
           0,
-          i * 500,
+          500 * i,
           211,
           298
         );
+        if (i > 0 || i !== 3) {
+          pdf.addPage();
+        }
       }
+      // hold.style.overflow = "auto";
 
       pdf.save("kalimba.pdf");
     });
+    input.scrollTop = input.scrollHeight;
   };
 
   handlePlay = async () => {
