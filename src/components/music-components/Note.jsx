@@ -10,7 +10,6 @@ class Note extends Component {
     this.state = {
       time: this.props.time,
       rest: this.props.rest,
-      name: this.props.name,
       color: this.props.color,
       selected: false,
       id: this.props.id,
@@ -70,11 +69,11 @@ class Note extends Component {
         console.log("set to 2");
         this.setState({ imageToRender: Half });
       }
-      this.props.instrument.play(this.state.name);
+      this.props.instrument.play(this.props.name);
       this.props.onHandleNoteClick(
         this.state.noteID,
         this.state.id,
-        this.state.name,
+        this.props.name,
         this.state.time,
         false
       );

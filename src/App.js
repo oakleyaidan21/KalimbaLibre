@@ -19,23 +19,23 @@ class App extends Component {
     this.state = {
       instrument: null,
       tineNotes: [
-        { note: "D6", color: "white", len: 1 },
-        { note: "B5", color: "white", len: 2 },
-        { note: "G5", color: "rgb(0,123,255)", len: 3 },
-        { note: "E5", color: "white", len: 4 },
+        { note: "D6", color: "white", len: 1, id: 1 },
+        { note: "B5", color: "white", len: 2, id: 2 },
+        { note: "G5", color: "rgb(0,123,255)", len: 3, id: 3 },
+        { note: "E5", color: "white", len: 4, id: 4 },
         { note: "C5", color: "white", len: 5 },
-        { note: "A4", color: "rgb(0,123,255)", len: 6 },
-        { note: "F4", color: "white", len: 7 },
-        { note: "D4", color: "white", len: 8 },
-        { note: "C4", color: "rgb(0,123,255)", len: 9 },
-        { note: "E4", color: "white", len: 8 },
-        { note: "G4", color: "white", len: 7 },
-        { note: "B4", color: "rgb(0,123,255)", len: 6 },
-        { note: "D5", color: "white", len: 5 },
-        { note: "F5", color: "white", len: 4 },
-        { note: "A5", color: "rgb(0,123,255)", len: 3 },
-        { note: "C6", color: "white", len: 2 },
-        { note: "E6", color: "white", len: 1 }
+        { note: "A4", color: "rgb(0,123,255)", len: 6, id: 6 },
+        { note: "F4", color: "white", len: 7, id: 7 },
+        { note: "D4", color: "white", len: 8, id: 8 },
+        { note: "C4", color: "rgb(0,123,255)", len: 9, id: 9 },
+        { note: "E4", color: "white", len: 8, id: 10 },
+        { note: "G4", color: "white", len: 7, id: 11 },
+        { note: "B4", color: "rgb(0,123,255)", len: 6, id: 12 },
+        { note: "D5", color: "white", len: 5, id: 13 },
+        { note: "F5", color: "white", len: 4, id: 14 },
+        { note: "A5", color: "rgb(0,123,255)", len: 3, id: 15 },
+        { note: "C6", color: "white", len: 2, id: 16 },
+        { note: "E6", color: "white", len: 1, id: 17 }
       ],
       kalimbaLength: 40,
       kalimba: null,
@@ -132,8 +132,8 @@ class App extends Component {
         }
       }
       var temp = this.state.tineNotes;
-      for (var j = 1; j < temp.length; j++) {
-        temp[j].note = scaleKeys.keySignatures[index][j];
+      for (var j = 0; j < temp.length; j++) {
+        temp[j].note = scaleKeys.keySignatures[index][j + 1];
         console.log(temp[j].note);
       }
       this.setState({ tineNotes: temp });
@@ -147,6 +147,7 @@ class App extends Component {
   };
 
   render() {
+    console.log(this.state.tineNotes);
     return (
       <div className="App">
         <Navbar bg="dark" variant="dark">

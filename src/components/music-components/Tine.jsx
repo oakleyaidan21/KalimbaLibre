@@ -5,7 +5,6 @@ class Tine extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      note: this.props.note,
       color: this.props.color,
       len: this.props.len * 15 + this.props.amountOfTNotes * 40,
       buttons: [
@@ -94,7 +93,7 @@ class Tine extends Component {
               marginRight: 5
             }}
           >
-            {this.state.note}
+            {this.props.note}
           </b>
         </button>
       </div>

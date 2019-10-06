@@ -8,13 +8,15 @@
     "acorn": "^7.1.0",
     "bootstrap": "^4.3.1",
     "html2canvas": "^1.0.0-rc.5",
+    "jquery": "^1.9.1",
     "jspdf": "^1.5.3",
     "mobx-music": "^1.1.1",
     "react": "^16.10.1",
     "react-bootstrap": "^1.0.0-beta.12",
     "react-dom": "^16.10.1",
     "react-mobx-music": "^1.1.0",
-    "react-scripts": "3.1.2"
+    "react-scripts": "3.1.2",
+    "typescript": "^3.6.3"
   },
   "scripts": {
     "start": "react-scripts start",

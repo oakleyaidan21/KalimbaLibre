@@ -192,11 +192,11 @@ class TotalNote extends Component {
           borderBottom: "2px solid transparent"
         }}
       >
-        {this.state.notes.map(note => (
+        {this.state.notes.map((note, index) => (
           <Note
             time={this.props.curTime}
             rest={note.rest}
-            name={note.name}
+            name={this.props.tineNotes[index].note}
             color={note.color}
             id={this.state.id}
             onSelectNote={this.handleSelection}

@@ -8,7 +8,7 @@ class KalimbaContainer extends Component {
     super(props);
     console.log(this.props);
     this.state = {
-      tineNotes: this.props.tineNotes
+      // tineNotes: this.props.tineNotes
     };
   }
 
@@ -42,7 +42,7 @@ class KalimbaContainer extends Component {
         <NoteContainer
           onHolderPassUp={this.handleHolderPassUp}
           amountOfTNotes={this.props.amountOfTNotes}
-          tineNotes={this.state.tineNotes}
+          tineNotes={this.props.tineNotes}
           kalimba={this.props.kalimba}
           playing={this.props.playing}
           ref="noteChild"
