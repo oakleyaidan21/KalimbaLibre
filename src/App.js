@@ -92,7 +92,6 @@ class App extends Component {
     html2canvas(input).then(canvas => {
       let pdf = new jsPDF("p", "mm", "a4");
       var hold = document.getElementById("holder");
-      hold.style.overflow = "visible";
       for (var i = 0; i < 4; i++) {
         pdf.addImage(
           canvas.toDataURL("image/png"),
