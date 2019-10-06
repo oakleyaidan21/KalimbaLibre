@@ -55,7 +55,6 @@ class Note extends Component {
       );
     } else {
       //add it to the notes to be played
-      console.log("adding " + this.state.time);
       this.setState({ selected: true });
       if (this.state.time === 4) {
         this.setState({ imageToRender: Quarter });

@@ -44,7 +44,8 @@ class App extends Component {
       songTitle: "No Title",
       keySig: "C",
       time: "4/4",
-      curTime: 4
+      curTime: 4,
+      songNotes: [[]]
     };
     this.handlePlay = this.handlePlay.bind(this);
     this.changeNoteTime = this.changeNoteTime.bind(this);
@@ -66,6 +67,10 @@ class App extends Component {
     const { instruments } = await getInstruments(["kalimba"]);
     this.setState({ kalimba: instruments.get("kalimba") });
     console.log("kalimba loaded");
+    var temp = this.createEmptyArray(this.state.kalimbaLength, [
+      { noteName: "A3", time: 4 }
+    ]);
+    this.setState({ songNotes: temp });
   };
 
   //can probably handle the page issue by having it image the holder, then manually scroll up and do it again
@@ -146,25 +151,60 @@ class App extends Component {
     }
   };
 
-  handleNoteExport() {
-    // const fs = require("browserify-fs");
-    // let data = "learning how to write in a file";
-    // fs.writeFile("output.txt", data, err => {
-    //   if (err) throw err;
-    // });
+  handleNoteExport = () => {
     const element = document.createElement("a");
-    //put song string in here
-    const file = new Blob(["hi"], {
+    var temp =
+      this.state.songTitle +
+      "\n" +
+      this.state.keySig +
+      "\n" +
+      this.state.tempo +
+      "\n";
+    var sequence = "";
+    for (var i = this.state.songNotes.length - 1; i >= 0; i--) {
+      var shortestTime = 0;
+      for (var j = 1; j < this.state.songNotes[i].length; j++) {
+        if (this.state.songNotes[i][j].time >= shortestTime) {
+          shortestTime = this.state.songNotes[i][j].time;
+        }
+        sequence += this.state.songNotes[i][j].noteName + " ";
+      }
+      if (sequence !== 0) {
+        sequence += shortestTime + "\n";
+      }
+    }
+    temp += sequence;
+    const file = new Blob([temp], {
       type: "text/plain"
     });
     element.href = URL.createObjectURL(file);
     element.download = "song.txt";
     document.body.appendChild(element);
     element.click();
+  };
+
+  createEmptyArray(len, itm) {
+    var arr1 = [itm],
+      arr2 = [];
+    while (len > 0) {
+      if (len & 1) arr2 = arr2.concat(arr1);
+      arr1 = arr1.concat(arr1);
+      len >>>= 1;
+    }
+    return arr2;
   }
 
+  handleLastPassUp = (tNote, noteName, time, remove) => {
+    var temp = this.state.songNotes;
+    if (remove) {
+      temp[tNote] = temp[tNote].splice({ noteName: noteName, time: time }, 1);
+    } else {
+      temp[tNote] = temp[tNote].concat({ noteName: noteName, time: time });
+    }
+    this.setState({ songNotes: temp });
+  };
+
   render() {
-    console.log(this.state.tineNotes);
     return (
       <div className="App">
         <Navbar bg="dark" variant="dark">

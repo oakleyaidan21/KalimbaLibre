@@ -21,6 +21,10 @@ class KalimbaContainer extends Component {
     this.setState({ tineNotes: nextProps.tineNotes });
   };
 
+  handleHolderPassUp = (tNote, noteName, time, remove) => {
+    this.props.onLastPassUp(tNote, noteName, time, remove);
+  };
+
   render() {
     return (
       <div

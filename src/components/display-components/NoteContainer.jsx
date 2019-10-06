@@ -99,6 +99,7 @@ class NoteContainer extends Component {
       temp[tNote].coloredNotes.push({ noteName, time });
       this.setState({ totalNotes: temp });
     }
+    this.props.onHolderPassUp(tNote, noteName, time, remove);
   };
 
   render() {

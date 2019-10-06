@@ -24,7 +24,6 @@ class ConfigContainer extends Component {
         tempo: nextProps.tempo,
         time: nextProps.time
       });
-      console.log(this.state.title);
     }
   };
 
@@ -83,7 +82,7 @@ class ConfigContainer extends Component {
             id="confBtn"
             onClick={event => {
               event.preventDefault();
-              this.configTitle(event);
+              this.configTitle();
             }}
           >
             Set Title
