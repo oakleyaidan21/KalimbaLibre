@@ -49,6 +49,7 @@ class App extends Component {
     };
     this.handlePlay = this.handlePlay.bind(this);
     this.changeNoteTime = this.changeNoteTime.bind(this);
+    this.handleExport = this.handleExport.bind(this);
   }
 
   changeNoteTime = childData => {
@@ -75,45 +76,23 @@ class App extends Component {
 
   //can probably handle the page issue by having it image the holder, then manually scroll up and do it again
   handleExport = () => {
+    console.log("unimplemented!");
     var input = document.getElementById("holder");
-    var tine = document.getElementById("tine");
-    var HTML_Width = input.clientWidth;
-    var HTML_Height = tine.clientHeight;
-    var top_left_margin = 15;
-    var PDF_Width = HTML_Width + top_left_margin * 2;
-    var PDF_Height = PDF_Width * 1.5 + top_left_margin * 2;
-    var canvas_image_width = HTML_Width;
-    var canvas_image_height = HTML_Height;
-
-    var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
-
-    html2canvas(input, { allowTaint: true }).then(function(canvas) {
-      canvas.getContext("2d");
-      console.log(canvas.height + " " + canvas.width);
-
-      var imgData = canvas.toDataURL("image/jpeg", 1.0);
-      var pdf = new jsPDF("p", "pt", [PDF_Width, PDF_Height]);
-      pdf.addImage(
-        imgData,
-        "JPG",
-        top_left_margin,
-        top_left_margin,
-        canvas_image_width,
-        canvas_image_height
-      );
-
-      for (var i = 1; i <= totalPDFPages; i++) {
-        pdf.addPage(PDF_Width, PDF_Height);
+    html2canvas(input).then(canvas => {
+      // document.getElementById("holder").scrollTop = 1615 - 700;
+      let pdf = new jsPDF("p", "mm", "a4");
+      for (var i = 0; i < 4; i++) {
         pdf.addImage(
-          imgData,
-          "JPG",
-          top_left_margin,
-          -(PDF_Height * i) + top_left_margin * 4,
-          canvas_image_width,
-          canvas_image_height
+          canvas.toDataURL("image/png"),
+          "PNG",
+          0,
+          i * 500,
+          211,
+          298
         );
       }
-      pdf.save("kalimba-tabs.pdf");
+
+      pdf.save("kalimba.pdf");
     });
   };
 
@@ -223,7 +202,9 @@ class App extends Component {
           <Form inline>
             <Button
               variant="outline-info"
-              onClick={this.handleExport}
+              onClick={() => {
+                this.handleExport();
+              }}
               style={{ margin: 10 }}
             >
               EXPORT SONG TO PDF
