@@ -28,10 +28,11 @@ Here's how the app looks at this stage in development:
 - [x] Actually nail down a midi player to use going forward
 - [x] Find way to export the `KalimbaContainer` _though it's not entirely working yet_
 - [x] _Refactor components to be less confusing_ (this project started as a way to learn react, so component hiearchy is kinda borked) Should probably combine components into each other, as some don't need to be reused (i.e., Note)
+- [x] Make config and selector elements actually control variables that App uses
 - [x] Render note icons instead of purple squares on kalimba
   - [ ] Get images for every type of note
 - [ ] Find way to export note placements
-- [ ] Make config [x] and selector [ ] elements actually control variables that App uses
+
 - [ ] Update selector to have note icons instead of numbers
 - [ ] Clean up all code
 - [ ] Everything else! :^)
