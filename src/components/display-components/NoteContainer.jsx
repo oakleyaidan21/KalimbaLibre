@@ -9,7 +9,7 @@ class NoteContainer extends Component {
 
     this.state = {
       totalNotes: [],
-      idToPlayUntil: 0
+      idToPlayUntil: -1
     };
 
     this.goThroughEachTotalNote = this.goThroughEachTotalNote.bind(this);
@@ -99,7 +99,7 @@ class NoteContainer extends Component {
         this.setState({ idToPlayUntil: tNote });
       }
 
-      this.setState({ idToPlayUntil: tNote });
+      // this.setState({ idToPlayUntil: tNote });
       temp[tNote].coloredNotes.push({ noteName, time });
       this.setState({ totalNotes: temp });
     }
