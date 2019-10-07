@@ -242,8 +242,16 @@ class App extends Component {
               onClick={this.scrollToBottom}
               id="my-input"
               variant="outline-info"
+              style={{ marginRight: 10 }}
             >
               TO BOTTOM
+            </Button>
+            <Button
+              href="https://github.com/oakleyaidan21/KalimbaLibre"
+              id="my-input"
+              variant="outline-info"
+            >
+              Github
             </Button>
           </Form>
         </Navbar>
