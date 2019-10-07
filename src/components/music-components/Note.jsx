@@ -1,12 +1,12 @@
 //buttons in layed over the tines for playing notes
 import React, { Component } from "react";
-import Quarter from "../../quarter_note.png";
-import Eighth from "../../eighth_note.png";
-import Half from "../../half_note.png";
-import Sixteenth from "../../sixteenth_note.png";
-import D_Half from "../../dotted_half.png";
-import D_Eighth from "../../dotted_eighth.png";
-import D_Quarter from "../../dotted_quarter.png";
+import Quarter from "../../noteImages/quarter_note.png";
+import Eighth from "../../noteImages/eighth_note.png";
+import Half from "../../noteImages/half_note.png";
+import Sixteenth from "../../noteImages/sixteenth_note.png";
+import D_Half from "../../noteImages/dotted_half.png";
+import D_Eighth from "../../noteImages/dotted_eighth.png";
+import D_Quarter from "../../noteImages/dotted_quarter.png";
 
 class Note extends Component {
   constructor(props) {
