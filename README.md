@@ -11,11 +11,9 @@ Link for what I've created so far: http://kalimba-libre.herokuapp.com/
 
 2. Run `npm install`
 
-3. Run `npm install react-bootstrap bootstrap`
+3. Run `npm start`
 
-4. Run `npm start`
-
-And you're done! The app will be running on `localhost:3000`.
+And you're done! The app will be running on `localhost:3000`. If by any chance npm yelled at you to install certain dependencies, do so.
 
 ## Current Look
 
