@@ -248,6 +248,7 @@ class App extends Component {
             </Button>
             <Button
               href="https://github.com/oakleyaidan21/KalimbaLibre"
+              target="_blank"
               id="my-input"
               variant="outline-info"
             >
