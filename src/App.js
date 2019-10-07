@@ -53,13 +53,15 @@ class App extends Component {
   }
 
   changeNoteTime = childData => {
+    console.log(childData);
     if (childData === ".") {
-      var addition = this.state.curTime - (this.state.curTime / 2 - 1);
+      var t = this.state.curTime;
+      var addition = (t + t / 2) / 2;
+      console.log(addition);
       this.setState({ curTime: addition });
     } else {
       this.setState({ curTime: childData });
     }
-
     console.log(this.state.curTime);
   };
 
@@ -91,7 +93,7 @@ class App extends Component {
     var input = document.getElementById("holder");
     html2canvas(input).then(canvas => {
       let pdf = new jsPDF("p", "mm", "a4");
-      var hold = document.getElementById("holder");
+      // var hold = document.getElementById("holder");
       for (var i = 0; i < 4; i++) {
         pdf.addImage(
           canvas.toDataURL("image/png"),

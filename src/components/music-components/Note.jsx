@@ -3,6 +3,10 @@ import React, { Component } from "react";
 import Quarter from "../../quarter_note.png";
 import Eighth from "../../eighth_note.png";
 import Half from "../../half_note.png";
+import Sixteenth from "../../sixteenth_note.png";
+import D_Half from "../../dotted_half.png";
+import D_Eighth from "../../dotted_eighth.png";
+import D_Quarter from "../../dotted_quarter.png";
 
 class Note extends Component {
   constructor(props) {
@@ -55,6 +59,7 @@ class Note extends Component {
       );
     } else {
       //add it to the notes to be played
+      console.log(this.state.time);
       this.setState({ selected: true });
       if (this.state.time === 4) {
         this.setState({ imageToRender: Quarter });
@@ -68,7 +73,23 @@ class Note extends Component {
         console.log("set to 2");
         this.setState({ imageToRender: Half });
       }
-      this.props.instrument.play(this.props.name);
+      if (this.state.time === 16) {
+        console.log("set to 16");
+        this.setState({ imageToRender: Sixteenth });
+      }
+      if (this.state.time === 1.5) {
+        console.log("set to dotted half");
+        this.setState({ imageToRender: D_Half });
+      }
+      if (this.state.time === 6) {
+        console.log("set to dotted eighth");
+        this.setState({ imageToRender: D_Eighth });
+      }
+      if (this.state.time === 3) {
+        console.log("set to dotted quarter");
+        this.setState({ imageToRender: D_Quarter });
+      }
+      if (this.state.time) this.props.instrument.play(this.props.name);
       this.props.onHandleNoteClick(
         this.state.noteID,
         this.state.id,
@@ -81,42 +102,16 @@ class Note extends Component {
 
   renderIcon() {
     if (this.state.selected) {
-      if (this.state.imageToRender === Quarter) {
-        return (
-          <img
-            src={require("../../quarter_note.png")}
-            alt=""
-            style={{
-              maxWidth: "100%",
-              height: "auto"
-            }}
-          />
-        );
-      }
-      if (this.state.imageToRender === Eighth) {
-        return (
-          <img
-            src={require("../../eighth_note.png")}
-            alt=""
-            style={{
-              maxWidth: "100%",
-              height: "auto"
-            }}
-          />
-        );
-      }
-      if (this.state.imageToRender === Half) {
-        return (
-          <img
-            src={require("../../half_note.png")}
-            alt=""
-            style={{
-              maxWidth: "100%",
-              height: "auto"
-            }}
-          />
-        );
-      }
+      return (
+        <img
+          src={this.state.imageToRender}
+          alt=""
+          style={{
+            maxWidth: "100%",
+            height: "auto"
+          }}
+        />
+      );
     }
     return <></>;
   }
