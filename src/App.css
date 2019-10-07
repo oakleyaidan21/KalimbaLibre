@@ -2,10 +2,6 @@
   display: none;
 }
 
-.MIDISounds {
-  display: none !important;
-}
-
 @media only screen and (max-width: 1385px) {
   #selector {
     /* display: none; */
@@ -22,6 +18,12 @@
 
 @media only screen and (max-width: 994px) {
   #configContainer {
+    display: none !important;
+  }
+}
+
+@media only screen and (max-width: 892px) {
+  #navtop {
     display: none !important;
   }
 }

@@ -37,7 +37,7 @@ class App extends Component {
         { note: "C6", color: "white", len: 2, id: 16 },
         { note: "E6", color: "white", len: 1, id: 17 }
       ],
-      kalimbaLength: 40,
+      kalimbaLength: 200,
       kalimba: null,
       playing: false,
       tempo: 120,
@@ -218,41 +218,45 @@ class App extends Component {
             <Nav.Link href="/">Home</Nav.Link>
           </Nav>
           <Form inline>
-            <Button
-              variant="outline-info"
-              onClick={() => {
-                this.handleExport();
-              }}
-              style={{ margin: 10 }}
-            >
-              EXPORT SONG TO PDF
-            </Button>
+            <div id="navtop">
+              <Button
+                variant="outline-info"
+                onClick={() => {
+                  this.handleExport();
+                }}
+                style={{ marginRight: 10 }}
+              >
+                Export to PDF
+              </Button>
+
+              <Button
+                id="my-input"
+                variant="outline-info"
+                onClick={this.handleNoteExport}
+                style={{ marginRight: 10 }}
+              >
+                Export to TXT
+              </Button>
+              <Button
+                onClick={this.scrollToBottom}
+                id="my-input"
+                variant="outline-info"
+                style={{ marginRight: 10 }}
+              >
+                To Bottom
+              </Button>
+              <Button
+                href="https://github.com/oakleyaidan21/KalimbaLibre"
+                target="_blank"
+                id="my-input"
+                variant="outline-info"
+                style={{ marginRight: 10 }}
+              >
+                Github
+              </Button>
+            </div>
             <Button variant="outline-info" onClick={this.handlePlay}>
               PLAY
-            </Button>
-            <Button
-              id="my-input"
-              variant="outline-info"
-              onClick={this.handleNoteExport}
-              style={{ margin: 10 }}
-            >
-              EXPORT SONG TO TXT
-            </Button>
-            <Button
-              onClick={this.scrollToBottom}
-              id="my-input"
-              variant="outline-info"
-              style={{ marginRight: 10 }}
-            >
-              TO BOTTOM
-            </Button>
-            <Button
-              href="https://github.com/oakleyaidan21/KalimbaLibre"
-              target="_blank"
-              id="my-input"
-              variant="outline-info"
-            >
-              Github
             </Button>
           </Form>
         </Navbar>

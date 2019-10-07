@@ -18,11 +18,6 @@ class KalimbaContainer extends Component {
   };
 
   handleScrollBottom = () => {
-    // console.log(this.state.curScroll);
-    // var temp = this.state.curScroll - 400;
-    // document.getElementById("holder").scrollTop = temp;
-    // this.setState({ curScroll: temp });
-    // console.log("hi");
     document.getElementById("holder").scrollTop = document.getElementById(
       "holder"
     ).scrollHeight;

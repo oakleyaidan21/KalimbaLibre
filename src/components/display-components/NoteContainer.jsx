@@ -37,6 +37,9 @@ class NoteContainer extends Component {
     var temp = this.state.totalNotes;
     var counter = 1;
     for (var i = temp.length - 1; i >= this.state.idToPlayUntil; i--) {
+      if (i === -1) {
+        break;
+      }
       if (smallestTimeInterval < 0) {
         smallestTimeInterval = 4;
       }
@@ -47,6 +50,9 @@ class NoteContainer extends Component {
       if (i !== this.props.amountOfTNotes - 1) {
         temp[i + 1].color = "transparent";
       }
+      if (i === 0) {
+        break;
+      }
 
       temp[i].color = "rgb(247,255,0,0.5)";
       this.setState({ totalNotes: temp });
@@ -54,11 +60,18 @@ class NoteContainer extends Component {
         this.props.kalimba.play(temp[i].coloredNotes[j].noteName);
       }
       smallestTimeInterval = this.getSmallestTimeInterval(temp[i].coloredNotes);
-      document.getElementById("holder").scrollTop = 1375 - 40 * counter;
+      console.log(document.getElementById("tine").clientHeight);
+      document.getElementById("holder").scrollTop =
+        this.props.amountOfTNotes * 40 - 250 - 40 * counter;
       counter++;
     }
-    temp[this.state.idToPlayUntil].color = "transparent";
-    this.setState({ totalNotes: temp });
+    if (this.state.idToPlayUntil !== -1) {
+      temp[this.state.idToPlayUntil].color = "transparent";
+      this.setState({ totalNotes: temp });
+    } else {
+      temp[0].color = "transparent";
+      this.setState({ totalNotes: temp });
+    }
   };
 
   //populates the totalNotes Array
