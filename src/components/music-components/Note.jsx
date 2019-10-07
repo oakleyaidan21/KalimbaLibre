@@ -53,7 +53,7 @@ class Note extends Component {
       this.props.onHandleNoteClick(
         this.state.noteID,
         this.state.id,
-        this.state.name,
+        this.props.name,
         this.state.time,
         true
       );

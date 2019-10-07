@@ -37,7 +37,7 @@ class App extends Component {
         { note: "C6", color: "white", len: 2, id: 16 },
         { note: "E6", color: "white", len: 1, id: 17 }
       ],
-      kalimbaLength: 200,
+      kalimbaLength: 40,
       kalimba: null,
       playing: false,
       tempo: 120,
@@ -45,11 +45,13 @@ class App extends Component {
       keySig: "C",
       time: "4/4",
       curTime: 4,
-      songNotes: [[]]
+      songNotes: [[]],
+      songString: "None"
     };
     this.handlePlay = this.handlePlay.bind(this);
     this.changeNoteTime = this.changeNoteTime.bind(this);
     this.handleExport = this.handleExport.bind(this);
+    this.configure = this.configure.bind(this);
   }
 
   changeNoteTime = childData => {
@@ -78,22 +80,9 @@ class App extends Component {
 
   //can probably handle the page issue by having it image the holder, then manually scroll up and do it again
   handleExport = () => {
-    /** oc = new jsPdf();
-        ...
-        pageHeight= doc.internal.pageSize.height;
-
-        // Before adding new content
-        y = 500 // Height position of new content
-        if (y >= pageHeight)
-        {
-          doc.addPage();
-          y = 0 // Restart height position
-        }
-        doc.text(x, y, "value");*/
     var input = document.getElementById("holder");
     html2canvas(input).then(canvas => {
       let pdf = new jsPDF("p", "mm", "a4");
-      // var hold = document.getElementById("holder");
       for (var i = 0; i < 4; i++) {
         pdf.addImage(
           canvas.toDataURL("image/png"),
@@ -107,7 +96,6 @@ class App extends Component {
           pdf.addPage();
         }
       }
-      // hold.style.overflow = "auto";
 
       pdf.save("kalimba.pdf");
     });
@@ -146,19 +134,23 @@ class App extends Component {
     if (type === "tempo") {
       this.setState({ tempo: value });
     }
+    if (type === "songString") {
+      this.setState({ songString: value });
+      this.reRenderSong(value);
+    }
   };
 
   handleNoteExport = () => {
     const element = document.createElement("a");
     var temp =
       this.state.songTitle +
-      "\n" +
+      ", \n" +
       this.state.keySig +
-      "\n" +
+      ", \n" +
       this.state.tempo +
-      "\n" +
+      ", \n" +
       this.state.kalimbaLength +
-      "\n";
+      ", \n";
     var sequence = "";
     for (var i = this.state.songNotes.length - 1; i >= 0; i--) {
       var shortestTime = 0;
@@ -167,10 +159,14 @@ class App extends Component {
         if (this.state.songNotes[i][j].time >= shortestTime) {
           shortestTime = this.state.songNotes[i][j].time;
         }
-        sequence += this.state.songNotes[i][j].noteName + " ";
+        sequence +=
+          this.state.songNotes[i][j].noteName +
+          "" +
+          this.state.songNotes[i][j].time +
+          " ";
       }
       if (sequence !== 0) {
-        sequence += shortestTime + "\n";
+        sequence += ", \n";
       }
     }
     temp += sequence;
@@ -196,8 +192,18 @@ class App extends Component {
 
   handleLastPassUp = (tNote, noteName, time, remove) => {
     var temp = this.state.songNotes;
+    console.log(tNote, noteName, time, remove);
     if (remove) {
-      temp[tNote] = temp[tNote].splice({ noteName: noteName, time: time }, 1);
+      // temp[tNote] = temp[tNote].splice({ noteName: noteName, time: time }, 1);
+      for (var i = 0; i < temp[tNote].length; i++) {
+        if (
+          temp[tNote][i].noteName === noteName &&
+          temp[tNote][i].time === time
+        ) {
+          temp[tNote].splice(i, 1);
+          console.log(temp[tNote]);
+        }
+      }
     } else {
       temp[tNote] = temp[tNote].concat({ noteName: noteName, time: time });
     }
@@ -207,6 +213,11 @@ class App extends Component {
   scrollToBottom = () => {
     console.log("scroll to bottom");
     this.refs.child.handleScrollBottom();
+  };
+
+  reRenderSong = value => {
+    var temp = value.split(",");
+    console.log("temp + " + temp[5]);
   };
 
   render() {
@@ -260,10 +271,7 @@ class App extends Component {
             </Button>
           </Form>
         </Navbar>
-        <Selector
-          onChangeNoteTime={this.changeNoteTime}
-          curNote={this.state.curTime}
-        />
+
         <KalimbaContainer
           onLastPassUp={this.handleLastPassUp}
           amountOfTNotes={this.state.kalimbaLength}
@@ -274,12 +282,17 @@ class App extends Component {
           ref="child"
           curTime={this.state.curTime}
         />
+        <Selector
+          onChangeNoteTime={this.changeNoteTime}
+          curNote={this.state.curTime}
+        />
         <ConfigContainer
           title={this.state.songTitle}
           keySig={this.state.keySig}
           time={this.state.time}
           tempo={this.state.tempo}
           onConfigButton={this.configure}
+          song={this.state.songString}
         />
       </div>
     );

@@ -12,7 +12,8 @@ class ConfigContainer extends Component {
       title: this.props.title,
       keySig: this.props.keySig,
       tempo: this.props.tempo,
-      time: this.props.time
+      time: this.props.time,
+      song: this.props.song
     };
   }
 
@@ -22,12 +23,14 @@ class ConfigContainer extends Component {
         title: nextProps.title,
         keySig: nextProps.keySig,
         tempo: nextProps.tempo,
-        time: nextProps.time
+        time: nextProps.time,
+        song: nextProps.song
       });
     }
   };
 
   configStrings = event => {
+    console.log(event.target.value);
     this.setState({ stringToGive: event.target.value });
   };
 
@@ -47,6 +50,9 @@ class ConfigContainer extends Component {
     this.props.onConfigButton(this.state.stringToGive, "tempo");
     console.log("hi");
   }
+  configSongString() {
+    this.props.onConfigButton(this.state.stringToGive, "songString");
+  }
 
   render() {
     return (
@@ -54,7 +60,7 @@ class ConfigContainer extends Component {
         id="configContainer"
         style={{
           display: "inline-block",
-          height: "70%",
+          height: 750,
           width: "21%",
           background: "#D4D4D4",
           borderRadius: 25,
@@ -158,6 +164,30 @@ class ConfigContainer extends Component {
             }}
           >
             Set Tempo
+          </Button>
+        </Form>
+        <Form>
+          <Form.Group controlId="formBasic">
+            <Form.Label>Song String</Form.Label>
+            <Form.Control
+              size="sm"
+              placeholder={this.state.song}
+              onChange={this.configStrings}
+            />
+            <Form.Text className="text-muted">
+              Paste a downloaded song string to re-render your saved song
+            </Form.Text>
+          </Form.Group>
+          <Button
+            variant="primary"
+            type="submit"
+            size="sm"
+            onClick={event => {
+              event.preventDefault();
+              this.configSongString();
+            }}
+          >
+            Render Song
           </Button>
         </Form>
       </div>

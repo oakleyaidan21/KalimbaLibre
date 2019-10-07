@@ -6,9 +6,10 @@
   #selector {
     /* display: none; */
     position: relative !important;
-    top: 0px !important;
+    top: 20px !important;
     margin: 0 auto;
     right: 0 !important;
+    width: 700px !important;
   }
 
   #holder {

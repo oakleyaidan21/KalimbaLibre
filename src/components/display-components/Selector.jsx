@@ -52,12 +52,13 @@ class Selector extends Component {
         id="selector"
         style={{
           width: 400,
-          height: 200,
+          height: 300,
           background: "#D4D4D4",
           borderRadius: 25,
           right: 20,
           top: 75,
-          position: "absolute"
+          position: "absolute",
+          textAlign: "center"
         }}
       >
         {this.state.selectors.map(selectorButton => (
@@ -67,13 +68,19 @@ class Selector extends Component {
             label={selectorButton.label}
           />
         ))}
-        <Badge variant="secondary" style={{ marginLeft: 155, marginTop: 80 }}>
-          Current Note
-        </Badge>
-        <br></br>
-        <Badge variant={this.getBadgeClass()} style={{ marginLeft: 185 }}>
-          {this.displayNote()}
-        </Badge>
+        <div style={{ fontSize: 30, marginTop: 10 }}>
+          <Badge variant="secondary" s>
+            Current Note
+          </Badge>
+          <br></br>
+          <Badge
+            variant={this.getBadgeClass()}
+            size="lg"
+            style={{ margin: "0 auto" }}
+          >
+            {this.displayNote()}
+          </Badge>
+        </div>
       </div>
     );
   }
