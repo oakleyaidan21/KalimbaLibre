@@ -2,6 +2,8 @@
 
 A WIP React Web App for creating Kalimba tablatures for free (see: _Libre_)
 
+Link for what I've created so far: http://kalimba-libre.herokuapp.com/
+
 ## Setup
 
 1. Clone the repository with
