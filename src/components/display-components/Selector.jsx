@@ -49,11 +49,12 @@ class Selector extends Component {
   render() {
     return (
       <div
+        id="selector"
         style={{
-          width: "400px",
-          height: "200px",
+          width: 400,
+          height: 200,
           background: "#D4D4D4",
-          borderRadius: "25px",
+          borderRadius: 25,
           right: 20,
           top: 75,
           position: "absolute"

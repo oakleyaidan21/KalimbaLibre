@@ -6,3 +6,26 @@
   display: none !important;
 }
 
+@media only screen and (max-width: 1385px) {
+  #selector {
+    /* display: none; */
+    position: relative !important;
+    top: 0px !important;
+    margin: 0 auto;
+    right: 0 !important;
+  }
+
+  #holder {
+    border-radius: 25px !important;
+  }
+}
+
+@media only screen and (max-width: 994px) {
+  #configContainer {
+    display: none !important;
+  }
+}
+
+#holder {
+  scroll-behavior: smooth;
+}

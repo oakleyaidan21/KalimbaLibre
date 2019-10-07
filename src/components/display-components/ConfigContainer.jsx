@@ -51,14 +51,15 @@ class ConfigContainer extends Component {
   render() {
     return (
       <div
-        id="configHolder"
+        id="configContainer"
         style={{
           display: "inline-block",
-          height: 650,
-          width: 400,
+          height: "70%",
+          width: "21%",
           background: "#D4D4D4",
           borderRadius: 25,
           top: 75,
+          left: 20,
           position: "absolute",
           padding: 10
         }}
@@ -159,10 +160,6 @@ class ConfigContainer extends Component {
             Set Tempo
           </Button>
         </Form>
-        <br></br>
-        <b>
-          You can set individual notes by clicking on the bottom of the tines
-        </b>
       </div>
     );
   }
