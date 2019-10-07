@@ -33,7 +33,6 @@ Here's how the app looks at this stage in development:
   - [ ] Get images for every type of note
 - [ ] Fix note timing calculation for dotted notes
 - [ ] Find way to export note placements
-
 - [ ] Update selector to have note icons instead of numbers
 - [ ] Clean up all code
 - [ ] Everything else! :^)
