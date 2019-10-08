@@ -13,7 +13,7 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import scaleKeys from "./constants.js";
 
-class App extends Component {
+class NewTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -76,6 +76,8 @@ class App extends Component {
       { noteName: "A3", time: 4 }
     ]);
     this.setState({ songNotes: temp });
+    var myDiv = document.getElementById("holder");
+    myDiv.scrollTop = myDiv.scrollHeight;
   };
 
   //can probably handle the page issue by having it image the holder, then manually scroll up and do it again
@@ -153,20 +155,19 @@ class App extends Component {
       ", \n";
     var sequence = "";
     for (var i = this.state.songNotes.length - 1; i >= 0; i--) {
-      var shortestTime = 0;
       sequence += i + " ";
       for (var j = 1; j < this.state.songNotes[i].length; j++) {
-        if (this.state.songNotes[i][j].time >= shortestTime) {
-          shortestTime = this.state.songNotes[i][j].time;
-        }
         sequence +=
           this.state.songNotes[i][j].noteName +
-          "" +
           this.state.songNotes[i][j].time +
-          " ";
+          this.state.songNotes[i][j].noteID;
+        if (j !== this.state.songNotes[i].length - 1) {
+          sequence += " ";
+        }
       }
+
       if (sequence !== 0) {
-        sequence += ", \n";
+        sequence += ",\n";
       }
     }
     temp += sequence;
@@ -190,7 +191,7 @@ class App extends Component {
     return arr2;
   }
 
-  handleLastPassUp = (tNote, noteName, time, remove) => {
+  handleLastPassUp = (tNote, noteName, time, remove, noteID) => {
     var temp = this.state.songNotes;
     console.log(tNote, noteName, time, remove);
     if (remove) {
@@ -205,7 +206,11 @@ class App extends Component {
         }
       }
     } else {
-      temp[tNote] = temp[tNote].concat({ noteName: noteName, time: time });
+      temp[tNote] = temp[tNote].concat({
+        noteName: noteName,
+        time: time,
+        noteID: noteID
+      });
     }
     this.setState({ songNotes: temp });
   };
@@ -215,9 +220,26 @@ class App extends Component {
     this.refs.child.handleScrollBottom();
   };
 
+  //just prints stuff rn, need to figure out how to fix it
   reRenderSong = value => {
     var temp = value.split(",");
     console.log("temp + " + temp[5]);
+    for (var i = 3; i < temp.length; i++) {
+      var temp2 = temp[i].split(" ");
+      var tNoteID = temp2[1];
+      for (var j = 2; j < temp2.length; j++) {
+        var noteName = temp2[j].charAt(0) + temp2[j].charAt(1);
+
+        var t = temp2[j].charAt(2);
+        var t_i = 3;
+        if (t === "1") {
+          t += temp2[j].charAt(t_i);
+          t_i++;
+        }
+        var id = temp2[j].slice(t_i);
+        console.log(tNoteID + " " + noteName + " " + t + " " + id);
+      }
+    }
   };
 
   render() {
@@ -227,6 +249,14 @@ class App extends Component {
           <Navbar.Brand href="localhost:3000">Kalimba Libre</Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link>Song Database</Nav.Link>
+            <Nav.Link>About</Nav.Link>
+            <Nav.Link
+              href="https://github.com/oakleyaidan21/KalimbaLibre"
+              target="_blank"
+            >
+              Github
+            </Nav.Link>
           </Nav>
           <Form inline>
             <div id="navtop">
@@ -256,17 +286,8 @@ class App extends Component {
               >
                 To Bottom
               </Button>
-              <Button
-                href="https://github.com/oakleyaidan21/KalimbaLibre"
-                target="_blank"
-                id="my-input"
-                variant="outline-info"
-                style={{ marginRight: 10 }}
-              >
-                Github
-              </Button>
             </div>
-            <Button variant="outline-info" onClick={this.handlePlay}>
+            <Button variant="primary" onClick={this.handlePlay}>
               PLAY
             </Button>
           </Form>
@@ -299,4 +320,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default NewTab;

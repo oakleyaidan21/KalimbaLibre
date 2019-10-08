@@ -2,6 +2,11 @@
   display: none;
 }
 
+.home-page {
+  padding: 15px;
+  font-size: 50px;
+}
+
 @media only screen and (max-width: 1385px) {
   #selector {
     /* display: none; */
@@ -17,7 +22,7 @@
   }
 }
 
-@media only screen and (max-width: 994px) {
+@media only screen and (max-width: 1294px) {
   #configContainer {
     display: none !important;
   }

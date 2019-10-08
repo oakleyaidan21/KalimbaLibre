@@ -45,7 +45,7 @@ class Note extends Component {
   };
 
   //changes the clicked note to an image of a note, and also sends which notes to play to the NoteContainer
-  handleNoteClick = () => {
+  handleNoteClick = (upNoteID, upid, upname, uptime) => {
     if (this.state.selected === true) {
       //remove it from the notes to be played
       this.setState({ selected: false });

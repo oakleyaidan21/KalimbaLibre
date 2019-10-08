@@ -96,7 +96,7 @@ class NoteContainer extends Component {
     this.setState({ totalNotes: temp });
   };
 
-  handlePassingUpNote = (tNote, noteName, time, remove) => {
+  handlePassingUpNote = (tNote, noteName, time, remove, noteID) => {
     var temp = this.state.totalNotes;
     if (remove) {
       temp[tNote].coloredNotes.splice(
@@ -116,7 +116,7 @@ class NoteContainer extends Component {
       temp[tNote].coloredNotes.push({ noteName, time });
       this.setState({ totalNotes: temp });
     }
-    this.props.onHolderPassUp(tNote, noteName, time, remove);
+    this.props.onHolderPassUp(tNote, noteName, time, remove, noteID);
   };
 
   render() {
@@ -143,6 +143,7 @@ class NoteContainer extends Component {
               tineNotes={this.props.tineNotes}
               instrument={this.props.kalimba}
               curTime={this.props.curTime}
+              ref="tNoteChild"
             />
           ))}
         </>

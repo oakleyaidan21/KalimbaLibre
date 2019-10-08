@@ -177,7 +177,7 @@ class TotalNote extends Component {
       temp[passID].color = "purple";
       temp[passID].selected = true;
       this.setState({ notes: temp });
-      this.props.onPassingUpNote(tnID, notename, time, remove);
+      this.props.onPassingUpNote(tnID, notename, time, remove, passID);
     }
   };
 
