@@ -20,6 +20,8 @@ And you're done! The app will be running on `localhost:3000`. If by any chance n
 
 Here's how the app looks at this stage in development:
 
+![alt_text](./public/wipS2.png)
+
 ![alt_text](./public/wipS.PNG)
 
 ## TO-DO
