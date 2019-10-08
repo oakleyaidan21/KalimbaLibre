@@ -5,6 +5,7 @@ import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 import SongSquare from "./components/home-components/SongSquare";
 import Form from "react-bootstrap/Form";
+import { async, delay } from "q";
 
 class HomePage extends Component {
   constructor() {
@@ -18,9 +19,10 @@ class HomePage extends Component {
 
   copySongSquare = id => {
     var copy = this.state.songSquares[id];
+    var newtitle = this.state.songSquares[id].title + " (copy)";
     var temp = this.state.songSquares;
     temp.push({
-      title: copy.title,
+      title: newtitle,
       key: copy.key,
       tempo: copy.tempo,
       length: copy.length,
@@ -42,11 +44,12 @@ class HomePage extends Component {
     }
   };
 
-  addSongSquare = () => {
+  addSongSquare = async () => {
+    await delay(500);
     var temp = this.state.songSquares;
     temp.push({
-      title: "none",
-      key: "C",
+      title: "No Title",
+      keySig: "C",
       tempo: 120,
       length: 40,
       id: this.state.songSquares.length
@@ -66,7 +69,7 @@ class HomePage extends Component {
       squares = this.state.songSquares.map(songSquare => (
         <SongSquare
           title={songSquare.title}
-          key={songSquare.key}
+          keySig={songSquare.keySig}
           tempo={songSquare.tempo}
           length={songSquare.length}
           id={songSquare.id}

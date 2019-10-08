@@ -5,8 +5,8 @@ class SongSquare extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "None",
-      key: "C",
+      title: this.props.title,
+      keySig: this.props.keySig,
       tempo: 120,
       length: 40,
       id: this.props.id
@@ -73,7 +73,7 @@ class SongSquare extends Component {
           >
             Major
             <br />
-            <div style={{ fontSize: "50px" }}>{this.state.key}</div>
+            <div style={{ fontSize: "50px" }}>{this.state.keySig}</div>
           </div>
           <div
             style={{
