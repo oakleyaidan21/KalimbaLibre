@@ -1,6 +1,5 @@
 //component that contains the forms to input things like song title, time signature, tempo, etc
 import React, { Component } from "react";
-import Badge from "react-bootstrap/Badge";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
@@ -60,7 +59,7 @@ class ConfigContainer extends Component {
         id="configContainer"
         style={{
           display: "inline-block",
-          height: 750,
+          height: 700,
           width: "21%",
           background: "#D4D4D4",
           borderRadius: 25,
@@ -70,9 +69,6 @@ class ConfigContainer extends Component {
           padding: 10
         }}
       >
-        <div style={{ textAlign: "center" }}>
-          <Badge variant="info large">Config</Badge>
-        </div>
         <Form>
           <Form.Group controlId="formBasic">
             <Form.Label>Title</Form.Label>

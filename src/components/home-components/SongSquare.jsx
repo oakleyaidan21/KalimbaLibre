@@ -8,10 +8,21 @@ class SongSquare extends Component {
       title: "None",
       key: "C",
       tempo: 120,
-      length: 40
+      length: 40,
+      id: this.props.id
     };
   }
+
+  deleteSelf = () => {
+    this.props.onDelete(this.state.id);
+  };
+
+  copySelf = () => {
+    this.props.onCopy(this.state.id);
+  };
+
   render() {
+    console.log(this.state.id);
     return (
       <div
         style={{
@@ -33,10 +44,14 @@ class SongSquare extends Component {
             height: 100,
             background: "rgb(230,230,230)",
             borderRadius: "25px 25px 0px 0px",
-            padding: 10
+            padding: 10,
+            overflowWrap: "word-break",
+            fontSize: 20,
+            verticalAlign: "middle",
+            lineHeight: "100px"
           }}
         >
-          {this.state.title}
+          "{this.state.title}"
         </div>
         <div
           style={{
@@ -51,10 +66,14 @@ class SongSquare extends Component {
               width: 100,
               height: 120,
               borderRight: "2px solid black",
-              float: "left"
+              float: "left",
+
+              fontSize: "20px"
             }}
           >
-            {this.state.key}
+            Major
+            <br />
+            <div style={{ fontSize: "50px" }}>{this.state.key}</div>
           </div>
           <div
             style={{
@@ -62,41 +81,75 @@ class SongSquare extends Component {
               height: 120,
               borderRight: "2px solid black",
               position: "relative",
-              float: "left"
+              float: "left",
+              fontSize: "20px"
             }}
           >
-            {this.state.tempo}
+            Tempo
+            <br />
+            <div style={{ fontSize: "50px" }}>{this.state.tempo}</div>
           </div>
           <div
             style={{
               width: 100,
               height: 120,
               position: "relative",
-              float: "left"
+              float: "left",
+              fontSize: "20px"
             }}
           >
-            {this.state.length}
+            Length
+            <br />
+            <div style={{ fontSize: "50px" }}>{this.state.length}</div>
           </div>
         </div>
-        {/* <div
-          style={{
-            width: 300,
-            height: 80,
-            backgroundColor: "red",
-            borderRadius: "0px 0px 25px 25px"
-          }}
-        >
-          PLAY
-        </div> */}
         <Button
           style={{
-            width: 300,
+            width: 100,
             height: 80,
-            borderRadius: "0px 0px 25px 25px",
-            fontSize: 30
+            borderRadius: "0px 0px 0px 25px",
+            fontSize: 30,
+            verticalAlign: "middle",
+            textAlign: "center",
+            lineHeight: "80px"
           }}
+          href="/newtab"
         >
           EDIT
+        </Button>
+        <Button
+          variant="warning"
+          style={{
+            width: 100,
+            height: 80,
+            fontSize: 30,
+            verticalAlign: "middle",
+            borderRadius: 0,
+            textAlign: "center",
+            lineHeight: "80px"
+          }}
+          onClick={() => {
+            this.copySelf();
+          }}
+        >
+          COPY
+        </Button>
+        <Button
+          variant="danger"
+          style={{
+            width: 100,
+            height: 80,
+            borderRadius: "0px 0px 25px 0px",
+            fontSize: 30,
+            verticalAlign: "middle",
+            textAlign: "center",
+            lineHeight: "80px"
+          }}
+          onClick={() => {
+            this.deleteSelf();
+          }}
+        >
+          X
         </Button>
       </div>
     );

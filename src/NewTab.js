@@ -246,9 +246,8 @@ class NewTab extends Component {
     return (
       <div className="App">
         <Navbar bg="dark" variant="dark">
-          <Navbar.Brand href="localhost:3000">Kalimba Libre</Navbar.Brand>
+          <Navbar.Brand href="/">Kalimba Libre</Navbar.Brand>
           <Nav className="mr-auto">
-            <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link>Song Database</Nav.Link>
             <Nav.Link>About</Nav.Link>
             <Nav.Link
