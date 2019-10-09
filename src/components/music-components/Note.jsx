@@ -45,51 +45,7 @@ class Note extends Component {
   };
 
   //changes the clicked note to an image of a note, and also sends which notes to play to the NoteContainer
-  handleNoteClick = (upNoteID, upid, upname, uptime, rerender) => {
-    if (rerender) {
-      if (upNoteID === this.props.noteID && upid === this.props.id) {
-        this.setState({ selected: true });
-        //add it to the notes to be played
-        console.log(this.state.time);
-        this.setState({ selected: true });
-        if (this.state.time === 4) {
-          this.setState({ imageToRender: Quarter });
-          console.log("set to 4");
-        }
-        if (this.state.time === 8) {
-          console.log("set to 8");
-          this.setState({ imageToRender: Eighth });
-        }
-        if (this.state.time === 2) {
-          console.log("set to 2");
-          this.setState({ imageToRender: Half });
-        }
-        if (this.state.time === 16) {
-          console.log("set to 16");
-          this.setState({ imageToRender: Sixteenth });
-        }
-        if (this.state.time === 1.5) {
-          console.log("set to dotted half");
-          this.setState({ imageToRender: D_Half });
-        }
-        if (this.state.time === 6) {
-          console.log("set to dotted eighth");
-          this.setState({ imageToRender: D_Eighth });
-        }
-        if (this.state.time === 3) {
-          console.log("set to dotted quarter");
-          this.setState({ imageToRender: D_Quarter });
-        }
-        if (this.state.time) this.props.instrument.play(this.props.name);
-        this.props.onHandleNoteClick(
-          this.state.noteID,
-          this.state.id,
-          this.props.name,
-          this.state.time,
-          false
-        );
-      }
-    }
+  handleNoteClick = () => {
     if (this.state.selected === true) {
       //remove it from the notes to be played
       this.setState({ selected: false });

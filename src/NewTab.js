@@ -296,7 +296,15 @@ class NewTab extends Component {
       });
     }
     var temp2 = this.state.totalNotes;
-    temp2[tNote].notes[noteID].selected = true;
+    if (remove) {
+      console.log(tNote + " " + noteID);
+      temp2[tNote].notes[noteID].selected = false;
+    } else {
+      console.log(tNote + " " + noteID);
+      temp2[tNote].notes[noteID].selected = true;
+      temp2[tNote].notes[noteID].time = time;
+    }
+
     if (this.state.idToPlayUntil === -1) {
       this.setState({ idToPlayUntil: tNote });
     } else {
@@ -312,25 +320,28 @@ class NewTab extends Component {
   //just prints stuff rn, need to figure out how to fix it
   reRenderSong = value => {
     var temp = value.split(",");
+    var tempT = this.state.totalNotes;
     console.log("temp + " + temp[5]);
-    for (var i = 3; i < temp.length; i++) {
-      console.log("heee");
+    for (var i = 5; i < temp.length; i++) {
       var temp2 = temp[i].split(" ");
       var tNoteID = temp2[1];
-      for (var j = 2; j < temp2.length; j++) {
-        var noteName = temp2[j].charAt(0) + temp2[j].charAt(1);
+      if (temp2[2] !== "") {
+        for (var j = 2; j < temp2.length; j++) {
+          var noteName = temp2[j].charAt(0) + temp2[j].charAt(1);
 
-        var t = temp2[j].charAt(2);
-        var t_i = 3;
-        if (t === "1") {
-          t += temp2[j].charAt(t_i);
-          t_i++;
+          var t = temp2[j].charAt(2);
+          var t_i = 3;
+          if (t === "1") {
+            t += temp2[j].charAt(t_i);
+            t_i++;
+          }
+          var id = temp2[j].slice(t_i);
+          console.log(tNoteID + " " + noteName + " " + t + " " + id);
+          tempT[tNoteID].notes[id].selected = true;
         }
-        var id = temp2[j].slice(t_i);
-        console.log(tNoteID + " " + noteName + " " + t + " " + id);
-        //input the notes
       }
     }
+    this.setState({ totalNotes: tempT });
   };
 
   handleSave = () => {
