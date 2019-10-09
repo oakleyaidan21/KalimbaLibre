@@ -33,10 +33,11 @@ class ConfigContainer extends Component {
     this.setState({ stringToGive: event.target.value });
   };
 
-  configTitle = () => {
+  configTitle() {
     console.log(this.state.stringToGive);
     this.props.onConfigButton(this.state.stringToGive, "title");
-  };
+  }
+
   configTime() {
     console.log("hi");
     this.props.onConfigButton(this.state.stringToGive, "time");

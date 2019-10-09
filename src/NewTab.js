@@ -46,12 +46,14 @@ class NewTab extends Component {
       time: "4/4",
       curTime: 4,
       songNotes: [[]],
-      songString: "None"
+      songString: "None",
+      isSaved: true
     };
     this.handlePlay = this.handlePlay.bind(this);
     this.changeNoteTime = this.changeNoteTime.bind(this);
     this.handleExport = this.handleExport.bind(this);
     this.configure = this.configure.bind(this);
+    this.handleSave = this.handleSave.bind(this);
   }
 
   changeNoteTime = childData => {
@@ -142,7 +144,7 @@ class NewTab extends Component {
     }
   };
 
-  handleNoteExport = () => {
+  handleNoteExport = save => {
     const element = document.createElement("a");
     var temp =
       this.state.songTitle +
@@ -171,13 +173,17 @@ class NewTab extends Component {
       }
     }
     temp += sequence;
-    const file = new Blob([temp], {
-      type: "text/plain"
-    });
-    element.href = URL.createObjectURL(file);
-    element.download = this.state.songTitle;
-    document.body.appendChild(element);
-    element.click();
+    if (save) {
+      const file = new Blob([temp], {
+        type: "text/plain"
+      });
+      element.href = URL.createObjectURL(file);
+      element.download = this.state.songTitle;
+      document.body.appendChild(element);
+      element.click();
+    }
+
+    return temp;
   };
 
   createEmptyArray(len, itm) {
@@ -213,6 +219,7 @@ class NewTab extends Component {
       });
     }
     this.setState({ songNotes: temp });
+    this.setState({ isSaved: false });
   };
 
   scrollToBottom = () => {
@@ -242,7 +249,48 @@ class NewTab extends Component {
     }
   };
 
+  handleSave = () => {
+    var songS = this.handleNoteExport(false);
+    fetch("http://localhost:3000/songs", {
+      method: "POST",
+      body: JSON.stringify({
+        title: this.state.songTitle,
+        keysig: this.state.keySig,
+        tempo: this.state.tempo,
+        length: this.state.kalimbaLength,
+        songString: songS,
+        username: "carrot"
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => res.json())
+      .then(resJSON => {
+        console.log("got here");
+        console.log(resJSON);
+      })
+      .catch(error => console.error({ Error: error }));
+    this.setState({ isSaved: true });
+  };
+
   render() {
+    let vari = "outline-info";
+    if (this.state.isSaved === false) {
+      vari = "primary";
+    }
+    let saveButton = (
+      <Button
+        variant={vari}
+        onClick={() => {
+          this.handleSave();
+        }}
+        style={{ marginRight: 10 }}
+      >
+        Save
+      </Button>
+    );
+
     return (
       <div className="App">
         <Navbar bg="dark" variant="dark">
@@ -272,7 +320,9 @@ class NewTab extends Component {
               <Button
                 id="my-input"
                 variant="outline-info"
-                onClick={this.handleNoteExport}
+                onClick={() => {
+                  this.handleNoteExport(true);
+                }}
                 style={{ marginRight: 10 }}
               >
                 Export to TXT
@@ -286,6 +336,7 @@ class NewTab extends Component {
                 To Bottom
               </Button>
             </div>
+            {saveButton}
             <Button variant="primary" onClick={this.handlePlay}>
               PLAY
             </Button>

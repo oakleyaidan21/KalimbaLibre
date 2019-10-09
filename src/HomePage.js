@@ -5,7 +5,6 @@ import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 import SongSquare from "./components/home-components/SongSquare";
 import Form from "react-bootstrap/Form";
-import { async, delay } from "q";
 
 class HomePage extends Component {
   constructor() {
@@ -45,16 +44,44 @@ class HomePage extends Component {
   };
 
   addSongSquare = async () => {
-    await delay(500);
-    var temp = this.state.songSquares;
-    temp.push({
-      title: "No Title",
-      keySig: "C",
-      tempo: 120,
-      length: 40,
-      id: this.state.songSquares.length
-    });
-    this.setState({ songSquares: temp });
+    // await delay(500);
+    // var temp = this.state.songSquares;
+    // temp.push({
+    //   title: "No Title",
+    //   keySig: "C",
+    //   tempo: 120,
+    //   length: 40,
+    //   id: this.state.songSquares.length
+    // });
+    // this.setState({ songSquares: temp });
+  };
+
+  parseText = data => {
+    console.log(data);
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].username === "carrot") {
+        var temp = this.state.songSquares;
+        temp.push({
+          title: data[i].title,
+          keySig: data[i].keysig,
+          tempo: data[i].tempo,
+          length: data[i].length,
+          id: this.state.songSquares.length
+        });
+        this.setState({ songSquares: temp });
+      }
+    }
+  };
+
+  componentDidMount = () => {
+    fetch("http://localhost:3000/songs")
+      .then(
+        data => {
+          return data.json();
+        },
+        err => console.log(err)
+      )
+      .then(parsedData => this.parseText(parsedData), err => console.log(err));
   };
 
   render() {

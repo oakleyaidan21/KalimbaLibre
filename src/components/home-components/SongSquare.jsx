@@ -7,8 +7,8 @@ class SongSquare extends Component {
     this.state = {
       title: this.props.title,
       keySig: this.props.keySig,
-      tempo: 120,
-      length: 40,
+      tempo: this.props.tempo,
+      length: this.props.length,
       id: this.props.id
     };
   }
