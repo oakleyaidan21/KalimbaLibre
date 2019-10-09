@@ -5,7 +5,9 @@ A WIP React Web App for creating Kalimba tablatures for free (see: _Libre_)
 Link for what I've created so far: http://kalimba-libre.herokuapp.com/.
 If it takes a long time to load, it's because heroku has put it on low priority. It will take around ~30 seconds. **If you notice any bugs while using it, report them here!** Right now I'm working on database things locally, so the site could be a bit borked. I'm pretty sure you can at least still make a new tab and fiddle around with it, but it won't save (pressing `Save` might even crash the app).
 
-## Setup
+## Development
+
+### Setup
 
 1. Clone the repository with
    `git clone https://github.com/oakleyaidan21/KalimbaLibre.git`
