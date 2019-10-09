@@ -5,6 +5,8 @@ import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 import SongSquare from "./components/home-components/SongSquare";
 import Form from "react-bootstrap/Form";
+import NewWindow from "react-new-window";
+import NewTab from "./NewTab.js";
 
 class HomePage extends Component {
   constructor() {
@@ -148,7 +150,11 @@ class HomePage extends Component {
               variant="primary"
               href="/newtab"
               target="_blank"
-              onClick={() => this.addSongSquare()}
+              onClick={
+                <NewWindow>
+                  <NewTab></NewTab>
+                </NewWindow>
+              }
             >
               + Create
             </Button>
