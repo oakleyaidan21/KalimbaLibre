@@ -40,7 +40,7 @@ class HomePage extends Component {
       console.log("deleting: " + id);
       console.log(this.state.songSquares);
       temp = this.state.songSquares;
-      temp.splice(id, 1);
+      temp.splice(id - 1, 1);
       this.setState({ songSquares: temp });
     }
   };
@@ -113,7 +113,6 @@ class HomePage extends Component {
             height: 500,
             width: 600,
             fontSize: 20,
-
             textAlign: "center",
             margin: "0 auto",
             marginTop: 300,
