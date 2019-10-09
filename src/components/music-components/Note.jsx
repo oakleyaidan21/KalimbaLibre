@@ -63,30 +63,23 @@ class Note extends Component {
       this.setState({ selected: true });
       if (this.state.time === 4) {
         this.setState({ imageToRender: Quarter });
-        console.log("set to 4");
       }
       if (this.state.time === 8) {
-        console.log("set to 8");
         this.setState({ imageToRender: Eighth });
       }
       if (this.state.time === 2) {
-        console.log("set to 2");
         this.setState({ imageToRender: Half });
       }
       if (this.state.time === 16) {
-        console.log("set to 16");
         this.setState({ imageToRender: Sixteenth });
       }
-      if (this.state.time === 1.5) {
-        console.log("set to dotted half");
+      if (this.state.time === 4 / 3) {
         this.setState({ imageToRender: D_Half });
       }
-      if (this.state.time === 6) {
-        console.log("set to dotted eighth");
+      if (this.state.time === 16 / 3) {
         this.setState({ imageToRender: D_Eighth });
       }
-      if (this.state.time === 3) {
-        console.log("set to dotted quarter");
+      if (this.state.time === 8 / 3) {
         this.setState({ imageToRender: D_Quarter });
       }
       if (this.state.time) this.props.instrument.play(this.props.name);

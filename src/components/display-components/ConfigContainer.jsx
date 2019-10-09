@@ -60,7 +60,7 @@ class ConfigContainer extends Component {
         id="configContainer"
         style={{
           display: "inline-block",
-          height: 700,
+          height: 570,
           width: "21%",
           background: "#D4D4D4",
           borderRadius: 25,
@@ -90,30 +90,6 @@ class ConfigContainer extends Component {
             }}
           >
             Set Title
-          </Button>
-        </Form>
-        <Form>
-          <Form.Group controlId="formBasic">
-            <Form.Label>Time Signature</Form.Label>
-            <Form.Control
-              size="sm"
-              placeholder={this.state.time}
-              onChange={this.configStrings}
-            />
-            <Form.Text className="text-muted">
-              Example: "4/4". Make sure it follows the form of "X/Y"
-            </Form.Text>
-          </Form.Group>
-          <Button
-            variant="primary"
-            type="submit"
-            size="sm"
-            onClick={event => {
-              event.preventDefault();
-              this.configTime();
-            }}
-          >
-            Set Time Signature
           </Button>
         </Form>
         <Form>

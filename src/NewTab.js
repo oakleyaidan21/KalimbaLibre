@@ -200,7 +200,6 @@ class NewTab extends Component {
 
   handleLastPassUp = (tNote, noteName, time, remove, noteID) => {
     var temp = this.state.songNotes;
-    console.log(tNote, noteName, time, remove);
     if (remove) {
       // temp[tNote] = temp[tNote].splice({ noteName: noteName, time: time }, 1);
       for (var i = 0; i < temp[tNote].length; i++) {
