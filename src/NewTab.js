@@ -58,7 +58,7 @@ class NewTab extends Component {
     console.log(childData);
     if (childData === ".") {
       var t = this.state.curTime;
-      var addition = (t + t / 2) / 2;
+      var addition = (t + t) / 3;
       console.log(addition);
       this.setState({ curTime: addition });
     } else {

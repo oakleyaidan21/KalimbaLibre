@@ -43,10 +43,9 @@ class NoteContainer extends Component {
       if (smallestTimeInterval < 0) {
         smallestTimeInterval = 4;
       }
-
-      await delay(
-        (4 * (1000 / (this.props.tempo / 60))) / smallestTimeInterval
-      );
+      var d = (4 * (1000 / (this.props.tempo / 60))) / smallestTimeInterval;
+      console.log(d);
+      await delay(d);
       if (i !== this.props.amountOfTNotes - 1) {
         temp[i + 1].color = "transparent";
       }
