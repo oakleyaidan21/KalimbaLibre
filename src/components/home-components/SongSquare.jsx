@@ -9,7 +9,8 @@ class SongSquare extends Component {
       keySig: this.props.keySig,
       tempo: this.props.tempo,
       length: this.props.length,
-      id: this.props.id
+      id: this.props.id,
+      renderNewTab: false
     };
   }
 
@@ -22,7 +23,8 @@ class SongSquare extends Component {
   };
 
   render() {
-    console.log(this.state.id);
+    console.log(this.props.id);
+
     return (
       <div
         style={{
@@ -113,7 +115,9 @@ class SongSquare extends Component {
             textAlign: "center",
             lineHeight: "80px"
           }}
-          href="/newtab"
+          onClick={() => {
+            this.setState({ renderNewTab: true });
+          }}
         >
           EDIT
         </Button>
@@ -127,9 +131,6 @@ class SongSquare extends Component {
             borderRadius: 0,
             textAlign: "center",
             lineHeight: "80px"
-          }}
-          onClick={() => {
-            this.copySelf();
           }}
         >
           COPY

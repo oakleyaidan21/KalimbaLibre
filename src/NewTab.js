@@ -291,6 +291,8 @@ class NewTab extends Component {
       </Button>
     );
 
+    console.log(this.props.dbid);
+
     return (
       <div className="App">
         <Navbar bg="dark" variant="dark">

@@ -68,7 +68,7 @@ class HomePage extends Component {
           keySig: data[i].keysig,
           tempo: data[i].tempo,
           length: data[i].length,
-          id: this.state.songSquares.length
+          id: data[i].id
         });
         this.setState({ songSquares: temp });
       }
