@@ -79,11 +79,30 @@ class NewTab extends Component {
       var t = this.state.curTime;
       var addition = (t + t) / 3;
       console.log(addition);
+
+      var index = -1;
+      for (var i = 0; i < this.state.images.length; i++) {
+        if (parseInt(addition) === this.state.images[i].time) {
+          index = i;
+          break;
+        }
+      }
+      if (index !== -1) {
+        this.setState({ imageToRender: this.state.images[index] });
+      }
       this.setState({ curTime: addition });
     } else {
       this.setState({ curTime: childData });
+      for (var j = 0; j < this.state.images.length; j++) {
+        if (parseInt(childData) === this.state.images[j].time) {
+          index = j;
+          break;
+        }
+      }
+      if (index !== -1) {
+        this.setState({ imageToRender: this.state.images[index] });
+      }
     }
-    console.log(this.state.curTime);
   };
 
   componentDidMount = async () => {
@@ -338,6 +357,13 @@ class NewTab extends Component {
   //just prints stuff rn, need to figure out how to fix it
   reRenderSong = value => {
     var temp = value.split(",");
+    this.setState({
+      songtitle: temp[0],
+      keySig: temp[1],
+      tempo: temp[2],
+      kalimbaLength: temp[3]
+    });
+
     var tempT = this.state.totalNotes;
     console.log(this.state.images);
     console.log("temp + " + temp[4]);

@@ -21,11 +21,6 @@ class TotalNote extends Component {
 
   componentWillReceiveProps = nextProps => {
     this.setState({ backgroundcolor: nextProps.color });
-    // var temp = this.state.notes;
-    // for (var i = 0; i < temp[i].length; i++) {
-    //   temp.notes[i].time = nextProps.curTime;
-    // }
-    // this.setState({ notes: temp });
   };
 
   handleNoteClick = (passID, tnID, notename, time, remove) => {
