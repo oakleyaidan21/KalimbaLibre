@@ -8,8 +8,8 @@ class NoteContainer extends Component {
     super(props);
 
     this.state = {
-      totalNotes: [],
-      idToPlayUntil: -1
+      idToPlayUntil: -1,
+      tNoteRefs: []
     };
 
     this.goThroughEachTotalNote = this.goThroughEachTotalNote.bind(this);
@@ -96,25 +96,25 @@ class NoteContainer extends Component {
   };
 
   handlePassingUpNote = (tNote, noteName, time, remove, noteID) => {
-    var temp = this.state.totalNotes;
-    if (remove) {
-      temp[tNote].coloredNotes.splice(
-        temp[tNote].coloredNotes.indexOf({ noteName, time }),
-        1
-      );
-      if (this.state.idToPlayUntil === tNote) {
-        var t = this.state.idToPlayUntil - 1;
-        this.setState({ idToPlayUntil: t });
-      }
-    } else {
-      if (tNote < this.state.idToPlayUntil || this.state.idToPlayUntil === -1) {
-        this.setState({ idToPlayUntil: tNote });
-      }
+    // var temp = this.state.totalNotes;
+    // if (remove) {
+    //   temp[tNote].coloredNotes.splice(
+    //     temp[tNote].coloredNotes.indexOf({ noteName, time }),
+    //     1
+    //   );
+    //   if (this.state.idToPlayUntil === tNote) {
+    //     var t = this.state.idToPlayUntil - 1;
+    //     this.setState({ idToPlayUntil: t });
+    //   }
+    // } else {
+    //   if (tNote < this.state.idToPlayUntil || this.state.idToPlayUntil === -1) {
+    //     this.setState({ idToPlayUntil: tNote });
+    //   }
 
-      // this.setState({ idToPlayUntil: tNote });
-      temp[tNote].coloredNotes.push({ noteName, time });
-      this.setState({ totalNotes: temp });
-    }
+    //   // this.setState({ idToPlayUntil: tNote });
+    //   temp[tNote].coloredNotes.push({ noteName, time });
+    //   this.setState({ totalNotes: temp });
+    // }
     this.props.onHolderPassUp(tNote, noteName, time, remove, noteID);
   };
 
@@ -129,23 +129,20 @@ class NoteContainer extends Component {
           float: "left"
         }}
       >
-        <>
-          {this.state.totalNotes.map(totalNote => (
-            <TotalNote
-              key={totalNote.key}
-              time={totalNote.time}
-              rest={totalNote.rest}
-              color={totalNote.color}
-              is4={totalNote.is4}
-              onPassingUpNote={this.handlePassingUpNote}
-              id={totalNote.id}
-              tineNotes={this.props.tineNotes}
-              instrument={this.props.kalimba}
-              curTime={this.props.curTime}
-              ref="tNoteChild"
-            />
-          ))}
-        </>
+        {this.props.totalNotes.map((totalNote, index) => (
+          <TotalNote
+            key={totalNote.key}
+            time={totalNote.time}
+            rest={totalNote.rest}
+            color={totalNote.color}
+            onPassingUpNote={this.handlePassingUpNote}
+            id={totalNote.id}
+            tineNotes={this.props.tineNotes}
+            instrument={this.props.kalimba}
+            curTime={this.props.curTime}
+            notes={totalNote.notes}
+          />
+        ))}
       </div>
     );
   }

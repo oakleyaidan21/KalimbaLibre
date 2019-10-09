@@ -181,7 +181,12 @@ class TotalNote extends Component {
     }
   };
 
+  lastPassDown = (tNoteID, noteName, t, id) => {
+    this.props.children[id].handleNoteClick(tNoteID, noteName, t, id, true);
+  };
+
   render() {
+    var temp = "lastNoteChild";
     return (
       <div
         id="totalNote"
@@ -192,7 +197,7 @@ class TotalNote extends Component {
           borderBottom: "2px solid transparent"
         }}
       >
-        {this.state.notes.map((note, index) => (
+        {this.props.notes.map((note, index) => (
           <Note
             time={this.props.curTime}
             rest={note.rest}
@@ -203,6 +208,7 @@ class TotalNote extends Component {
             onHandleNoteClick={this.handleNoteClick}
             noteID={note.noteID}
             instrument={this.props.instrument}
+            ref={temp + index}
           />
         ))}
       </div>

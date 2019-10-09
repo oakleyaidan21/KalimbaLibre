@@ -17,7 +17,6 @@ class NewTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      instrument: null,
       tineNotes: [
         { note: "D6", color: "white", len: 1, id: 1 },
         { note: "B5", color: "white", len: 2, id: 2 },
@@ -37,18 +36,19 @@ class NewTab extends Component {
         { note: "C6", color: "white", len: 2, id: 16 },
         { note: "E6", color: "white", len: 1, id: 17 }
       ],
-      kalimbaLength: 40,
+      totalNotes: [],
+      kalimbaLength: 40, //will change to get from router props
       kalimba: null,
-      playing: false,
-      tempo: 120,
-      songTitle: "No Title",
-      keySig: "C",
-      time: "4/4",
+      tempo: 120, //will change to get from router props
+      keySig: "C", //will change to get from router props
+      songTitle: "None", //will change to get from router props
       curTime: 4,
       songNotes: [[]],
-      songString: "None",
-      isSaved: true
+      songString: "None", //will change to get from router props
+      isSaved: true,
+      idToPlayUntil: -1
     };
+
     this.handlePlay = this.handlePlay.bind(this);
     this.changeNoteTime = this.changeNoteTime.bind(this);
     this.handleExport = this.handleExport.bind(this);
@@ -70,16 +70,44 @@ class NewTab extends Component {
   };
 
   componentDidMount = async () => {
+    //instrument stuff
     await delay(500);
     const { instruments } = await getInstruments(["kalimba"]);
     this.setState({ kalimba: instruments.get("kalimba") });
     console.log("kalimba loaded");
+    //export txt stuff
     var temp = this.createEmptyArray(this.state.kalimbaLength, [
       { noteName: "A3", time: 4 }
     ]);
     this.setState({ songNotes: temp });
+    //scroll stuff
     var myDiv = document.getElementById("holder");
     myDiv.scrollTop = myDiv.scrollHeight;
+    //tnote stuff
+    //child initilization stuff
+    var tempT = [];
+    for (var i = 0; i < 40; i++) {
+      var tempN = [];
+      for (var j = 0; j < 14; j++) {
+        tempN.push({
+          time: 4,
+          rest: false,
+          name: this.state.tineNotes[j].note,
+          color: "transparent",
+          selected: false,
+          noteID: j
+        });
+      }
+      tempT.push({
+        key: i,
+        time: 4,
+        rest: false,
+        color: "transparent",
+        id: i,
+        notes: tempN
+      });
+    }
+    this.setState({ totalNotes: tempT });
   };
 
   //can probably handle the page issue by having it image the holder, then manually scroll up and do it again
@@ -106,8 +134,56 @@ class NewTab extends Component {
     input.scrollTop = input.scrollHeight;
   };
 
+  getSmallestTimeInterval = array => {
+    return Math.max.apply(
+      Math,
+      array.map(function(o) {
+        return o.time;
+      })
+    );
+  };
+
   handlePlay = async () => {
-    this.refs.child.handleTopLevelPlay();
+    console.log(this.state.kalimba);
+    var smallestTimeInterval = 4;
+    var temp = this.state.totalNotes;
+    var counter = 1;
+    console.log(this.state.idToPlayUntil);
+    for (var i = temp.length - 1; i >= this.state.idToPlayUntil; i--) {
+      console.log("go");
+      if (i === -1) {
+        break;
+      }
+      if (smallestTimeInterval < 0) {
+        smallestTimeInterval = 4;
+      }
+      var d = (4 * (1000 / (this.state.tempo / 60))) / smallestTimeInterval;
+      await delay(d);
+      if (i !== temp.length - 1) {
+        temp[i + 1].color = "transparent";
+      }
+      if (i === 0) {
+        break;
+      }
+      temp[i].color = "rgb(247,255,0,0.5)";
+      this.setState({ totalNotes: temp });
+      for (var j = 0; j < 14; j++) {
+        if (temp[i].notes[j].selected) {
+          this.state.kalimba.play(temp[i].notes[j].name);
+        }
+      }
+      smallestTimeInterval = this.getSmallestTimeInterval(temp[i].notes);
+      document.getElementById("holder").scrollTop =
+        temp.length * 40 - 250 - 40 * counter;
+      counter++;
+    }
+    if (this.state.idToPlayUntil !== -1) {
+      temp[this.state.idToPlayUntil].color = "transparent";
+      this.setState({ totalNotes: temp });
+    } else {
+      temp[0].color = "transparent";
+      this.setState({ totalNotes: temp });
+    }
   };
 
   configure = (value, type) => {
@@ -219,13 +295,18 @@ class NewTab extends Component {
         noteID: noteID
       });
     }
+    var temp2 = this.state.totalNotes;
+    temp2[tNote].notes[noteID].selected = true;
+    if (this.state.idToPlayUntil === -1) {
+      this.setState({ idToPlayUntil: tNote });
+    } else {
+      if (this.state.idToPlayUntil > tNote) {
+        this.setState({ idToPlayUntil: tNote });
+      }
+    }
+    this.setState({ totalNotes: temp2 });
     this.setState({ songNotes: temp });
     this.setState({ isSaved: false });
-  };
-
-  scrollToBottom = () => {
-    console.log("scroll to bottom");
-    this.refs.child.handleScrollBottom();
   };
 
   //just prints stuff rn, need to figure out how to fix it
@@ -233,6 +314,7 @@ class NewTab extends Component {
     var temp = value.split(",");
     console.log("temp + " + temp[5]);
     for (var i = 3; i < temp.length; i++) {
+      console.log("heee");
       var temp2 = temp[i].split(" ");
       var tNoteID = temp2[1];
       for (var j = 2; j < temp2.length; j++) {
@@ -246,6 +328,7 @@ class NewTab extends Component {
         }
         var id = temp2[j].slice(t_i);
         console.log(tNoteID + " " + noteName + " " + t + " " + id);
+        //input the notes
       }
     }
   };
@@ -292,8 +375,6 @@ class NewTab extends Component {
       </Button>
     );
 
-    console.log(this.props.dbid);
-
     return (
       <div className="App">
         <Navbar bg="dark" variant="dark">
@@ -331,7 +412,9 @@ class NewTab extends Component {
                 Export to TXT
               </Button>
               <Button
-                onClick={this.scrollToBottom}
+                onClick={() => {
+                  this.refs.child.handleScrollBottom();
+                }}
                 id="my-input"
                 variant="outline-info"
                 style={{ marginRight: 10 }}
@@ -349,6 +432,7 @@ class NewTab extends Component {
         <KalimbaContainer
           onLastPassUp={this.handleLastPassUp}
           amountOfTNotes={this.state.kalimbaLength}
+          totalNotes={this.state.totalNotes}
           tineNotes={this.state.tineNotes}
           kalimba={this.state.kalimba}
           tempo={this.state.tempo}

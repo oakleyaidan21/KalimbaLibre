@@ -6,11 +6,7 @@ import TineContainer from "./TineContainer";
 class KalimbaContainer extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
-    this.state = {
-      curScroll: 1615 - 400
-      // tineNotes: this.props.tineNotes
-    };
+    this.state = {};
   }
 
   handleTopLevelPlay = () => {
@@ -51,12 +47,12 @@ class KalimbaContainer extends Component {
           tineNotes={this.props.tineNotes}
         />
         <NoteContainer
+          totalNotes={this.props.totalNotes}
           onHolderPassUp={this.handleHolderPassUp}
           amountOfTNotes={this.props.amountOfTNotes}
           tineNotes={this.props.tineNotes}
           kalimba={this.props.kalimba}
           playing={this.props.playing}
-          ref="noteChild"
           tempo={this.props.tempo}
           curTime={this.props.curTime}
         />
