@@ -142,6 +142,7 @@ class NewTab extends Component {
       this.setState({ songString: value });
       this.reRenderSong(value);
     }
+    this.setState({ isSaved: false });
   };
 
   handleNoteExport = save => {

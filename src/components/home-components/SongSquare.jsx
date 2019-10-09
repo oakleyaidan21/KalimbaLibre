@@ -79,7 +79,7 @@ class SongSquare extends Component {
                 fontSize: "20px"
               }}
             >
-              Major
+              Key
               <br />
               <div style={{ fontSize: "50px" }}>{this.state.keySig}</div>
             </div>
