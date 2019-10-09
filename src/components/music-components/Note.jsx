@@ -15,7 +15,7 @@ class Note extends Component {
       time: this.props.time,
       rest: this.props.rest,
       color: this.props.color,
-      selected: false,
+      selected: this.props.selected,
       id: this.props.id,
       noteID: this.props.noteID,
       imageToRender: null

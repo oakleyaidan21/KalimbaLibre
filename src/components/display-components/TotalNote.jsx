@@ -204,6 +204,7 @@ class TotalNote extends Component {
             name={this.props.tineNotes[index].note}
             color={note.color}
             id={this.state.id}
+            selected={note.selected}
             onSelectNote={this.handleSelection}
             onHandleNoteClick={this.handleNoteClick}
             noteID={note.noteID}
