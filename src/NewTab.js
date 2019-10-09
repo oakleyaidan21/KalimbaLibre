@@ -12,6 +12,13 @@ import { delay } from "q";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import scaleKeys from "./constants.js";
+import Quarter from "./noteImages/quarter_note.png";
+import Eighth from "./noteImages/eighth_note.png";
+import Half from "./noteImages/half_note.png";
+import Sixteenth from "./noteImages/sixteenth_note.png";
+import D_Half from "./noteImages/dotted_half.png";
+import D_Eighth from "./noteImages/dotted_eighth.png";
+import D_Quarter from "./noteImages/dotted_quarter.png";
 
 class NewTab extends Component {
   constructor(props) {
@@ -46,7 +53,17 @@ class NewTab extends Component {
       songNotes: [[]],
       songString: "None", //will change to get from router props
       isSaved: true,
-      idToPlayUntil: -1
+      idToPlayUntil: -1,
+      images: [
+        // { time: 1, image: Whole },
+        { time: 4 / 3, image: D_Half },
+        { time: 2, image: Half },
+        { time: 8 / 3, image: D_Quarter },
+        { time: 4, image: Quarter },
+        { time: 16 / 3, image: D_Eighth },
+        { time: 8, image: Eighth },
+        { time: 16, image: Sixteenth }
+      ]
     };
 
     this.handlePlay = this.handlePlay.bind(this);
@@ -95,7 +112,8 @@ class NewTab extends Component {
           name: this.state.tineNotes[j].note,
           color: "transparent",
           selected: false,
-          noteID: j
+          noteID: j,
+          imageToRender: Quarter
         });
       }
       tempT.push({
@@ -225,13 +243,13 @@ class NewTab extends Component {
     const element = document.createElement("a");
     var temp =
       this.state.songTitle +
-      ", \n" +
+      ",\n" +
       this.state.keySig +
-      ", \n" +
+      ",\n" +
       this.state.tempo +
-      ", \n" +
+      ",\n" +
       this.state.kalimbaLength +
-      ", \n";
+      ",\n";
     var sequence = "";
     for (var i = this.state.songNotes.length - 1; i >= 0; i--) {
       sequence += i + " ";
@@ -321,14 +339,14 @@ class NewTab extends Component {
   reRenderSong = value => {
     var temp = value.split(",");
     var tempT = this.state.totalNotes;
-    console.log("temp + " + temp[5]);
-    for (var i = 5; i < temp.length; i++) {
+    console.log(this.state.images);
+    console.log("temp + " + temp[4]);
+    for (var i = 4; i < temp.length; i++) {
       var temp2 = temp[i].split(" ");
       var tNoteID = temp2[1];
       if (temp2[2] !== "") {
         for (var j = 2; j < temp2.length; j++) {
           var noteName = temp2[j].charAt(0) + temp2[j].charAt(1);
-
           var t = temp2[j].charAt(2);
           var t_i = 3;
           if (t === "1") {
@@ -338,6 +356,25 @@ class NewTab extends Component {
           var id = temp2[j].slice(t_i);
           console.log(tNoteID + " " + noteName + " " + t + " " + id);
           tempT[tNoteID].notes[id].selected = true;
+          tempT[tNoteID].notes[id].time = t;
+          var index = -1;
+          for (var k = 0; k < this.state.images.length; k++) {
+            if (this.state.images[k].time === parseInt(t)) {
+              index = k;
+              break;
+            }
+          }
+          // console.log(this.state.images);
+          if (index !== -1) {
+            console.log("found");
+            tempT[tNoteID].notes[id].imageToRender = this.state.images[
+              index
+            ].image;
+            console.log(this.state.images[index]);
+          } else {
+            console.log("not found");
+            tempT[tNoteID].notes[id].imageToRender = Quarter;
+          }
         }
       }
     }

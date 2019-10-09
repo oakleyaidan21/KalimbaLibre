@@ -18,7 +18,7 @@ class Note extends Component {
       selected: this.props.selected,
       id: this.props.id,
       noteID: this.props.noteID,
-      imageToRender: null
+      imageToRender: this.props.imageToRender
     };
     this.handleNoteClick = this.handleNoteClick.bind(this);
     this.handleSelectionE = this.handleSelectionE.bind(this);
@@ -35,6 +35,8 @@ class Note extends Component {
 
   componentWillReceiveProps = nextProps => {
     this.setState({ time: nextProps.time });
+    this.setState({ selected: nextProps.selected });
+    this.setState({ imageToRender: nextProps.imageToRender });
   };
 
   handleSelectionL = () => {
@@ -49,7 +51,6 @@ class Note extends Component {
     if (this.state.selected === true) {
       //remove it from the notes to be played
       this.setState({ selected: false });
-      this.setState({ color: "transparent" });
       this.props.onHandleNoteClick(
         this.state.noteID,
         this.state.id,
@@ -89,7 +90,7 @@ class Note extends Component {
         console.log("set to dotted quarter");
         this.setState({ imageToRender: D_Quarter });
       }
-      if (this.state.time) this.props.instrument.play(this.props.name);
+      this.props.instrument.play(this.props.name);
       this.props.onHandleNoteClick(
         this.state.noteID,
         this.state.id,
