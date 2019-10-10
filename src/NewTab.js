@@ -120,13 +120,12 @@ class NewTab extends Component {
           kalimbaLength: data[i].length
         });
         temp = data[i].songString;
+        this.setState({ songString: temp });
       }
     }
 
     if (found) {
-      console.log(found);
-      console.log(temp);
-      // this.reRenderSong(temp);
+      this.reRenderSong(temp);
     }
   };
 
@@ -298,6 +297,19 @@ class NewTab extends Component {
 
   handleNoteExport = save => {
     const element = document.createElement("a");
+    if (this.state.songString !== "None") {
+      if (save) {
+        const file = new Blob([this.state.songString], {
+          type: "text/plain"
+        });
+        element.href = URL.createObjectURL(file);
+        element.download = this.state.songTitle;
+        document.body.appendChild(element);
+        element.click();
+      }
+      return;
+    }
+
     var temp =
       this.state.songTitle +
       ",\n" +
@@ -402,7 +414,6 @@ class NewTab extends Component {
     });
 
     var tempT = this.state.totalNotes;
-    console.log(this.state.images);
     console.log("temp + " + temp[4]);
     for (var i = 4; i < temp.length; i++) {
       var temp2 = temp[i].split(" ");
