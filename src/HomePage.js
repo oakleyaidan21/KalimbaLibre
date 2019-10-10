@@ -14,36 +14,7 @@ class HomePage extends Component {
       songSquares: [],
       curLocalStorage: []
     };
-    this.deleteSongSquare = this.deleteSongSquare.bind(this);
-    this.copySongSquare = this.copySongSquare.bind(this);
   }
-
-  copySongSquare = id => {
-    var copy = this.state.songSquares[id];
-    var newtitle = this.state.songSquares[id].title + " (copy)";
-    var temp = this.state.songSquares;
-    temp.push({
-      title: newtitle,
-      key: copy.key,
-      tempo: copy.tempo,
-      length: copy.length,
-      id: this.state.songSquares.length
-    });
-    this.setState({ songSquares: temp });
-  };
-
-  deleteSongSquare = id => {
-    var temp = [];
-    if (this.state.songSquares.length === 1) {
-      this.setState({ songSquares: temp });
-    } else {
-      console.log("deleting: " + id);
-      console.log(this.state.songSquares);
-      temp = this.state.songSquares;
-      temp.splice(id - 1, 1);
-      this.setState({ songSquares: temp });
-    }
-  };
 
   parseText = data => {
     for (var i = 0; i < data.length; i++) {

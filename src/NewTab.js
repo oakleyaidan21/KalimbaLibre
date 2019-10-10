@@ -136,7 +136,7 @@ class NewTab extends Component {
     var tempT = [];
     for (var i = 0; i < 40; i++) {
       var tempN = [];
-      for (var j = 0; j < 14; j++) {
+      for (var j = 0; j < 17; j++) {
         tempN.push({
           time: 4,
           rest: false,
@@ -441,9 +441,15 @@ class NewTab extends Component {
   };
 
   handleSave = () => {
+    var concat = "";
+    var method = "POST";
+    if (this.props.dbID !== "0") {
+      concat = "/" + this.props.dbID;
+      method = "PUT";
+    }
     var songS = this.handleNoteExport(false);
-    fetch("http://localhost:3000/songs", {
-      method: "POST",
+    fetch("http://localhost:3000/songs" + concat, {
+      method: method,
       body: JSON.stringify({
         title: this.state.songTitle,
         keysig: this.state.keySig,

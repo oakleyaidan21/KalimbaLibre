@@ -26,7 +26,26 @@ class SongSquare extends Component {
   };
 
   copySelf = () => {
-    this.props.onCopy(this.state.id);
+    fetch("http://localhost:3000/songs", {
+      method: "POST",
+      body: JSON.stringify({
+        title: this.state.title + "(copy)",
+        keysig: this.state.keySig,
+        tempo: this.state.tempo,
+        length: this.state.kalimbaLength,
+        songString: this.props.songString,
+        username: "carrot"
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => res.json())
+      .then(resJSON => {
+        console.log("got here");
+        console.log(resJSON);
+      })
+      .catch(error => console.error({ Error: error }));
   };
 
   render() {
@@ -137,6 +156,9 @@ class SongSquare extends Component {
               borderRadius: 0,
               textAlign: "center",
               lineHeight: "80px"
+            }}
+            onClick={() => {
+              this.copySelf();
             }}
           >
             COPY
