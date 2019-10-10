@@ -132,7 +132,7 @@ class HomePage extends Component {
         <div className="home-page">
           <b>
             Your Songs{" "}
-            <Link to="/newtab/0">
+            <Link to="/newtab/0" target="_blank">
               <Button variant="primary">+ Create</Button>
             </Link>
           </b>

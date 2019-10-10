@@ -116,8 +116,7 @@ class NewTab extends Component {
           songTitle: data[i].title,
           keySig: data[i].keysig,
           tempo: data[i].tempo,
-          kalimbaLength: data[i].length,
-          songString: data[i].songString
+          kalimbaLength: data[i].length
         });
         temp = data[i].songString;
       }
@@ -125,6 +124,7 @@ class NewTab extends Component {
 
     if (found) {
       console.log(found);
+      console.log(temp);
       this.reRenderSong(temp);
     }
   };
@@ -392,7 +392,6 @@ class NewTab extends Component {
     this.setState({ isSaved: false });
   };
 
-  //just prints stuff rn, need to figure out how to fix it
   reRenderSong = value => {
     var temp = value.split(",");
     this.setState({
