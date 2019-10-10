@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
+import { Link } from "@reach/router";
 
 class SongSquare extends Component {
   constructor(props) {
@@ -10,7 +11,8 @@ class SongSquare extends Component {
       tempo: this.props.tempo,
       length: this.props.length,
       id: this.props.id,
-      renderNewTab: false,
+      curLocalStorage: [],
+      songString: this.props.songString,
       hidden: false
     };
   }
@@ -111,22 +113,21 @@ class SongSquare extends Component {
               <div style={{ fontSize: "50px" }}>{this.state.length}</div>
             </div>
           </div>
-          <Button
-            style={{
-              width: 100,
-              height: 80,
-              borderRadius: "0px 0px 0px 25px",
-              fontSize: 30,
-              verticalAlign: "middle",
-              textAlign: "center",
-              lineHeight: "80px"
-            }}
-            onClick={() => {
-              this.setState({ renderNewTab: true });
-            }}
-          >
-            EDIT
-          </Button>
+          <Link to={"/newtab/" + this.state.id}>
+            <Button
+              style={{
+                width: 100,
+                height: 80,
+                borderRadius: "0px 0px 0px 25px",
+                fontSize: 30,
+                verticalAlign: "middle",
+                textAlign: "center",
+                lineHeight: "80px"
+              }}
+            >
+              EDIT
+            </Button>
+          </Link>
           <Button
             variant="warning"
             style={{

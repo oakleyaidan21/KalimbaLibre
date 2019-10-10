@@ -9,7 +9,7 @@ import HomePage from "./HomePage.js";
 
 ReactDOM.render(
   <Router>
-    <NewTab path="/newtab" />
+    <NewTab path="/newtab/:dbID" />
     <HomePage path="/" />
   </Router>,
   document.getElementById("root")

@@ -5,14 +5,14 @@ import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 import SongSquare from "./components/home-components/SongSquare";
 import Form from "react-bootstrap/Form";
-import NewWindow from "react-new-window";
-import NewTab from "./NewTab.js";
+import { Link } from "@reach/router";
 
 class HomePage extends Component {
   constructor() {
     super();
     this.state = {
-      songSquares: []
+      songSquares: [],
+      curLocalStorage: []
     };
     this.deleteSongSquare = this.deleteSongSquare.bind(this);
     this.copySongSquare = this.copySongSquare.bind(this);
@@ -45,21 +45,7 @@ class HomePage extends Component {
     }
   };
 
-  addSongSquare = async () => {
-    // await delay(500);
-    // var temp = this.state.songSquares;
-    // temp.push({
-    //   title: "No Title",
-    //   keySig: "C",
-    //   tempo: 120,
-    //   length: 40,
-    //   id: this.state.songSquares.length
-    // });
-    // this.setState({ songSquares: temp });
-  };
-
   parseText = data => {
-    console.log(data);
     for (var i = 0; i < data.length; i++) {
       if (data[i].username === "carrot") {
         var temp = this.state.songSquares;
@@ -68,7 +54,8 @@ class HomePage extends Component {
           keySig: data[i].keysig,
           tempo: data[i].tempo,
           length: data[i].length,
-          id: data[i].id
+          id: data[i].id,
+          songString: data[i].songString
         });
         this.setState({ songSquares: temp });
       }
@@ -87,7 +74,6 @@ class HomePage extends Component {
   };
 
   render() {
-    console.log(this.state.songSquares);
     var squaresRendered = false;
     let squares;
     if (this.state.songSquares.length > 0) {
@@ -102,6 +88,7 @@ class HomePage extends Component {
           tempo={songSquare.tempo}
           length={songSquare.length}
           id={songSquare.id}
+          songString={songSquare.songString}
           onDelete={this.deleteSongSquare}
           onCopy={this.copySongSquare}
         ></SongSquare>
@@ -145,18 +132,9 @@ class HomePage extends Component {
         <div className="home-page">
           <b>
             Your Songs{" "}
-            <Button
-              variant="primary"
-              href="/newtab"
-              target="_blank"
-              onClick={
-                <NewWindow>
-                  <NewTab></NewTab>
-                </NewWindow>
-              }
-            >
-              + Create
-            </Button>
+            <Link to="/newtab/0">
+              <Button variant="primary">+ Create</Button>
+            </Link>
           </b>
           {/* just a line break */}
           <div style={{ height: 2, backgroundColor: "grey" }}></div>

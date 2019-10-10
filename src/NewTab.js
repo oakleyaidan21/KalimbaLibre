@@ -63,7 +63,8 @@ class NewTab extends Component {
         { time: 16 / 3, image: D_Eighth },
         { time: 8, image: Eighth },
         { time: 16, image: Sixteenth }
-      ]
+      ],
+      dbID: this.props.dbID
     };
 
     this.handlePlay = this.handlePlay.bind(this);
@@ -105,20 +106,30 @@ class NewTab extends Component {
     }
   };
 
+  parseText = data => {
+    var temp;
+    var found = false;
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].id === parseInt(this.props.dbID)) {
+        found = true;
+        this.setState({
+          songTitle: data[i].title,
+          keySig: data[i].keysig,
+          tempo: data[i].tempo,
+          kalimbaLength: data[i].length,
+          songString: data[i].songString
+        });
+        temp = data[i].songString;
+      }
+    }
+
+    if (found) {
+      console.log(found);
+      this.reRenderSong(temp);
+    }
+  };
+
   componentDidMount = async () => {
-    //instrument stuff
-    await delay(500);
-    const { instruments } = await getInstruments(["kalimba"]);
-    this.setState({ kalimba: instruments.get("kalimba") });
-    console.log("kalimba loaded");
-    //export txt stuff
-    var temp = this.createEmptyArray(this.state.kalimbaLength, [
-      { noteName: "A3", time: 4 }
-    ]);
-    this.setState({ songNotes: temp });
-    //scroll stuff
-    var myDiv = document.getElementById("holder");
-    myDiv.scrollTop = myDiv.scrollHeight;
     //tnote stuff
     //child initilization stuff
     var tempT = [];
@@ -145,6 +156,34 @@ class NewTab extends Component {
       });
     }
     this.setState({ totalNotes: tempT });
+
+    if (this.props.dbID !== "0") {
+      fetch("http://localhost:3000/songs")
+        .then(
+          data => {
+            return data.json();
+          },
+          err => console.log(err)
+        )
+        .then(
+          parsedData => this.parseText(parsedData),
+          err => console.log(err)
+        );
+    }
+
+    //instrument stuff
+    await delay(500);
+    const { instruments } = await getInstruments(["kalimba"]);
+    this.setState({ kalimba: instruments.get("kalimba") });
+    console.log("kalimba loaded");
+    //export txt stuff
+    var temp = this.createEmptyArray(this.state.kalimbaLength, [
+      { noteName: "A3", time: 4 }
+    ]);
+    this.setState({ songNotes: temp });
+    //scroll stuff
+    var myDiv = document.getElementById("holder");
+    myDiv.scrollTop = myDiv.scrollHeight;
   };
 
   //can probably handle the page issue by having it image the holder, then manually scroll up and do it again
@@ -187,7 +226,6 @@ class NewTab extends Component {
     var counter = 1;
     console.log(this.state.idToPlayUntil);
     for (var i = temp.length - 1; i >= this.state.idToPlayUntil; i--) {
-      console.log("go");
       if (i === -1) {
         break;
       }
@@ -448,6 +486,8 @@ class NewTab extends Component {
         Save
       </Button>
     );
+
+    console.log("dbid: " + this.state.dbID);
 
     return (
       <div className="App">
