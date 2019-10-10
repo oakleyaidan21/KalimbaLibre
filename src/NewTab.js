@@ -64,7 +64,8 @@ class NewTab extends Component {
         { time: 8, image: Eighth },
         { time: 16, image: Sixteenth }
       ],
-      dbID: this.props.dbID
+      dbID: this.props.dbID,
+      imageToRender: Quarter
     };
 
     this.handlePlay = this.handlePlay.bind(this);
@@ -89,7 +90,7 @@ class NewTab extends Component {
         }
       }
       if (index !== -1) {
-        this.setState({ imageToRender: this.state.images[index] });
+        this.setState({ imageToRender: this.state.images[index].image });
       }
       this.setState({ curTime: addition });
     } else {
@@ -101,7 +102,7 @@ class NewTab extends Component {
         }
       }
       if (index !== -1) {
-        this.setState({ imageToRender: this.state.images[index] });
+        this.setState({ imageToRender: this.state.images[index].image });
       }
     }
   };
@@ -125,7 +126,7 @@ class NewTab extends Component {
     if (found) {
       console.log(found);
       console.log(temp);
-      this.reRenderSong(temp);
+      // this.reRenderSong(temp);
     }
   };
 
@@ -142,8 +143,7 @@ class NewTab extends Component {
           name: this.state.tineNotes[j].note,
           color: "transparent",
           selected: false,
-          noteID: j,
-          imageToRender: Quarter
+          noteID: j
         });
       }
       tempT.push({
@@ -429,14 +429,10 @@ class NewTab extends Component {
           }
           // console.log(this.state.images);
           if (index !== -1) {
-            console.log("found");
-            tempT[tNoteID].notes[id].imageToRender = this.state.images[
-              index
-            ].image;
-            console.log(this.state.images[index]);
+            this.setState({ imageToRender: this.state.images[index].image });
           } else {
             console.log("not found");
-            tempT[tNoteID].notes[id].imageToRender = Quarter;
+            this.setState({ imageToRender: Quarter });
           }
         }
       }
@@ -552,6 +548,7 @@ class NewTab extends Component {
           playing={this.state.playing}
           ref="child"
           curTime={this.state.curTime}
+          imageToRender={this.state.imageToRender}
         />
         <Selector
           onChangeNoteTime={this.changeNoteTime}

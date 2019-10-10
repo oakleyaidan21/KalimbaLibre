@@ -36,7 +36,7 @@ class Note extends Component {
   componentWillReceiveProps = nextProps => {
     this.setState({ time: nextProps.time });
     this.setState({ selected: nextProps.selected });
-    this.setState({ imageToRender: nextProps.imageToRender });
+    // this.setState({ imageToRender: nextProps.imageToRender });
   };
 
   handleSelectionL = () => {

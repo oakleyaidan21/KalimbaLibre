@@ -30,7 +30,6 @@ class SongSquare extends Component {
   };
 
   render() {
-    console.log(this.props.id);
     let toBeRendered;
     if (this.state.hidden === false) {
       toBeRendered = (

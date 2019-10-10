@@ -55,6 +55,7 @@ class KalimbaContainer extends Component {
           playing={this.props.playing}
           tempo={this.props.tempo}
           curTime={this.props.curTime}
+          imageToRender={this.props.imageToRender}
         />
       </div>
     );

@@ -65,7 +65,7 @@ class TotalNote extends Component {
             onHandleNoteClick={this.handleNoteClick}
             noteID={note.noteID}
             instrument={this.props.instrument}
-            imageToRender={note.imageToRender}
+            imageToRender={this.props.imageToRender}
           />
         ))}
       </div>

@@ -75,6 +75,7 @@ class NoteContainer extends Component {
             instrument={this.props.kalimba}
             curTime={this.props.curTime}
             notes={totalNote.notes}
+            imageToRender={this.props.imageToRender}
           />
         ))}
       </div>
