@@ -56,7 +56,7 @@ class ConfigContainer extends Component {
         id="configContainer"
         style={{
           display: "inline-block",
-          height: 570,
+          height: 420,
           width: "21%",
           background: "#D4D4D4",
           borderRadius: 25,
@@ -134,30 +134,6 @@ class ConfigContainer extends Component {
             }}
           >
             Set Tempo
-          </Button>
-        </Form>
-        <Form>
-          <Form.Group controlId="formBasic">
-            <Form.Label>Song String</Form.Label>
-            <Form.Control
-              size="sm"
-              placeholder={this.state.song}
-              onChange={this.configStrings}
-            />
-            <Form.Text className="text-muted">
-              Paste a downloaded song string to re-render your saved song
-            </Form.Text>
-          </Form.Group>
-          <Button
-            variant="primary"
-            type="submit"
-            size="sm"
-            onClick={event => {
-              event.preventDefault();
-              this.configSongString();
-            }}
-          >
-            Render Song
           </Button>
         </Form>
       </div>

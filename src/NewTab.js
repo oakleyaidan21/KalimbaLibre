@@ -9,8 +9,6 @@ import "./App.css";
 import ConfigContainer from "./components/display-components/ConfigContainer";
 import { getInstruments } from "mobx-music";
 import { delay } from "q";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
 import scaleKeys from "./constants.js";
 import Quarter from "./noteImages/quarter_note.png";
 import Eighth from "./noteImages/eighth_note.png";
@@ -64,17 +62,16 @@ class NewTab extends Component {
         { time: 8, image: Eighth },
         { time: 16, image: Sixteenth }
       ],
-      dbID: this.props.dbID,
-      imageToRender: Quarter
+      dbID: this.props.dbID
     };
 
     this.handlePlay = this.handlePlay.bind(this);
     this.changeNoteTime = this.changeNoteTime.bind(this);
-    this.handleExport = this.handleExport.bind(this);
     this.configure = this.configure.bind(this);
     this.handleSave = this.handleSave.bind(this);
   }
 
+  //changes the current note for editing
   changeNoteTime = childData => {
     console.log(childData);
     if (childData === ".") {
@@ -107,6 +104,7 @@ class NewTab extends Component {
     }
   };
 
+  //parses song data from the ruby API
   parseText = data => {
     var temp;
     var found = false;
@@ -129,9 +127,9 @@ class NewTab extends Component {
     }
   };
 
+  //initialization
   componentDidMount = async () => {
-    //tnote stuff
-    //child initilization stuff
+    //TotalNote initilization
     var tempT = [];
     for (var i = 0; i < 40; i++) {
       var tempN = [];
@@ -156,6 +154,7 @@ class NewTab extends Component {
     }
     this.setState({ totalNotes: tempT });
 
+    //fetches song data from API if it is not a new song
     if (this.props.dbID !== "0") {
       fetch("http://localhost:3000/songs")
         .then(
@@ -170,45 +169,24 @@ class NewTab extends Component {
         );
     }
 
-    //instrument stuff
+    //Instrument Initilization
     await delay(500);
     const { instruments } = await getInstruments(["kalimba"]);
     this.setState({ kalimba: instruments.get("kalimba") });
     console.log("kalimba loaded");
-    //export txt stuff
+
+    //Text Export Initilization
     var temp = this.createEmptyArray(this.state.kalimbaLength, [
       { noteName: "A3", time: 4 }
     ]);
     this.setState({ songNotes: temp });
-    //scroll stuff
+
+    //Sets the KalimbaContainer to be scrolled down by default
     var myDiv = document.getElementById("holder");
     myDiv.scrollTop = myDiv.scrollHeight;
   };
 
-  //can probably handle the page issue by having it image the holder, then manually scroll up and do it again
-  handleExport = () => {
-    var input = document.getElementById("holder");
-    html2canvas(input).then(canvas => {
-      let pdf = new jsPDF("p", "mm", "a4");
-      for (var i = 0; i < 4; i++) {
-        pdf.addImage(
-          canvas.toDataURL("image/png"),
-          "PNG",
-          0,
-          500 * i,
-          211,
-          298
-        );
-        if (i > 0 || i !== 3) {
-          pdf.addPage();
-        }
-      }
-
-      pdf.save("kalimba.pdf");
-    });
-    input.scrollTop = input.scrollHeight;
-  };
-
+  //helper function for getting the smallest note time in a chord
   getSmallestTimeInterval = array => {
     return Math.max.apply(
       Math,
@@ -218,6 +196,7 @@ class NewTab extends Component {
     );
   };
 
+  //goes through each TotalNote and plays the selected notes
   handlePlay = async () => {
     console.log(this.state.kalimba);
     var smallestTimeInterval = 4;
@@ -260,6 +239,7 @@ class NewTab extends Component {
     }
   };
 
+  //Configures the title, key signature, and tempo
   configure = (value, type) => {
     if (type === "title") {
       console.log(value);
@@ -282,19 +262,14 @@ class NewTab extends Component {
       }
       this.setState({ tineNotes: temp });
     }
-    if (type === "time") {
-      this.setState({ time: value });
-    }
     if (type === "tempo") {
       this.setState({ tempo: value });
-    }
-    if (type === "songString") {
-      this.setState({ songString: value });
-      this.reRenderSong(value);
     }
     this.setState({ isSaved: false });
   };
 
+  //converts the song into a text file for download
+  //might get rid of soon
   handleNoteExport = save => {
     const element = document.createElement("a");
     if (this.state.songString !== "None") {
@@ -350,6 +325,7 @@ class NewTab extends Component {
     return temp;
   };
 
+  //helper function for creating an empty array for the conversion function
   createEmptyArray(len, itm) {
     var arr1 = [itm],
       arr2 = [];
@@ -361,11 +337,11 @@ class NewTab extends Component {
     return arr2;
   }
 
+  //the last of the functions that retrieve note data. sets this state's note data
   handleLastPassUp = (tNote, noteName, time, remove, noteID) => {
     var temp = this.state.songNotes;
     console.log(tNote, noteName, time, remove);
     if (remove) {
-      // temp[tNote] = temp[tNote].splice({ noteName: noteName, time: time }, 1);
       for (var i = 0; i < temp[tNote].length; i++) {
         if (
           temp[tNote][i].noteName === noteName &&
@@ -404,51 +380,55 @@ class NewTab extends Component {
     this.setState({ isSaved: false });
   };
 
+  //given an exported song string, sets this state's note data to what was given. needs to be rewritten
   reRenderSong = value => {
     var temp = value.split(",");
-    this.setState({
-      songtitle: temp[0],
-      keySig: temp[1],
-      tempo: temp[2],
-      kalimbaLength: temp[3]
-    });
+    console.log(temp);
+    for (var i = 1; i < temp.length; i++) {}
+    // var temp = value.split(",");
+    // this.setState({
+    //   songtitle: temp[0],
+    //   keySig: temp[1],
+    //   tempo: temp[2],
+    //   kalimbaLength: temp[3]
+    // });
 
-    var tempT = this.state.totalNotes;
-    console.log("temp + " + temp[4]);
-    for (var i = 4; i < temp.length; i++) {
-      var temp2 = temp[i].split(" ");
-      var tNoteID = temp2[1];
-      if (temp2[2] !== "") {
-        for (var j = 2; j < temp2.length; j++) {
-          var noteName = temp2[j].charAt(0) + temp2[j].charAt(1);
-          var t = temp2[j].charAt(2);
-          var t_i = 3;
-          if (t === "1") {
-            t += temp2[j].charAt(t_i);
-            t_i++;
-          }
-          var id = temp2[j].slice(t_i);
-          console.log(tNoteID + " " + noteName + " " + t + " " + id);
-          tempT[tNoteID].notes[id].selected = true;
-          tempT[tNoteID].notes[id].time = t;
-          var index = -1;
-          for (var k = 0; k < this.state.images.length; k++) {
-            if (this.state.images[k].time === parseInt(t)) {
-              index = k;
-              break;
-            }
-          }
-          // console.log(this.state.images);
-          if (index !== -1) {
-            this.setState({ imageToRender: this.state.images[index].image });
-          } else {
-            console.log("not found");
-            this.setState({ imageToRender: Quarter });
-          }
-        }
-      }
-    }
-    this.setState({ totalNotes: tempT });
+    // var tempT = this.state.totalNotes;
+    // console.log("temp + " + temp[4]);
+    // for (var i = 4; i < temp.length; i++) {
+    //   var temp2 = temp[i].split(" ");
+    //   var tNoteID = temp2[1];
+    //   if (temp2[2] !== "") {
+    //     for (var j = 2; j < temp2.length; j++) {
+    //       var noteName = temp2[j].charAt(0) + temp2[j].charAt(1);
+    //       var t = temp2[j].charAt(2);
+    //       var t_i = 3;
+    //       if (t === "1") {
+    //         t += temp2[j].charAt(t_i);
+    //         t_i++;
+    //       }
+    //       var id = temp2[j].slice(t_i);
+    //       console.log(tNoteID + " " + noteName + " " + t + " " + id);
+    //       tempT[tNoteID].notes[id].selected = true;
+    //       tempT[tNoteID].notes[id].time = t;
+    //       var index = -1;
+    //       for (var k = 0; k < this.state.images.length; k++) {
+    //         if (this.state.images[k].time === parseInt(t)) {
+    //           index = k;
+    //           break;
+    //         }
+    //       }
+    //       // console.log(this.state.images);
+    //       if (index !== -1) {
+    //         this.setState({ imageToRender: this.state.images[index].image });
+    //       } else {
+    //         console.log("not found");
+    //         this.setState({ imageToRender: Quarter });
+    //       }
+    //     }
+    //   }
+    // }
+    // this.setState({ totalNotes: tempT });
   };
 
   handleSave = () => {
@@ -517,16 +497,6 @@ class NewTab extends Component {
           </Nav>
           <Form inline>
             <div id="navtop">
-              <Button
-                variant="outline-info"
-                onClick={() => {
-                  this.handleExport();
-                }}
-                style={{ marginRight: 10 }}
-              >
-                Export to PDF
-              </Button>
-
               <Button
                 id="my-input"
                 variant="outline-info"
