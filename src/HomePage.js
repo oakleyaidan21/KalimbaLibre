@@ -41,6 +41,7 @@ class HomePage extends Component {
     fetch("http://localhost:3000/songs")
       .then(
         data => {
+          console.log(data);
           return data.json();
         },
         err => console.log(err)

@@ -349,6 +349,7 @@ class NewTab extends Component {
   //given an exported song string, sets this state's note data to what was given. needs to be rewritten
   reRenderSong = value => {
     var temp = value.split(",");
+    var tempTNotes = this.state.totalNotes;
     console.log(temp);
     for (var i = 1; i < temp.length; i++) {
       var temp2 = temp[i].split(" ");
@@ -362,7 +363,7 @@ class NewTab extends Component {
               var noteName = temp3[0];
               var noteTime = temp3[1];
               var noteID = temp3[2];
-              var tempTNotes = this.state.totalNotes;
+
               console.log(
                 tNoteID + " " + noteName + " " + noteTime + " " + noteID
               );
