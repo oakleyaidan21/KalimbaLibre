@@ -18,15 +18,18 @@ class SongSquare extends Component {
   }
 
   deleteSelf = () => {
-    fetch("http://localhost:3000/songs/" + this.state.id, {
-      method: "DELETE"
-    }).then(response => {});
+    fetch(
+      "https://warm-inlet-29455.herokuapp.com/kalimba_songs" + this.state.id,
+      {
+        method: "DELETE"
+      }
+    ).then(response => {});
 
     this.setState({ hidden: true });
   };
 
   copySelf = () => {
-    fetch("http://localhost:3000/songs", {
+    fetch("https://warm-inlet-29455.herokuapp.com/kalimba_songs", {
       method: "POST",
       body: JSON.stringify({
         title: this.state.title + "(copy)",

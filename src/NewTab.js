@@ -159,7 +159,7 @@ class NewTab extends Component {
 
     //fetches song data from API if it is not a new song
     if (this.props.dbID !== "0") {
-      fetch("http://localhost:3000/songs")
+      fetch("https://warm-inlet-29455.herokuapp.com/kalimba_songs")
         .then(
           data => {
             return data.json();
@@ -399,7 +399,7 @@ class NewTab extends Component {
       method = "PUT";
     }
     var songS = this.handleNoteExport(false);
-    fetch("http://localhost:3000/songs" + concat, {
+    fetch("https://warm-inlet-29455.herokuapp.com/kalimba_songs" + concat, {
       method: method,
       body: JSON.stringify({
         title: this.state.songTitle,
