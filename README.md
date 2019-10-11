@@ -36,8 +36,14 @@ Here's how the app looks at this stage in development:
 - [x] Make config and selector elements actually control variables that App uses
 - [x] Render note icons instead of purple squares on kalimba
   - [ ] Get images for every type of note
-- [ ] Fix note timing calculation for dotted notes
-- [ ] Find way to export note placements
+- [x] Fix note timing calculation for dotted notes
+- [x] Find way to export note placements
 - [ ] Update selector to have note icons instead of numbers
 - [ ] Clean up all code
 - [ ] Everything else! :^)
+
+## CURRENT ISSUES
+
+- notes will not re-render as their correct note icon, but they will render timing correct
+- updating a saved song and saving it again will change everything but the songString
+- need to be able to set up the api remotely somehow (heroku?)

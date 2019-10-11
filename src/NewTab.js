@@ -49,6 +49,7 @@ class NewTab extends Component {
       keySig: "C", //will change to get from router props
       songTitle: "None", //will change to get from router props
       curTime: 4,
+      imageToRender: Quarter,
       songString: "None", //will change to get from router props
       isSaved: true,
       idToPlayUntil: -1,
