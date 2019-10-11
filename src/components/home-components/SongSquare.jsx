@@ -19,7 +19,7 @@ class SongSquare extends Component {
 
   deleteSelf = () => {
     fetch(
-      "https://warm-inlet-29455.herokuapp.com/kalimba_songs" + this.state.id,
+      "https://warm-inlet-29455.herokuapp.com/kalimba_songs/" + this.state.id,
       {
         method: "DELETE"
       }
