@@ -7,8 +7,7 @@ class NoteContainer extends Component {
     super(props);
 
     this.state = {
-      idToPlayUntil: -1,
-      tNoteRefs: []
+      idToPlayUntil: -1
     };
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
   }
@@ -24,28 +23,6 @@ class NoteContainer extends Component {
 
   componentWillReceiveProps = nextProps => {
     this.setState({ curTime: nextProps.curTime });
-  };
-
-  //populates the totalNotes Array
-  componentDidMount = () => {
-    var temp = [];
-    for (var i = 0; i < this.props.amountOfTNotes; i++) {
-      var four = false;
-      if (i % 4 === 0 || i === this.state.propsNotes - 1) {
-        four = true;
-      }
-      temp.push({
-        key: i,
-        time: 4,
-        rest: false,
-        color: "transparent",
-        is4: four,
-        onPassingUpNote: this.handlePassingUpNote,
-        id: i,
-        coloredNotes: []
-      });
-    }
-    this.setState({ totalNotes: temp });
   };
 
   handlePassingUpNote = (tNote, noteName, time, remove, noteID) => {
@@ -75,7 +52,7 @@ class NoteContainer extends Component {
             instrument={this.props.kalimba}
             curTime={this.props.curTime}
             notes={totalNote.notes}
-            imageToRender={this.props.imageToRender}
+            // imageToRender={this.props.imageToRender}
           />
         ))}
       </div>

@@ -36,7 +36,7 @@ class Note extends Component {
   componentWillReceiveProps = nextProps => {
     this.setState({ time: nextProps.time });
     this.setState({ selected: nextProps.selected });
-    // this.setState({ imageToRender: nextProps.imageToRender });
+    this.setState({ imageToRender: nextProps.imageToRender });
   };
 
   handleSelectionL = () => {
@@ -78,15 +78,15 @@ class Note extends Component {
         console.log("set to 16");
         this.setState({ imageToRender: Sixteenth });
       }
-      if (this.state.time === 1.5) {
+      if (this.state.time === 4 / 3) {
         console.log("set to dotted half");
         this.setState({ imageToRender: D_Half });
       }
-      if (this.state.time === 6) {
+      if (this.state.time === 16 / 3) {
         console.log("set to dotted eighth");
         this.setState({ imageToRender: D_Eighth });
       }
-      if (this.state.time === 3) {
+      if (this.state.time === 8 / 3) {
         console.log("set to dotted quarter");
         this.setState({ imageToRender: D_Quarter });
       }

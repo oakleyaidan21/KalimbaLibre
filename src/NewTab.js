@@ -17,6 +17,7 @@ import Sixteenth from "./noteImages/sixteenth_note.png";
 import D_Half from "./noteImages/dotted_half.png";
 import D_Eighth from "./noteImages/dotted_eighth.png";
 import D_Quarter from "./noteImages/dotted_quarter.png";
+import Whole from "./noteImages/whole_note.png";
 
 class NewTab extends Component {
   constructor(props) {
@@ -53,7 +54,7 @@ class NewTab extends Component {
       isSaved: true,
       idToPlayUntil: -1,
       images: [
-        // { time: 1, image: Whole },
+        { time: 1, image: Whole },
         { time: 4 / 3, image: D_Half },
         { time: 2, image: Half },
         { time: 8 / 3, image: D_Quarter },
@@ -72,6 +73,7 @@ class NewTab extends Component {
   }
 
   //changes the current note for editing
+  //current problem: doesn't render images of dotted notes, for whatever reason
   changeNoteTime = childData => {
     console.log(childData);
     if (childData === ".") {
@@ -81,12 +83,13 @@ class NewTab extends Component {
 
       var index = -1;
       for (var i = 0; i < this.state.images.length; i++) {
-        if (parseInt(addition) === this.state.images[i].time) {
+        if (addition === this.state.images[i].time) {
           index = i;
           break;
         }
       }
       if (index !== -1) {
+        console.log(this.state.images[index].image);
         this.setState({ imageToRender: this.state.images[index].image });
       }
       this.setState({ curTime: addition });
@@ -140,7 +143,8 @@ class NewTab extends Component {
           name: this.state.tineNotes[j].note,
           color: "transparent",
           selected: false,
-          noteID: j
+          noteID: j,
+          imageToRender: Quarter
         });
       }
       tempT.push({
@@ -300,7 +304,9 @@ class NewTab extends Component {
       for (var j = 1; j < this.state.songNotes[i].length; j++) {
         sequence +=
           this.state.songNotes[i][j].noteName +
+          "|" +
           this.state.songNotes[i][j].time +
+          "|" +
           this.state.songNotes[i][j].noteID;
         if (j !== this.state.songNotes[i].length - 1) {
           sequence += " ";
@@ -384,51 +390,43 @@ class NewTab extends Component {
   reRenderSong = value => {
     var temp = value.split(",");
     console.log(temp);
-    for (var i = 1; i < temp.length; i++) {}
-    // var temp = value.split(",");
-    // this.setState({
-    //   songtitle: temp[0],
-    //   keySig: temp[1],
-    //   tempo: temp[2],
-    //   kalimbaLength: temp[3]
-    // });
-
-    // var tempT = this.state.totalNotes;
-    // console.log("temp + " + temp[4]);
-    // for (var i = 4; i < temp.length; i++) {
-    //   var temp2 = temp[i].split(" ");
-    //   var tNoteID = temp2[1];
-    //   if (temp2[2] !== "") {
-    //     for (var j = 2; j < temp2.length; j++) {
-    //       var noteName = temp2[j].charAt(0) + temp2[j].charAt(1);
-    //       var t = temp2[j].charAt(2);
-    //       var t_i = 3;
-    //       if (t === "1") {
-    //         t += temp2[j].charAt(t_i);
-    //         t_i++;
-    //       }
-    //       var id = temp2[j].slice(t_i);
-    //       console.log(tNoteID + " " + noteName + " " + t + " " + id);
-    //       tempT[tNoteID].notes[id].selected = true;
-    //       tempT[tNoteID].notes[id].time = t;
-    //       var index = -1;
-    //       for (var k = 0; k < this.state.images.length; k++) {
-    //         if (this.state.images[k].time === parseInt(t)) {
-    //           index = k;
-    //           break;
-    //         }
-    //       }
-    //       // console.log(this.state.images);
-    //       if (index !== -1) {
-    //         this.setState({ imageToRender: this.state.images[index].image });
-    //       } else {
-    //         console.log("not found");
-    //         this.setState({ imageToRender: Quarter });
-    //       }
-    //     }
-    //   }
-    // }
-    // this.setState({ totalNotes: tempT });
+    for (var i = 1; i < temp.length; i++) {
+      var temp2 = temp[i].split(" ");
+      var tNoteID = parseInt(temp2[0]);
+      if (temp2[1] !== "") {
+        for (var j = 1; j < temp2.length; j++) {
+          if (temp2[j] != null) {
+            var temp3 = temp2[j].split("|");
+            if (temp3 != null || temp3.length !== 1) {
+              console.log(temp3);
+              var noteName = temp3[0];
+              var noteTime = temp3[1];
+              var noteID = temp3[2];
+              var tempTNotes = this.state.totalNotes;
+              console.log(
+                tNoteID + " " + noteName + " " + noteTime + " " + noteID
+              );
+              if (noteName != null || noteName !== "") {
+                tempTNotes[tNoteID].notes[noteID].selected = true;
+                tempTNotes[tNoteID].notes[noteID].time = noteTime;
+                //find image to render
+                var index = 4;
+                for (var l = 0; l < this.state.images.length; l++) {
+                  if (parseInt(noteTime) === this.state.images[l].time) {
+                    index = l;
+                    break;
+                  }
+                }
+                tempTNotes[tNoteID].notes[
+                  noteID
+                ].imageToRender = this.state.images[index].image;
+                this.setState({ totalNotes: tempTNotes });
+              }
+            }
+          }
+        }
+      }
+    }
   };
 
   handleSave = () => {

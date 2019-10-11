@@ -18,7 +18,7 @@ class HomePage extends Component {
   }
 
   parseText = data => {
-    if (data !== null) {
+    if (data != null) {
       this.setState({ didConnect: true });
       for (var i = 0; i < data.length; i++) {
         if (data[i].username === "carrot") {
@@ -69,9 +69,10 @@ class HomePage extends Component {
         ></SongSquare>
       ));
     } else {
-      var text = "You don't have any songs. Click on '+ Create' to start one!";
+      var text =
+        "You don't have any songs. Click on '+ Create' to start one, or refresh the page to see your new ones!";
       if (this.state.didConnect === false) {
-        text = "Could not connect to the database!";
+        text = "Could not connect to the database! Try refreshing?";
       }
       squares = (
         <div
