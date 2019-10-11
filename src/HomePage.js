@@ -38,7 +38,7 @@ class HomePage extends Component {
   };
 
   componentDidMount = () => {
-    fetch("https://warm-inlet-29455.herokuapp.com/kalimba_songs")
+    fetch("https://localhost:3000/")
       .then(
         data => {
           console.log(data);
