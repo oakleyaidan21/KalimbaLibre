@@ -49,7 +49,6 @@ class NewTab extends Component {
       keySig: "C", //will change to get from router props
       songTitle: "None", //will change to get from router props
       curTime: 4,
-      songNotes: [[]],
       songString: "None", //will change to get from router props
       isSaved: true,
       idToPlayUntil: -1,
@@ -80,7 +79,6 @@ class NewTab extends Component {
       var t = this.state.curTime;
       var addition = (t + t) / 3;
       console.log(addition);
-
       var index = -1;
       for (var i = 0; i < this.state.images.length; i++) {
         if (addition === this.state.images[i].time) {
@@ -178,12 +176,6 @@ class NewTab extends Component {
     const { instruments } = await getInstruments(["kalimba"]);
     this.setState({ kalimba: instruments.get("kalimba") });
     console.log("kalimba loaded");
-
-    //Text Export Initilization
-    var temp = this.createEmptyArray(this.state.kalimbaLength, [
-      { noteName: "A3", time: 4 }
-    ]);
-    this.setState({ songNotes: temp });
 
     //Sets the KalimbaContainer to be scrolled down by default
     var myDiv = document.getElementById("holder");
@@ -299,21 +291,20 @@ class NewTab extends Component {
       this.state.kalimbaLength +
       ",\n";
     var sequence = "";
-    for (var i = this.state.songNotes.length - 1; i >= 0; i--) {
+    for (var i = this.state.totalNotes.length - 1; i >= 0; i--) {
       sequence += i + " ";
-      for (var j = 1; j < this.state.songNotes[i].length; j++) {
-        sequence +=
-          this.state.songNotes[i][j].noteName +
-          "|" +
-          this.state.songNotes[i][j].time +
-          "|" +
-          this.state.songNotes[i][j].noteID;
-        if (j !== this.state.songNotes[i].length - 1) {
-          sequence += " ";
+      for (var j = 0; j < this.state.totalNotes[i].notes.length; j++) {
+        if (this.state.totalNotes[i].notes[j].selected === true) {
+          sequence +=
+            this.state.totalNotes[i].notes[j].name +
+            "|" +
+            this.state.totalNotes[i].notes[j].time +
+            "|" +
+            this.state.totalNotes[i].notes[j].noteID +
+            " ";
         }
       }
-
-      if (sequence !== 0) {
+      if (sequence !== "0") {
         sequence += ",\n";
       }
     }
@@ -331,39 +322,8 @@ class NewTab extends Component {
     return temp;
   };
 
-  //helper function for creating an empty array for the conversion function
-  createEmptyArray(len, itm) {
-    var arr1 = [itm],
-      arr2 = [];
-    while (len > 0) {
-      if (len & 1) arr2 = arr2.concat(arr1);
-      arr1 = arr1.concat(arr1);
-      len >>>= 1;
-    }
-    return arr2;
-  }
-
   //the last of the functions that retrieve note data. sets this state's note data
   handleLastPassUp = (tNote, noteName, time, remove, noteID) => {
-    var temp = this.state.songNotes;
-    console.log(tNote, noteName, time, remove);
-    if (remove) {
-      for (var i = 0; i < temp[tNote].length; i++) {
-        if (
-          temp[tNote][i].noteName === noteName &&
-          temp[tNote][i].time === time
-        ) {
-          temp[tNote].splice(i, 1);
-          console.log(temp[tNote]);
-        }
-      }
-    } else {
-      temp[tNote] = temp[tNote].concat({
-        noteName: noteName,
-        time: time,
-        noteID: noteID
-      });
-    }
     var temp2 = this.state.totalNotes;
     if (remove) {
       console.log(tNote + " " + noteID);
@@ -382,7 +342,6 @@ class NewTab extends Component {
       }
     }
     this.setState({ totalNotes: temp2 });
-    this.setState({ songNotes: temp });
     this.setState({ isSaved: false });
   };
 
@@ -394,7 +353,7 @@ class NewTab extends Component {
       var temp2 = temp[i].split(" ");
       var tNoteID = parseInt(temp2[0]);
       if (temp2[1] !== "") {
-        for (var j = 1; j < temp2.length; j++) {
+        for (var j = 1; j < temp2.length - 1; j++) {
           if (temp2[j] != null) {
             var temp3 = temp2[j].split("|");
             if (temp3 != null || temp3.length !== 1) {
@@ -412,7 +371,8 @@ class NewTab extends Component {
                 //find image to render
                 var index = 4;
                 for (var l = 0; l < this.state.images.length; l++) {
-                  if (parseInt(noteTime) === this.state.images[l].time) {
+                  console.log(parseFloat(noteTime));
+                  if (parseFloat(noteTime) === this.state.images[l].time) {
                     index = l;
                     break;
                   }
