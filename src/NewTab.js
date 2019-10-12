@@ -111,7 +111,6 @@ class NewTab extends Component {
     }
 
     temp = temp.split(",");
-    console.log(temp);
     var tempTNotes = [];
     // first, initialize all the tNotes
     for (var i = 0; i < this.state.kalimbaLength; i++) {
@@ -303,18 +302,7 @@ class NewTab extends Component {
   //might get rid of soon
   handleNoteExport = save => {
     const element = document.createElement("a");
-    if (this.state.songString !== "None") {
-      if (save) {
-        const file = new Blob([this.state.songString], {
-          type: "text/plain"
-        });
-        element.href = URL.createObjectURL(file);
-        element.download = this.state.songTitle;
-        document.body.appendChild(element);
-        element.click();
-      }
-      return;
-    }
+
     var temp =
       this.state.songTitle +
       ",\n" +
