@@ -105,6 +105,7 @@ class NewTab extends Component {
           tempo: data[a].tempo,
           kalimbaLength: data[a].length
         });
+        this.configure(data[a].keysig, "key");
         temp = data[a].songString;
         this.setState({ songString: temp });
       }
@@ -220,11 +221,11 @@ class NewTab extends Component {
 
   //goes through each TotalNote and plays the selected notes
   handlePlay = async () => {
-    console.log(this.state.kalimba);
+    // console.log(this.state.kalimba);
     var smallestTimeInterval = 4;
     var temp = this.state.totalNotes;
     var counter = 1;
-    console.log(this.state.idToPlayUntil);
+    // console.log(this.state.idToPlayUntil);
     for (var i = temp.length - 1; i >= this.state.idToPlayUntil; i--) {
       if (i === -1) {
         break;
@@ -244,7 +245,7 @@ class NewTab extends Component {
       }
       temp[i].color = "rgb(247,255,0,0.5)";
       this.setState({ totalNotes: temp });
-      for (var j = 0; j < 14; j++) {
+      for (var j = 0; j < 17; j++) {
         if (temp[i].notes[j].selected) {
           this.state.kalimba.play(temp[i].notes[j].name);
           if (temp[i].notes[j].time > smallestTimeInterval) {
