@@ -30,21 +30,21 @@ class Note extends Component {
         { time: 8, image: Eighth },
         { time: 16, image: Sixteenth }
       ],
-      imageToRender: null
+      imageToRender: this.props.imageToRender
     };
-    for (var i = 0; i < this.state.images.length; i++) {
-      if (this.state.images[i].time === this.state.time) {
-        this.state.imageToRender = this.state.images[i].image;
-        break;
-      }
-    }
+    // for (var i = 0; i < this.state.images.length; i++) {
+    //   if (this.state.images[i].time === this.state.time) {
+    //     this.state.imageToRender = this.state.images[i].image;
+    //     break;
+    //   }
+    // }
     this.handleNoteClick = this.handleNoteClick.bind(this);
     this.handleSelectionE = this.handleSelectionE.bind(this);
     this.handleSelectionL = this.handleSelectionL.bind(this);
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
   }
 
-  componentWillMount = () => {};
+  componentDidMount = () => {};
 
   handleSelectionE = () => {
     if (this.state.color !== "purple") {
@@ -56,7 +56,6 @@ class Note extends Component {
   componentWillReceiveProps = nextProps => {
     this.setState({ time: nextProps.time });
     this.setState({ selected: nextProps.selected });
-
     // this.setState({ imageToRender: nextProps.imageToRender });
   };
 

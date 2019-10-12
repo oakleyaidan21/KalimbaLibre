@@ -71,6 +71,15 @@ class NewTab extends Component {
     this.handleSave = this.handleSave.bind(this);
   }
 
+  getImageIndex = time => {
+    for (var i = 0; i < this.state.images.length; i++) {
+      if (this.state.images[i].time === parseFloat(time)) {
+        return this.state.images[i].image;
+      }
+    }
+    return this.state.images[0].image;
+  };
+
   //changes the current note for editing
   //current problem: doesn't render images of dotted notes, for whatever reason
   changeNoteTime = childData => {
@@ -86,32 +95,25 @@ class NewTab extends Component {
   };
 
   //parses song data from the ruby API
-  parseText = data => {
-    var temp;
-    var found = false;
-    for (var i = 0; i < data.length; i++) {
-      if (data[i].id === parseInt(this.props.dbID)) {
-        found = true;
+  reRenderSongData = data => {
+    var temp = "none";
+    for (var a = 0; a < data.length; a++) {
+      if (data[a].id === parseInt(this.props.dbID)) {
         this.setState({
-          songTitle: data[i].title,
-          keySig: data[i].keysig,
-          tempo: data[i].tempo,
-          kalimbaLength: data[i].length
+          songTitle: data[a].title,
+          keySig: data[a].keysig,
+          tempo: data[a].tempo,
+          kalimbaLength: data[a].length
         });
-        temp = data[i].songString;
+        temp = data[a].songString;
         this.setState({ songString: temp });
       }
     }
 
-    if (found) {
-      this.reRenderSong(temp);
-    }
-  };
-
-  //initialization
-  componentDidMount = async () => {
-    //TotalNote initilization
-    var tempT = [];
+    temp = temp.split(",");
+    console.log(temp);
+    var tempTNotes = [];
+    // first, initialize all the tNotes
     for (var i = 0; i < this.state.kalimbaLength; i++) {
       var tempN = [];
       for (var j = 0; j < 17; j++) {
@@ -125,7 +127,7 @@ class NewTab extends Component {
           imageToRender: Whole
         });
       }
-      tempT.push({
+      tempTNotes.push({
         key: i,
         time: 4,
         rest: false,
@@ -134,8 +136,37 @@ class NewTab extends Component {
         notes: tempN
       });
     }
-    this.setState({ totalNotes: tempT });
+    //now, go through song string and change tnote array accordingly
+    for (i = 1; i < temp.length; i++) {
+      var temp2 = temp[i].split(" ");
+      var tNoteID = parseInt(temp2[0]);
+      for (j = 1; j < temp2.length - 1; j++) {
+        if (temp2[j] != null) {
+          var temp3 = temp2[j].split("|");
+          if (temp3 != null || temp3.length !== 1) {
+            var noteName = temp3[0];
+            var noteTime = temp3[1];
+            var noteID = temp3[2];
 
+            if (noteName != null || noteName !== "") {
+              tempTNotes[tNoteID].notes[noteID].selected = true;
+              tempTNotes[tNoteID].notes[noteID].time = noteTime;
+              tempTNotes[tNoteID].notes[noteID].name = noteName;
+              tempTNotes[tNoteID].notes[
+                noteID
+              ].imageToRender = this.getImageIndex(noteTime);
+              this.setState({ idToPlayUntil: tNoteID });
+            }
+          }
+        }
+      }
+    }
+    //setstate
+    this.setState({ totalNotes: tempTNotes });
+  };
+
+  //initialization
+  componentDidMount = async () => {
     //fetches song data from API if it is not a new song
     if (this.props.dbID !== "0") {
       fetch("https://warm-inlet-29455.herokuapp.com/kalimba_songs")
@@ -146,9 +177,35 @@ class NewTab extends Component {
           err => console.log(err)
         )
         .then(
-          parsedData => this.parseText(parsedData),
+          parsedData => this.reRenderSongData(parsedData),
           err => console.log(err)
         );
+    } else {
+      //initialize tnotes regularly
+      var tempTNotes = [];
+      for (var i = 0; i < this.state.kalimbaLength; i++) {
+        var tempN = [];
+        for (var j = 0; j < 17; j++) {
+          tempN.push({
+            time: 4,
+            rest: false,
+            name: this.state.tineNotes[j].note,
+            color: "transparent",
+            selected: false,
+            noteID: j,
+            imageToRender: Whole
+          });
+        }
+        tempTNotes.push({
+          key: i,
+          time: 4,
+          rest: false,
+          color: "transparent",
+          id: i,
+          notes: tempN
+        });
+      }
+      this.setState({ totalNotes: tempTNotes });
     }
 
     //Instrument Initilization
@@ -321,40 +378,6 @@ class NewTab extends Component {
     temp2[tNote].notes[noteID].name = noteName;
     this.setState({ totalNotes: temp2 });
     this.setState({ isSaved: false });
-  };
-
-  //given an exported song string, sets this state's note data to what was given. needs to be rewritten
-  reRenderSong = value => {
-    var temp = value.split(",");
-    var tempTNotes = this.state.totalNotes;
-
-    for (var i = 1; i < temp.length; i++) {
-      var temp2 = temp[i].split(" ");
-      var tNoteID = parseInt(temp2[0]);
-      if (temp2[1] === "") {
-        console.log("broken" + tNoteID);
-        break;
-      }
-      for (var j = 1; j < temp2.length - 1; j++) {
-        if (temp2[j] != null) {
-          var temp3 = temp2[j].split("|");
-          if (temp3 != null || temp3.length !== 1) {
-            var noteName = temp3[0];
-            var noteTime = temp3[1];
-            var noteID = temp3[2];
-
-            if (noteName != null || noteName !== "") {
-              tempTNotes[tNoteID].notes[noteID].selected = true;
-              tempTNotes[tNoteID].notes[noteID].time = noteTime;
-              tempTNotes[tNoteID].notes[noteID].name = noteName;
-
-              this.setState({ totalNotes: tempTNotes });
-              this.setState({ idToPlayUntil: tNoteID });
-            }
-          }
-        }
-      }
-    }
   };
 
   handleSave = () => {
