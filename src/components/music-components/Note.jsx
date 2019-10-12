@@ -7,17 +7,29 @@ import Sixteenth from "../../noteImages/sixteenth_note.png";
 import D_Half from "../../noteImages/dotted_half.png";
 import D_Eighth from "../../noteImages/dotted_eighth.png";
 import D_Quarter from "../../noteImages/dotted_quarter.png";
+import Whole from "../../noteImages/whole_note.png";
 
 class Note extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      name: this.props.name,
       time: this.props.time,
       rest: this.props.rest,
       color: this.props.color,
       selected: this.props.selected,
       id: this.props.id,
       noteID: this.props.noteID,
+      images: [
+        { time: 1, image: Whole },
+        { time: 4 / 3, image: D_Half },
+        { time: 2, image: Half },
+        { time: 8 / 3, image: D_Quarter },
+        { time: 4, image: Quarter },
+        { time: 16 / 3, image: D_Eighth },
+        { time: 8, image: Eighth },
+        { time: 16, image: Sixteenth }
+      ],
       imageToRender: this.props.imageToRender
     };
     this.handleNoteClick = this.handleNoteClick.bind(this);
@@ -36,6 +48,7 @@ class Note extends Component {
   componentWillReceiveProps = nextProps => {
     this.setState({ time: nextProps.time });
     this.setState({ selected: nextProps.selected });
+
     // this.setState({ imageToRender: nextProps.imageToRender });
   };
 
@@ -62,34 +75,6 @@ class Note extends Component {
       //add it to the notes to be played
       console.log(this.state.time);
       this.setState({ selected: true });
-      if (this.state.time === 4) {
-        this.setState({ imageToRender: Quarter });
-        console.log("set to 4");
-      }
-      if (this.state.time === 8) {
-        console.log("set to 8");
-        this.setState({ imageToRender: Eighth });
-      }
-      if (this.state.time === 2) {
-        console.log("set to 2");
-        this.setState({ imageToRender: Half });
-      }
-      if (this.state.time === 16) {
-        console.log("set to 16");
-        this.setState({ imageToRender: Sixteenth });
-      }
-      if (this.state.time === 4 / 3) {
-        console.log("set to dotted half");
-        this.setState({ imageToRender: D_Half });
-      }
-      if (this.state.time === 16 / 3) {
-        console.log("set to dotted eighth");
-        this.setState({ imageToRender: D_Eighth });
-      }
-      if (this.state.time === 8 / 3) {
-        console.log("set to dotted quarter");
-        this.setState({ imageToRender: D_Quarter });
-      }
       this.props.instrument.play(this.props.name);
       this.props.onHandleNoteClick(
         this.state.noteID,
@@ -98,10 +83,17 @@ class Note extends Component {
         this.state.time,
         false
       );
+      //change its image
+      for (var i = 0; i < this.state.images.length; i++) {
+        if (this.state.images[i].time === this.state.time) {
+          this.setState({ imageToRender: this.state.images[i].image });
+          break;
+        }
+      }
     }
   };
 
-  renderIcon() {
+  renderIcon = () => {
     if (this.state.selected) {
       return (
         <img
@@ -115,7 +107,7 @@ class Note extends Component {
       );
     }
     return <></>;
-  }
+  };
 
   render() {
     return (

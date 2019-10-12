@@ -43,13 +43,12 @@ class NewTab extends Component {
         { note: "E6", color: "white", len: 1, id: 17 }
       ],
       totalNotes: [],
-      kalimbaLength: 40, //will change to get from router props
+      kalimbaLength: 200, //will change to get from router props
       kalimba: null,
       tempo: 120, //will change to get from router props
       keySig: "C", //will change to get from router props
       songTitle: "None", //will change to get from router props
       curTime: 4,
-      imageToRender: Quarter,
       songString: "None", //will change to get from router props
       isSaved: true,
       idToPlayUntil: -1,
@@ -80,29 +79,10 @@ class NewTab extends Component {
       var t = this.state.curTime;
       var addition = (t + t) / 3;
       console.log(addition);
-      var index = -1;
-      for (var i = 0; i < this.state.images.length; i++) {
-        if (addition === this.state.images[i].time) {
-          index = i;
-          break;
-        }
-      }
-      if (index !== -1) {
-        console.log(this.state.images[index].image);
-        this.setState({ imageToRender: this.state.images[index].image });
-      }
       this.setState({ curTime: addition });
     } else {
+      console.log("set in newtab: " + childData);
       this.setState({ curTime: childData });
-      for (var j = 0; j < this.state.images.length; j++) {
-        if (parseInt(childData) === this.state.images[j].time) {
-          index = j;
-          break;
-        }
-      }
-      if (index !== -1) {
-        this.setState({ imageToRender: this.state.images[index].image });
-      }
     }
   };
 
@@ -133,7 +113,7 @@ class NewTab extends Component {
   componentDidMount = async () => {
     //TotalNote initilization
     var tempT = [];
-    for (var i = 0; i < 40; i++) {
+    for (var i = 0; i < this.state.kalimbaLength; i++) {
       var tempN = [];
       for (var j = 0; j < 17; j++) {
         tempN.push({
@@ -143,7 +123,7 @@ class NewTab extends Component {
           color: "transparent",
           selected: false,
           noteID: j,
-          imageToRender: Quarter
+          imageToRender: Whole
         });
       }
       tempT.push({
@@ -208,6 +188,9 @@ class NewTab extends Component {
         smallestTimeInterval = 4;
       }
       var d = (4 * (1000 / (this.state.tempo / 60))) / smallestTimeInterval;
+      console.log(temp[i].notes[0].time);
+      console.log(smallestTimeInterval);
+      console.log(d);
       await delay(d);
       if (i !== temp.length - 1) {
         temp[i + 1].color = "transparent";
@@ -219,6 +202,7 @@ class NewTab extends Component {
       this.setState({ totalNotes: temp });
       for (var j = 0; j < 14; j++) {
         if (temp[i].notes[j].selected) {
+          console.log("playing: " + temp[i].notes[j].name);
           this.state.kalimba.play(temp[i].notes[j].name);
         }
       }
@@ -238,9 +222,11 @@ class NewTab extends Component {
 
   //Configures the title, key signature, and tempo
   configure = (value, type) => {
+    this.setState({ isSaved: false });
     if (type === "title") {
       console.log(value);
       this.setState({ songTitle: value });
+      return;
     }
     if (type === "key") {
       this.setState({ keySig: value });
@@ -258,11 +244,12 @@ class NewTab extends Component {
         console.log(temp[j].note);
       }
       this.setState({ tineNotes: temp });
+      return;
     }
     if (type === "tempo") {
       this.setState({ tempo: value });
+      return;
     }
-    this.setState({ isSaved: false });
   };
 
   //converts the song into a text file for download
@@ -281,7 +268,6 @@ class NewTab extends Component {
       }
       return;
     }
-
     var temp =
       this.state.songTitle +
       ",\n" +
@@ -342,6 +328,7 @@ class NewTab extends Component {
         this.setState({ idToPlayUntil: tNote });
       }
     }
+    temp2[tNote].notes[noteID].name = noteName;
     this.setState({ totalNotes: temp2 });
     this.setState({ isSaved: false });
   };
@@ -370,18 +357,16 @@ class NewTab extends Component {
               if (noteName != null || noteName !== "") {
                 tempTNotes[tNoteID].notes[noteID].selected = true;
                 tempTNotes[tNoteID].notes[noteID].time = noteTime;
-                //find image to render
-                var index = 4;
-                for (var l = 0; l < this.state.images.length; l++) {
-                  console.log(parseFloat(noteTime));
-                  if (parseFloat(noteTime) === this.state.images[l].time) {
-                    index = l;
+                tempTNotes[tNoteID].notes[noteID].name = noteName;
+                for (var k = 0; k < this.state.images.length; k++) {
+                  if (this.state.images[k].time === parseFloat(noteTime)) {
+                    console.log("iTR: " + this.state.images[k].time);
+                    tempTNotes[tNoteID].notes[
+                      noteID
+                    ].imageToRender = this.state.images[k].image;
                     break;
                   }
                 }
-                tempTNotes[tNoteID].notes[
-                  noteID
-                ].imageToRender = this.state.images[index].image;
                 this.setState({ totalNotes: tempTNotes });
               }
             }

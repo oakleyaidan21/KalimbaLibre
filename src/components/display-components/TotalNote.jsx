@@ -28,12 +28,10 @@ class TotalNote extends Component {
     if (remove) {
       temp[passID].color = "transparent";
       temp[passID].selected = false;
-      // this.setState({ notes: temp });
       this.props.onPassingUpNote(tnID, notename, time, remove, passID);
     } else {
       temp[passID].color = "purple";
       temp[passID].selected = true;
-      // this.setState({ notes: temp });
       this.props.onPassingUpNote(tnID, notename, time, remove, passID);
     }
   };
@@ -65,7 +63,7 @@ class TotalNote extends Component {
             onHandleNoteClick={this.handleNoteClick}
             noteID={note.noteID}
             instrument={this.props.instrument}
-            imageToRender={this.props.imageToRender}
+            imageToRender={note.imageToRender}
           />
         ))}
       </div>
