@@ -162,16 +162,6 @@ class NewTab extends Component {
     myDiv.scrollTop = myDiv.scrollHeight;
   };
 
-  //helper function for getting the smallest note time in a chord
-  getSmallestTimeInterval = array => {
-    return Math.max.apply(
-      Math,
-      array.map(function(o) {
-        return o.time;
-      })
-    );
-  };
-
   //goes through each TotalNote and plays the selected notes
   handlePlay = async () => {
     console.log(this.state.kalimba);
@@ -187,8 +177,7 @@ class NewTab extends Component {
         smallestTimeInterval = 4;
       }
       var d = (4 * (1000 / (this.state.tempo / 60))) / smallestTimeInterval;
-      console.log(temp[i].notes[0].time);
-      console.log(smallestTimeInterval);
+      smallestTimeInterval = 1;
       console.log(d);
       await delay(d);
       if (i !== temp.length - 1) {
@@ -201,11 +190,13 @@ class NewTab extends Component {
       this.setState({ totalNotes: temp });
       for (var j = 0; j < 14; j++) {
         if (temp[i].notes[j].selected) {
-          console.log("playing: " + temp[i].notes[j].name);
           this.state.kalimba.play(temp[i].notes[j].name);
+          if (temp[i].notes[j].time > smallestTimeInterval) {
+            smallestTimeInterval = temp[i].notes[j].time;
+          }
         }
       }
-      smallestTimeInterval = this.getSmallestTimeInterval(temp[i].notes);
+
       document.getElementById("holder").scrollTop =
         temp.length * 40 - 250 - 40 * counter;
       counter++;
@@ -336,7 +327,7 @@ class NewTab extends Component {
   reRenderSong = value => {
     var temp = value.split(",");
     var tempTNotes = this.state.totalNotes;
-    console.log(temp);
+
     for (var i = 1; i < temp.length; i++) {
       var temp2 = temp[i].split(" ");
       var tNoteID = parseInt(temp2[0]);
@@ -345,28 +336,17 @@ class NewTab extends Component {
           if (temp2[j] != null) {
             var temp3 = temp2[j].split("|");
             if (temp3 != null || temp3.length !== 1) {
-              console.log(temp3);
               var noteName = temp3[0];
               var noteTime = temp3[1];
               var noteID = temp3[2];
 
-              console.log(
-                tNoteID + " " + noteName + " " + noteTime + " " + noteID
-              );
               if (noteName != null || noteName !== "") {
                 tempTNotes[tNoteID].notes[noteID].selected = true;
                 tempTNotes[tNoteID].notes[noteID].time = noteTime;
                 tempTNotes[tNoteID].notes[noteID].name = noteName;
-                for (var k = 0; k < this.state.images.length; k++) {
-                  if (this.state.images[k].time === parseFloat(noteTime)) {
-                    console.log("iTR: " + this.state.images[k].time);
-                    tempTNotes[tNoteID].notes[
-                      noteID
-                    ].imageToRender = this.state.images[k].image;
-                    break;
-                  }
-                }
+
                 this.setState({ totalNotes: tempTNotes });
+                this.setState({ idToPlayUntil: tNoteID });
               }
             }
           }
@@ -423,7 +403,7 @@ class NewTab extends Component {
       </Button>
     );
 
-    console.log("dbid: " + this.state.dbID);
+    // console.log("dbid: " + this.state.dbID);
 
     return (
       <div className="App">

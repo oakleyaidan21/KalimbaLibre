@@ -34,7 +34,6 @@ class Note extends Component {
     };
     for (var i = 0; i < this.state.images.length; i++) {
       if (this.state.images[i].time === this.state.time) {
-        console.log("in note component" + this.state.images[i].time);
         this.state.imageToRender = this.state.images[i].image;
         break;
       }
