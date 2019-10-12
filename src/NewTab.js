@@ -331,23 +331,25 @@ class NewTab extends Component {
     for (var i = 1; i < temp.length; i++) {
       var temp2 = temp[i].split(" ");
       var tNoteID = parseInt(temp2[0]);
-      if (temp2[1] !== "") {
-        for (var j = 1; j < temp2.length - 1; j++) {
-          if (temp2[j] != null) {
-            var temp3 = temp2[j].split("|");
-            if (temp3 != null || temp3.length !== 1) {
-              var noteName = temp3[0];
-              var noteTime = temp3[1];
-              var noteID = temp3[2];
+      if (temp2[1] === "") {
+        console.log("broken" + tNoteID);
+        break;
+      }
+      for (var j = 1; j < temp2.length - 1; j++) {
+        if (temp2[j] != null) {
+          var temp3 = temp2[j].split("|");
+          if (temp3 != null || temp3.length !== 1) {
+            var noteName = temp3[0];
+            var noteTime = temp3[1];
+            var noteID = temp3[2];
 
-              if (noteName != null || noteName !== "") {
-                tempTNotes[tNoteID].notes[noteID].selected = true;
-                tempTNotes[tNoteID].notes[noteID].time = noteTime;
-                tempTNotes[tNoteID].notes[noteID].name = noteName;
+            if (noteName != null || noteName !== "") {
+              tempTNotes[tNoteID].notes[noteID].selected = true;
+              tempTNotes[tNoteID].notes[noteID].time = noteTime;
+              tempTNotes[tNoteID].notes[noteID].name = noteName;
 
-                this.setState({ totalNotes: tempTNotes });
-                this.setState({ idToPlayUntil: tNoteID });
-              }
+              this.setState({ totalNotes: tempTNotes });
+              this.setState({ idToPlayUntil: tNoteID });
             }
           }
         }
