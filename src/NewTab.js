@@ -81,7 +81,6 @@ class NewTab extends Component {
       console.log(addition);
       this.setState({ curTime: addition });
     } else {
-      console.log("set in newtab: " + childData);
       this.setState({ curTime: childData });
     }
   };

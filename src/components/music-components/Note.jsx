@@ -30,13 +30,22 @@ class Note extends Component {
         { time: 8, image: Eighth },
         { time: 16, image: Sixteenth }
       ],
-      imageToRender: this.props.imageToRender
+      imageToRender: null
     };
+    for (var i = 0; i < this.state.images.length; i++) {
+      if (this.state.images[i].time === this.state.time) {
+        console.log("in note component" + this.state.images[i].time);
+        this.state.imageToRender = this.state.images[i].image;
+        break;
+      }
+    }
     this.handleNoteClick = this.handleNoteClick.bind(this);
     this.handleSelectionE = this.handleSelectionE.bind(this);
     this.handleSelectionL = this.handleSelectionL.bind(this);
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
   }
+
+  componentWillMount = () => {};
 
   handleSelectionE = () => {
     if (this.state.color !== "purple") {
