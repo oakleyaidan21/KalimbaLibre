@@ -18,12 +18,17 @@ class SongSquare extends Component {
   }
 
   deleteSelf = () => {
-    fetch(
-      "https://warm-inlet-29455.herokuapp.com/kalimba_songs/" + this.state.id,
-      {
-        method: "DELETE"
-      }
-    ).then(response => {});
+    var r = window.confirm(
+      "Are you sure you want to delete " + this.state.title + "?"
+    );
+    if (r === true) {
+      fetch(
+        "https://warm-inlet-29455.herokuapp.com/kalimba_songs/" + this.state.id,
+        {
+          method: "DELETE"
+        }
+      ).then(response => {});
+    }
 
     this.setState({ hidden: true });
   };
@@ -58,7 +63,7 @@ class SongSquare extends Component {
         <div
           style={{
             width: 300,
-            height: 300,
+            height: 150,
             background: "grey",
             margin: 15,
             borderRadius: 25,
@@ -87,7 +92,7 @@ class SongSquare extends Component {
           <div
             style={{
               width: 300,
-              height: 120,
+              height: 25,
               fontSize: 50,
               textAlign: "center"
             }}
@@ -95,55 +100,52 @@ class SongSquare extends Component {
             <div
               style={{
                 width: 100,
-                height: 120,
+                height: 25,
                 borderRight: "2px solid black",
                 float: "left",
-
-                fontSize: "20px"
+                fontSize: "17px"
               }}
             >
               Key
-              <br />
-              <div style={{ fontSize: "50px" }}>{this.state.keySig}</div>
+              {" " + this.state.keySig}
             </div>
             <div
               style={{
                 width: 100,
-                height: 120,
+                height: 25,
                 borderRight: "2px solid black",
                 position: "relative",
                 float: "left",
-                fontSize: "20px"
+                fontSize: "17px"
               }}
             >
               Tempo
-              <br />
-              <div style={{ fontSize: "50px" }}>{this.state.tempo}</div>
+              {" " + this.state.tempo}
             </div>
             <div
               style={{
                 width: 100,
-                height: 120,
+                height: 30,
                 position: "relative",
                 float: "left",
-                fontSize: "20px"
+                fontSize: "17px"
               }}
             >
-              Length
-              <br />
-              <div style={{ fontSize: "50px" }}>{this.state.length}</div>
+              Len:
+              {" " + this.state.length}
             </div>
           </div>
           <Link to={"/newtab/" + this.state.id}>
             <Button
               style={{
-                width: 100,
-                height: 80,
-                borderRadius: "0px 0px 0px 25px",
-                fontSize: 30,
+                width: 90,
+                margin: 5,
+                height: 40,
+                borderRadius: 25,
+                fontSize: 20,
                 verticalAlign: "middle",
                 textAlign: "center",
-                lineHeight: "80px"
+                lineHeight: "20px"
               }}
             >
               EDIT
@@ -152,13 +154,14 @@ class SongSquare extends Component {
           <Button
             variant="warning"
             style={{
-              width: 100,
-              height: 80,
-              fontSize: 30,
+              width: 90,
+              height: 40,
+              margin: 5,
+              fontSize: 20,
               verticalAlign: "middle",
-              borderRadius: 0,
+              borderRadius: 25,
               textAlign: "center",
-              lineHeight: "80px"
+              lineHeight: "20px"
             }}
             onClick={() => {
               this.copySelf();
@@ -169,13 +172,14 @@ class SongSquare extends Component {
           <Button
             variant="danger"
             style={{
-              width: 100,
-              height: 80,
-              borderRadius: "0px 0px 25px 0px",
-              fontSize: 30,
+              width: 90,
+              height: 40,
+              margin: 5,
+              borderRadius: "25px",
+              fontSize: 20,
               verticalAlign: "middle",
               textAlign: "center",
-              lineHeight: "80px"
+              lineHeight: "20px"
             }}
             onClick={() => {
               this.deleteSelf();

@@ -44,7 +44,4 @@ Here's how the app looks at this stage in development:
 
 ## CURRENT ISSUES
 
-- ~~notes will not re-render as their correct note icon, but they will render timing correct~~
-- updating a saved song and saving it again will change everything but the songString
-- ~~need to be able to set up the api remotely somehow (heroku?)~~
-- ~~major doesn't change from C when playing song, but is changed when inputting notes~~
+- Sometimes, units of rhythm different from a quarter note will seem longer or shorter than they should be, even though they are getting the correct amount of delay time
