@@ -222,39 +222,40 @@ class NewTab extends Component {
   //goes through each TotalNote and plays the selected notes
   handlePlay = async () => {
     document.getElementById("holder").style.scrollBehavior = "auto";
-    // console.log(this.state.kalimba);
-    var smallestTimeInterval = 4;
+    var notesToPlay = [];
     var temp = this.state.totalNotes;
-    var counter = 1;
-    // console.log(this.state.idToPlayUntil);
-    for (var i = temp.length - 1; i >= this.state.idToPlayUntil; i--) {
-      if (i === -1) {
-        break;
+    for (var i = 0; i < temp.length; i++) {
+      notesToPlay.push([]);
+      for (var j = 0; j < 17; j++) {
+        if (temp[i].notes[j].selected) {
+          notesToPlay[i].push({
+            name: temp[i].notes[j].name,
+            time: temp[i].notes[j].time
+          });
+        }
       }
+    }
+    var smallestTimeInterval = 4;
+    var counter = 1;
+    for (i = temp.length - 1; i >= this.state.idToPlayUntil; i--) {
       if (smallestTimeInterval < 0) {
         smallestTimeInterval = 4;
       }
       var d = (4 * (1000 / (this.state.tempo / 60))) / smallestTimeInterval;
       smallestTimeInterval = 1;
-      console.log(d);
       await delay(d);
       if (i !== temp.length - 1) {
         temp[i + 1].color = "transparent";
       }
-      if (i === 0) {
-        break;
-      }
+
       temp[i].color = "rgb(247,255,0,0.5)";
       this.setState({ totalNotes: temp });
-      for (var j = 0; j < 17; j++) {
-        if (temp[i].notes[j].selected) {
-          this.state.kalimba.play(temp[i].notes[j].name);
-          if (temp[i].notes[j].time > smallestTimeInterval) {
-            smallestTimeInterval = temp[i].notes[j].time;
-          }
+      for (j = 0; j < notesToPlay[i].length; j++) {
+        this.state.kalimba.play(notesToPlay[i][j].name);
+        if (notesToPlay[i][j].time > smallestTimeInterval) {
+          smallestTimeInterval = notesToPlay[i][j].time;
         }
       }
-
       document.getElementById("holder").scrollTop =
         temp.length * 40 - 250 - 40 * counter;
       counter++;
@@ -267,6 +268,50 @@ class NewTab extends Component {
       this.setState({ totalNotes: temp });
     }
     document.getElementById("holder").style.scrollBehavior = "smooth";
+    // var smallestTimeInterval = 4;
+    // var temp = this.state.totalNotes;
+    // var counter = 1;
+    // // console.log(this.state.idToPlayUntil);
+    // for (var i = temp.length - 1; i >= this.state.idToPlayUntil; i--) {
+    //   if (i === -1) {
+    //     break;
+    //   }
+    //   if (smallestTimeInterval < 0) {
+    //     smallestTimeInterval = 4;
+    //   }
+    //   var d = (4 * (1000 / (this.state.tempo / 60))) / smallestTimeInterval;
+    //   smallestTimeInterval = 1;
+    //   console.log(d);
+    //   await delay(d);
+    //   if (i !== temp.length - 1) {
+    //     temp[i + 1].color = "transparent";
+    //   }
+    //   if (i === 0) {
+    //     break;
+    //   }
+    //   temp[i].color = "rgb(247,255,0,0.5)";
+    //   this.setState({ totalNotes: temp });
+    //   for (var j = 0; j < 17; j++) {
+    //     if (temp[i].notes[j].selected) {
+    //       this.state.kalimba.play(temp[i].notes[j].name);
+    //       if (temp[i].notes[j].time > smallestTimeInterval) {
+    //         smallestTimeInterval = temp[i].notes[j].time;
+    //       }
+    //     }
+    //   }
+
+    //   document.getElementById("holder").scrollTop =
+    //     temp.length * 40 - 250 - 40 * counter;
+    //   counter++;
+    // }
+    // if (this.state.idToPlayUntil !== -1) {
+    //   temp[this.state.idToPlayUntil].color = "transparent";
+    //   this.setState({ totalNotes: temp });
+    // } else {
+    //   temp[0].color = "transparent";
+    //   this.setState({ totalNotes: temp });
+    // }
+    // document.getElementById("holder").style.scrollBehavior = "smooth";
   };
 
   //Configures the title, key signature, and tempo
