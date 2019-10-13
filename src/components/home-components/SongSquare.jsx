@@ -66,6 +66,7 @@ class SongSquare extends Component {
             height: 150,
             background: "grey",
             margin: 15,
+            marginTop: 50,
             borderRadius: 25,
             overflow: "none",
             float: "left",
@@ -204,7 +205,7 @@ class SongSquare extends Component {
         </div>
       );
     }
-    return <>{toBeRendered}</>;
+    return <div style={{ marginTop: 10 }}>{toBeRendered}</div>;
   }
 }
 
