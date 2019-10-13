@@ -7,6 +7,10 @@
   font-size: 50px;
 }
 
+.loadingtext {
+  opacity: 1 !important;
+}
+
 @media only screen and (max-width: 744) {
   #selector {
     display: "none" !important;

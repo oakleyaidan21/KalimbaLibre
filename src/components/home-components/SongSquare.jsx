@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import { Link } from "@reach/router";
-
+import { IoIosPlay } from "react-icons/io";
 class SongSquare extends Component {
   constructor(props) {
     super(props);
@@ -106,7 +106,7 @@ class SongSquare extends Component {
                 fontSize: "17px"
               }}
             >
-              Key
+              Key:
               {" " + this.state.keySig}
             </div>
             <div
@@ -119,7 +119,7 @@ class SongSquare extends Component {
                 fontSize: "17px"
               }}
             >
-              Tempo
+              Tempo:
               {" " + this.state.tempo}
             </div>
             <div
@@ -135,10 +135,24 @@ class SongSquare extends Component {
               {" " + this.state.length}
             </div>
           </div>
+          <Button
+            style={{
+              width: 40,
+              marginRight: 20,
+              height: 40,
+              borderRadius: 25,
+              // fontSize: 20,
+              verticalAlign: "middle",
+              textAlign: "center",
+              lineHeight: "15px"
+            }}
+          >
+            <IoIosPlay />
+          </Button>
           <Link to={"/newtab/" + this.state.id}>
             <Button
               style={{
-                width: 90,
+                width: 70,
                 margin: 5,
                 height: 40,
                 borderRadius: 25,
@@ -154,7 +168,7 @@ class SongSquare extends Component {
           <Button
             variant="warning"
             style={{
-              width: 90,
+              width: 70,
               height: 40,
               margin: 5,
               fontSize: 20,
@@ -172,7 +186,7 @@ class SongSquare extends Component {
           <Button
             variant="danger"
             style={{
-              width: 90,
+              width: 70,
               height: 40,
               margin: 5,
               borderRadius: "25px",

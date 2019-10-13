@@ -18,6 +18,7 @@ import D_Half from "./noteImages/dotted_half.png";
 import D_Eighth from "./noteImages/dotted_eighth.png";
 import D_Quarter from "./noteImages/dotted_quarter.png";
 import Whole from "./noteImages/whole_note.png";
+import LoadingScreen from "./components/home-components/LoadingScreen";
 
 class NewTab extends Component {
   constructor(props) {
@@ -51,6 +52,7 @@ class NewTab extends Component {
       curTime: 4,
       songString: "None", //will change to get from router props
       isSaved: true,
+      isLoading: true,
       idToPlayUntil: -1,
       images: [
         { time: 1, image: Whole },
@@ -83,18 +85,17 @@ class NewTab extends Component {
   //changes the current note for editing
   //current problem: doesn't render images of dotted notes, for whatever reason
   changeNoteTime = childData => {
-    console.log(childData);
     if (childData === ".") {
       var t = this.state.curTime;
       var addition = (t + t) / 3;
-      console.log(addition);
+
       this.setState({ curTime: addition });
     } else {
       this.setState({ curTime: childData });
     }
   };
 
-  //parses song data from the ruby API
+  //parses song data from the ruby API and rerenders it
   reRenderSongData = data => {
     var temp = "none";
     for (var a = 0; a < data.length; a++) {
@@ -163,6 +164,7 @@ class NewTab extends Component {
     }
     //setstate
     this.setState({ totalNotes: tempTNotes });
+    this.setState({ isSaved: true });
   };
 
   //initialization
@@ -215,6 +217,7 @@ class NewTab extends Component {
     console.log("kalimba loaded");
 
     //Sets the KalimbaContainer to be scrolled down by default
+    this.setState({ isLoading: false });
     var myDiv = document.getElementById("holder");
     myDiv.scrollTop = myDiv.scrollHeight;
   };
@@ -268,63 +271,18 @@ class NewTab extends Component {
       this.setState({ totalNotes: temp });
     }
     document.getElementById("holder").style.scrollBehavior = "smooth";
-    // var smallestTimeInterval = 4;
-    // var temp = this.state.totalNotes;
-    // var counter = 1;
-    // // console.log(this.state.idToPlayUntil);
-    // for (var i = temp.length - 1; i >= this.state.idToPlayUntil; i--) {
-    //   if (i === -1) {
-    //     break;
-    //   }
-    //   if (smallestTimeInterval < 0) {
-    //     smallestTimeInterval = 4;
-    //   }
-    //   var d = (4 * (1000 / (this.state.tempo / 60))) / smallestTimeInterval;
-    //   smallestTimeInterval = 1;
-    //   console.log(d);
-    //   await delay(d);
-    //   if (i !== temp.length - 1) {
-    //     temp[i + 1].color = "transparent";
-    //   }
-    //   if (i === 0) {
-    //     break;
-    //   }
-    //   temp[i].color = "rgb(247,255,0,0.5)";
-    //   this.setState({ totalNotes: temp });
-    //   for (var j = 0; j < 17; j++) {
-    //     if (temp[i].notes[j].selected) {
-    //       this.state.kalimba.play(temp[i].notes[j].name);
-    //       if (temp[i].notes[j].time > smallestTimeInterval) {
-    //         smallestTimeInterval = temp[i].notes[j].time;
-    //       }
-    //     }
-    //   }
-
-    //   document.getElementById("holder").scrollTop =
-    //     temp.length * 40 - 250 - 40 * counter;
-    //   counter++;
-    // }
-    // if (this.state.idToPlayUntil !== -1) {
-    //   temp[this.state.idToPlayUntil].color = "transparent";
-    //   this.setState({ totalNotes: temp });
-    // } else {
-    //   temp[0].color = "transparent";
-    //   this.setState({ totalNotes: temp });
-    // }
-    // document.getElementById("holder").style.scrollBehavior = "smooth";
   };
 
   //Configures the title, key signature, and tempo
   configure = (value, type) => {
     this.setState({ isSaved: false });
     if (type === "title") {
-      console.log(value);
       this.setState({ songTitle: value });
       return;
     }
     if (type === "key") {
       this.setState({ keySig: value });
-      console.log(value);
+
       var index = 0;
       for (var i = 0; i < scaleKeys.keySignatures.length; i++) {
         if (scaleKeys.keySignatures[i][0] === value) {
@@ -335,7 +293,6 @@ class NewTab extends Component {
       var temp = this.state.tineNotes;
       for (var j = 0; j < temp.length; j++) {
         temp[j].note = scaleKeys.keySignatures[index][j + 1];
-        console.log(temp[j].note);
       }
       this.setState({ tineNotes: temp });
       return;
@@ -440,7 +397,6 @@ class NewTab extends Component {
     })
       .then(res => res.json())
       .then(resJSON => {
-        console.log("got here");
         console.log(resJSON);
       })
       .catch(error => console.error({ Error: error }));
@@ -463,11 +419,16 @@ class NewTab extends Component {
         Save
       </Button>
     );
+    let rend = <LoadingScreen />;
+    if (!this.state.isLoading) {
+      rend = <></>;
+    }
 
     // console.log("dbid: " + this.state.dbID);
 
     return (
       <div className="App">
+        {rend}
         <Navbar bg="dark" variant="dark">
           <Navbar.Brand href="/">Kalimba Libre</Navbar.Brand>
           <Nav className="mr-auto">

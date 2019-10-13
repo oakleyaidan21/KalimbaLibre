@@ -18,6 +18,8 @@
     "react": "^16.10.1",
     "react-bootstrap": "^1.0.0-beta.12",
     "react-dom": "^16.10.1",
+    "react-epic-spinners": "^0.4.1",
+    "react-icons": "^3.7.0",
     "react-mobx-music": "^1.1.0",
     "react-new-window": "^0.1.2",
     "react-router": "^5.1.2",
