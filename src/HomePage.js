@@ -12,23 +12,27 @@ class HomePage extends Component {
     super();
     this.state = {
       songSquares: [],
-      curLocalStorage: []
+      curLocalStorage: [],
+      didConnect: false
     };
   }
 
   parseText = data => {
-    for (var i = 0; i < data.length; i++) {
-      if (data[i].username === "carrot") {
-        var temp = this.state.songSquares;
-        temp.push({
-          title: data[i].title,
-          keySig: data[i].keysig,
-          tempo: data[i].tempo,
-          length: data[i].length,
-          id: data[i].id,
-          songString: data[i].songString
-        });
-        this.setState({ songSquares: temp });
+    if (data !== null) {
+      this.setState({ didConnect: true });
+      for (var i = 0; i < data.length; i++) {
+        if (data[i].username === "carrot") {
+          var temp = this.state.songSquares;
+          temp.push({
+            title: data[i].title,
+            keySig: data[i].keysig,
+            tempo: data[i].tempo,
+            length: data[i].length,
+            id: data[i].id,
+            songString: data[i].songString
+          });
+          this.setState({ songSquares: temp });
+        }
       }
     }
   };
@@ -65,6 +69,10 @@ class HomePage extends Component {
         ></SongSquare>
       ));
     } else {
+      var text = "You don't have any songs. Click on '+ Create' to start one!";
+      if (this.state.didConnect === false) {
+        text = "Could not connect to the database!";
+      }
       squares = (
         <div
           style={{
@@ -77,7 +85,7 @@ class HomePage extends Component {
             color: "grey"
           }}
         >
-          You don't have any songs. Click on "+ Create" to start one!
+          {text}
         </div>
       );
     }
