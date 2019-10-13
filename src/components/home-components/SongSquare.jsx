@@ -40,7 +40,7 @@ class SongSquare extends Component {
         title: this.state.title + "(copy)",
         keysig: this.state.keySig,
         tempo: this.state.tempo,
-        length: this.state.kalimbaLength,
+        length: this.state.length,
         songString: this.props.songString,
         username: "carrot"
       }),
