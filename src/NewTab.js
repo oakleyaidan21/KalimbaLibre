@@ -221,6 +221,7 @@ class NewTab extends Component {
 
   //goes through each TotalNote and plays the selected notes
   handlePlay = async () => {
+    document.getElementById("holder").style.scrollBehavior = "auto";
     // console.log(this.state.kalimba);
     var smallestTimeInterval = 4;
     var temp = this.state.totalNotes;
@@ -265,6 +266,7 @@ class NewTab extends Component {
       temp[0].color = "transparent";
       this.setState({ totalNotes: temp });
     }
+    document.getElementById("holder").style.scrollBehavior = "smooth";
   };
 
   //Configures the title, key signature, and tempo
