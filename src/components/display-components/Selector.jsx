@@ -25,8 +25,14 @@ class Selector extends Component {
     if (childData !== ".") {
       this.setState({ currentNote: childData });
     } else {
+      if (typeof this.state.currentNote === "string") {
+        if (this.state.currentNote[this.state.currentNote.length - 1] === "+") {
+          return;
+        }
+      }
       var temp = this.state.currentNote;
-      temp += " dotted";
+
+      temp += " +";
       this.setState({ currentNote: temp });
     }
 
@@ -42,7 +48,6 @@ class Selector extends Component {
   };
 
   displayNote = () => {
-    // var n = this.state.currentNote;
     return this.state.currentNote;
   };
 
@@ -51,11 +56,11 @@ class Selector extends Component {
       <div
         id="selector"
         style={{
-          width: 400,
-          height: 300,
+          width: 75,
+          height: 580,
           background: "#D4D4D4",
-          borderRadius: 25,
-          right: 20,
+          borderRadius: 10,
+          right: 50,
           top: 75,
           position: "absolute",
           textAlign: "center"
@@ -69,9 +74,6 @@ class Selector extends Component {
           />
         ))}
         <div style={{ fontSize: 30, marginTop: 10 }}>
-          <Badge variant="secondary" s>
-            Current Note
-          </Badge>
           <br></br>
           <Badge
             variant={this.getBadgeClass()}

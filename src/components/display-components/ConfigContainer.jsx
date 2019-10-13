@@ -59,7 +59,7 @@ class ConfigContainer extends Component {
           height: 420,
           width: "21%",
           background: "#D4D4D4",
-          borderRadius: 25,
+          borderRadius: 10,
           top: 75,
           left: 20,
           position: "absolute",

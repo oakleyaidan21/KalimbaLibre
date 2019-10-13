@@ -37,7 +37,7 @@ class KalimbaContainer extends Component {
           margin: "0 auto",
           height: 600,
           background: "#D4D4D4",
-          borderRadius: "0 0 25px 25px",
+          borderRadius: "0 0 10px 10px",
           overflow: "auto",
           position: "relative"
         }}

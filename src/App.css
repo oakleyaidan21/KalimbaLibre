@@ -7,14 +7,9 @@
   font-size: 50px;
 }
 
-@media only screen and (max-width: 1385px) {
+@media only screen and (max-width: 744) {
   #selector {
-    /* display: none; */
-    position: relative !important;
-    top: 20px !important;
-    margin: 0 auto;
-    right: 0 !important;
-    width: 700px !important;
+    display: "none" !important;
   }
 
   #holder {
@@ -36,4 +31,5 @@
 
 #holder {
   scroll-behavior: smooth;
+  cursor: url("./noteImages/quarter_note.png"), auto;
 }
