@@ -221,7 +221,7 @@ export const scaleKeys = {
       "E6"
     ],
     [
-      "FB",
+      "Fb",
       "Db6",
       "Bbb5",
       "Gb5",
@@ -236,6 +236,26 @@ export const scaleKeys = {
       "Bbb4",
       "Db5",
       "Fb5",
+      "Ab5",
+      "Cb6",
+      "Eb6"
+    ],
+    [
+      "Gb",
+      "Db6",
+      "Bb5",
+      "Gb5",
+      "Eb5",
+      "Cb5",
+      "Ab4",
+      "F4",
+      "Db4",
+      "Cb4",
+      "Eb4",
+      "Gb4",
+      "Bb4",
+      "Db5",
+      "F5",
       "Ab5",
       "Cb6",
       "Eb6"
