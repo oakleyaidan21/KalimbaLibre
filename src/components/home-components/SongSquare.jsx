@@ -66,7 +66,7 @@ class SongSquare extends Component {
             height: 150,
             background: "grey",
             margin: 15,
-            marginTop: 50,
+            marginBottom: 50,
             borderRadius: 25,
             overflow: "none",
             float: "left",
