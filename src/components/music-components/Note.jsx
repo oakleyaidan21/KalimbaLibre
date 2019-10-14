@@ -37,7 +37,7 @@ class Note extends Component {
     this.handleSelectionL = this.handleSelectionL.bind(this);
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
 
-    this.state.imageToRender = this.getImageIndex(this.state.time);
+    // this.state.imageToRender = this.getImageIndex(this.props.time);
   }
 
   getImageIndex = time => {
@@ -96,12 +96,7 @@ class Note extends Component {
         false
       );
       //change its image
-      for (var i = 0; i < this.state.images.length; i++) {
-        if (this.state.images[i].time === this.state.time) {
-          this.setState({ imageToRender: this.state.images[i].image });
-          break;
-        }
-      }
+      this.setState({ imageToRender: this.getImageIndex(this.state.time) });
     }
   };
 
