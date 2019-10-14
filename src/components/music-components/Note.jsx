@@ -36,8 +36,6 @@ class Note extends Component {
     this.handleSelectionE = this.handleSelectionE.bind(this);
     this.handleSelectionL = this.handleSelectionL.bind(this);
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
-
-    // this.state.imageToRender = this.getImageIndex(this.props.time);
   }
 
   getImageIndex = time => {
@@ -61,7 +59,7 @@ class Note extends Component {
   componentWillReceiveProps = nextProps => {
     this.setState({ time: nextProps.time });
     this.setState({ selected: nextProps.selected });
-    // this.setState({ imageToRender: nextProps.imageToRender });
+    this.setState({ imageToRender: nextProps.imageToRender });
   };
 
   handleSelectionL = () => {
@@ -117,6 +115,7 @@ class Note extends Component {
   };
 
   render() {
+    // this.setState({ imageToRender: this.getImageIndex(this.state.time) });
     return (
       <div id="note">
         <button

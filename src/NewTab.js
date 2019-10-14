@@ -125,7 +125,7 @@ class NewTab extends Component {
           color: "transparent",
           selected: false,
           noteID: j,
-          imageToRender: Whole
+          imageToRender: this.getImageIndex(this.time)
         });
       }
       tempTNotes.push({
@@ -151,7 +151,7 @@ class NewTab extends Component {
 
             if (noteName != null || noteName !== "") {
               tempTNotes[tNoteID].notes[noteID].selected = true;
-              tempTNotes[tNoteID].notes[noteID].time = noteTime;
+              tempTNotes[tNoteID].notes[noteID].time = parseFloat(noteTime);
               tempTNotes[tNoteID].notes[noteID].name = noteName;
               tempTNotes[tNoteID].notes[
                 noteID
@@ -359,6 +359,7 @@ class NewTab extends Component {
       console.log(tNote + " " + noteID);
       temp2[tNote].notes[noteID].selected = true;
       temp2[tNote].notes[noteID].time = time;
+      temp2[tNote].notes[noteID].imageToRender = this.getImageIndex(time);
     }
 
     if (this.state.idToPlayUntil === -1) {
@@ -432,6 +433,12 @@ class NewTab extends Component {
     for (i = id; i < temp.length; i++) {
       temp[i].key++;
       temp[i].id++;
+      for (var j = 0; j < 17; j++) {
+        // console.log(this.getImageIndex(temp[i].notes[j].time));
+        temp[i].notes[j].imageToRender = this.getImageIndex(
+          temp[i].notes[j].time
+        );
+      }
     }
     this.setState({ totalNotes: temp });
     this.setState({ kalimbaLength: this.state.kalimbaLength + 1 });
