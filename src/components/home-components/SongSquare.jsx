@@ -28,9 +28,8 @@ class SongSquare extends Component {
           method: "DELETE"
         }
       ).then(response => {});
+      this.setState({ hidden: true });
     }
-
-    this.setState({ hidden: true });
   };
 
   copySelf = () => {
@@ -54,6 +53,7 @@ class SongSquare extends Component {
         console.log(resJSON);
       })
       .catch(error => console.error({ Error: error }));
+    this.props.reFetch();
   };
 
   render() {

@@ -19,10 +19,10 @@ class HomePage extends Component {
 
   parseText = data => {
     if (data != null) {
+      var temp = [];
       this.setState({ didConnect: true });
       for (var i = 0; i < data.length; i++) {
         if (data[i].username === "carrot") {
-          var temp = this.state.songSquares;
           temp.push({
             title: data[i].title,
             keySig: data[i].keysig,
@@ -31,9 +31,9 @@ class HomePage extends Component {
             id: data[i].id,
             songString: data[i].songString
           });
-          this.setState({ songSquares: temp });
         }
       }
+      this.setState({ songSquares: temp });
     }
   };
 
@@ -67,6 +67,7 @@ class HomePage extends Component {
           songString={songSquare.songString}
           onDelete={this.deleteSongSquare}
           onCopy={this.copySongSquare}
+          reFetch={this.componentDidMount}
         ></SongSquare>
       ));
     } else {
