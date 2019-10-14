@@ -73,6 +73,7 @@ class ConfigContainer extends Component {
               size="sm"
               placeholder={this.state.title}
               onChange={this.configStrings}
+              style={{ textAlign: "center" }}
             />
           </Form.Group>
           <Button

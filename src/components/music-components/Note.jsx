@@ -32,12 +32,6 @@ class Note extends Component {
       ],
       imageToRender: this.props.imageToRender
     };
-    // for (var i = 0; i < this.state.images.length; i++) {
-    //   if (this.state.images[i].time === this.state.time) {
-    //     this.state.imageToRender = this.state.images[i].image;
-    //     break;
-    //   }
-    // }
     this.handleNoteClick = this.handleNoteClick.bind(this);
     this.handleSelectionE = this.handleSelectionE.bind(this);
     this.handleSelectionL = this.handleSelectionL.bind(this);

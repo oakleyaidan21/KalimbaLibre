@@ -8,6 +8,7 @@ class TotalNote extends Component {
 
     this.state = {
       backgroundcolor: this.props.color,
+      renderPlus: false,
       id: this.props.id
     };
     this.handleNoteClick = this.handleNoteClick.bind(this);
@@ -17,6 +18,11 @@ class TotalNote extends Component {
 
   handleSelection = childData => {
     this.setState({ backgroundcolor: childData });
+    if (childData === "transparent") {
+      this.setState({ renderPlus: false });
+    } else {
+      this.setState({ renderPlus: true });
+    }
   };
 
   componentWillReceiveProps = nextProps => {
@@ -40,12 +46,34 @@ class TotalNote extends Component {
     this.props.children[id].handleNoteClick(tNoteID, noteName, t, id, true);
   };
 
+  handleSelectionE = () => {
+    if (!this.state.renderPlus) {
+      this.setState({ renderPlus: true });
+    }
+    this.setState({ backgroundcolor: "rgb(247,255,0,0.5)" });
+  };
+
+  handleSelectionL = () => {
+    if (this.state.renderPlus) {
+      this.setState({ renderPlus: false });
+    }
+    this.setState({ backgroundcolor: "transparent" });
+  };
+
+  handleTickClick = () => {
+    console.log(this.state.id);
+  };
+
   render() {
+    let renderPlusContext = "+";
+    if (!this.state.renderPlus) {
+      renderPlusContext = "";
+    }
     return (
       <div
         id="totalNote"
         style={{
-          width: 550,
+          width: 590,
           height: 40,
           background: this.state.backgroundcolor,
           borderBottom: "2px solid transparent"
@@ -66,6 +94,22 @@ class TotalNote extends Component {
             imageToRender={note.imageToRender}
           />
         ))}
+        <button
+          style={{
+            float: "left",
+            marginLeft: 4,
+            marginRight: 4,
+            background: "transparent",
+            border: 0,
+            width: 30,
+            height: 40
+          }}
+          onMouseEnter={this.handleSelectionE}
+          onMouseLeave={this.handleSelectionL}
+          onClick={this.handleTickClick}
+        >
+          {renderPlusContext}
+        </button>
       </div>
     );
   }
