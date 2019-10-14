@@ -55,6 +55,7 @@ class NewTab extends Component {
       isLoading: true,
       idToPlayUntil: -1,
       idToStartFrom: 0,
+      stopPlaying: false,
       images: [
         { time: 1, image: Whole },
         { time: 4 / 3, image: D_Half },
@@ -243,6 +244,11 @@ class NewTab extends Component {
     var smallestTimeInterval = 4;
 
     for (i = this.state.idToStartFrom; i >= this.state.idToPlayUntil; i--) {
+      if (this.state.stopPlaying) {
+        temp[i + 1].color = "transparent";
+        this.setState({ totalNotes: temp });
+        break;
+      }
       if (smallestTimeInterval < 0) {
         smallestTimeInterval = 4;
       }
@@ -272,6 +278,7 @@ class NewTab extends Component {
       this.setState({ totalNotes: temp });
     }
     document.getElementById("holder").style.scrollBehavior = "smooth";
+    this.setState({ stopPlaying: false });
   };
 
   //Configures the title, key signature, and tempo
@@ -525,8 +532,20 @@ class NewTab extends Component {
               </Button>
             </div>
             {saveButton}
-            <Button variant="primary" onClick={this.handlePlay}>
+            <Button
+              variant="primary"
+              style={{ marginRight: 10 }}
+              onClick={this.handlePlay}
+            >
               PLAY
+            </Button>
+            <Button
+              variant="outline-info"
+              onClick={() => {
+                this.setState({ stopPlaying: true });
+              }}
+            >
+              STOP
             </Button>
           </Form>
         </Navbar>
