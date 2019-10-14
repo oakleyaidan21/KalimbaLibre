@@ -54,6 +54,7 @@ class NewTab extends Component {
       isSaved: true,
       isLoading: true,
       idToPlayUntil: -1,
+      idToStartFrom: 0,
       images: [
         { time: 1, image: Whole },
         { time: 4 / 3, image: D_Half },
@@ -104,7 +105,8 @@ class NewTab extends Component {
           songTitle: data[a].title,
           keySig: data[a].keysig,
           tempo: data[a].tempo,
-          kalimbaLength: data[a].length
+          kalimbaLength: data[a].length,
+          idToStartFrom: data[a].length - 1
         });
         this.configure(data[a].keysig, "key");
         temp = data[a].songString;
@@ -239,8 +241,8 @@ class NewTab extends Component {
       }
     }
     var smallestTimeInterval = 4;
-    var counter = 1;
-    for (i = temp.length - 1; i >= this.state.idToPlayUntil; i--) {
+
+    for (i = this.state.idToStartFrom; i >= this.state.idToPlayUntil; i--) {
       if (smallestTimeInterval < 0) {
         smallestTimeInterval = 4;
       }
@@ -260,8 +262,7 @@ class NewTab extends Component {
         }
       }
       document.getElementById("holder").scrollTop =
-        temp.length * 40 - 250 - 40 * counter;
-      counter++;
+        temp.length * 40 - 250 - 40 * (this.state.kalimbaLength - i);
     }
     if (this.state.idToPlayUntil !== -1) {
       temp[this.state.idToPlayUntil].color = "transparent";
@@ -372,6 +373,7 @@ class NewTab extends Component {
     temp2[tNote].notes[noteID].name = noteName;
     this.setState({ totalNotes: temp2 });
     this.setState({ isSaved: false });
+    this.setState({ idToStartFrom: tNote });
   };
 
   handleSave = () => {
@@ -511,6 +513,9 @@ class NewTab extends Component {
               <Button
                 onClick={() => {
                   this.refs.child.handleScrollBottom();
+                  this.setState({
+                    idToStartFrom: this.state.kalimbaLength - 1
+                  });
                 }}
                 id="my-input"
                 variant="outline-info"
