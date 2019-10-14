@@ -53,6 +53,7 @@ class NewTab extends Component {
       songString: "None", //will change to get from router props
       isSaved: true,
       isLoading: true,
+      isPlaying: false,
       idToPlayUntil: -1,
       idToStartFrom: 0,
       stopPlaying: false,
@@ -227,6 +228,7 @@ class NewTab extends Component {
 
   //goes through each TotalNote and plays the selected notes
   handlePlay = async () => {
+    this.setState({ isPlaying: true });
     document.getElementById("holder").style.scrollBehavior = "auto";
     var notesToPlay = [];
     var temp = this.state.totalNotes;
@@ -279,6 +281,7 @@ class NewTab extends Component {
     }
     document.getElementById("holder").style.scrollBehavior = "smooth";
     this.setState({ stopPlaying: false });
+    this.setState({ isPlaying: false });
   };
 
   //Configures the title, key signature, and tempo
@@ -488,6 +491,21 @@ class NewTab extends Component {
       rend = <></>;
     }
 
+    let stopButton = (
+      <Button
+        variant="outline-info"
+        onClick={() => {
+          this.setState({ stopPlaying: true });
+        }}
+        style={{ marginRight: 10 }}
+      >
+        STOP
+      </Button>
+    );
+    if (!this.state.isPlaying) {
+      stopButton = <></>;
+    }
+
     // console.log("dbid: " + this.state.dbID);
 
     return (
@@ -532,20 +550,9 @@ class NewTab extends Component {
               </Button>
             </div>
             {saveButton}
-            <Button
-              variant="primary"
-              style={{ marginRight: 10 }}
-              onClick={this.handlePlay}
-            >
+            {stopButton}
+            <Button variant="primary" onClick={this.handlePlay}>
               PLAY
-            </Button>
-            <Button
-              variant="outline-info"
-              onClick={() => {
-                this.setState({ stopPlaying: true });
-              }}
-            >
-              STOP
             </Button>
           </Form>
         </Navbar>
