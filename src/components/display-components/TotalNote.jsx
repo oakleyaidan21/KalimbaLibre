@@ -62,10 +62,11 @@ class TotalNote extends Component {
 
   handleTickClick = () => {
     console.log(this.state.id);
+    this.props.passUpTick(this.state.id);
   };
 
   render() {
-    let renderPlusContext = "+";
+    let renderPlusContext = this.props.amountOfTNotes - this.state.id;
     if (!this.state.renderPlus) {
       renderPlusContext = "";
     }
@@ -102,7 +103,8 @@ class TotalNote extends Component {
             background: "transparent",
             border: 0,
             width: 30,
-            height: 40
+            height: 40,
+            textAlign: "center"
           }}
           onMouseEnter={this.handleSelectionE}
           onMouseLeave={this.handleSelectionL}

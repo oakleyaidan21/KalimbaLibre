@@ -29,6 +29,10 @@ class NoteContainer extends Component {
     this.props.onHolderPassUp(tNote, noteName, time, remove, noteID);
   };
 
+  handlePassUpTick = id => {
+    this.props.onTickPassUp(id);
+  };
+
   render() {
     return (
       <div
@@ -40,7 +44,7 @@ class NoteContainer extends Component {
           float: "left"
         }}
       >
-        {this.props.totalNotes.map((totalNote, index) => (
+        {this.props.totalNotes.map(totalNote => (
           <TotalNote
             key={totalNote.key}
             time={totalNote.time}
@@ -53,6 +57,8 @@ class NoteContainer extends Component {
             curTime={this.props.curTime}
             notes={totalNote.notes}
             imageToRender={this.props.imageToRender}
+            amountOfTNotes={this.props.totalNotes.length}
+            passUpTick={this.handlePassUpTick}
           />
         ))}
       </div>

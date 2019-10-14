@@ -49,11 +49,11 @@ class Tine extends Component {
       <div id="tine">
         <button
           style={{
-            paddingTop: this.state.len,
+            paddingTop: this.props.len * 15 + this.props.amountOfTNotes * 40,
             float: "left",
             background: this.props.color,
             width: "28px",
-            height: this.state.len,
+            height: this.props.len * 15 + this.props.amountOfTNotes * 40,
             border: "3px solid black",
             margin: "2px",
             borderRadius: "25px"

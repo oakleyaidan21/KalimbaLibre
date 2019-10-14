@@ -403,6 +403,40 @@ class NewTab extends Component {
     this.setState({ isSaved: true });
   };
 
+  addMeasure = id => {
+    console.log(id);
+    var temp = this.state.totalNotes;
+    var notesToInsert = [];
+    for (var i = 0; i < 17; i++) {
+      notesToInsert.push({
+        time: 4,
+        rest: false,
+        name: this.state.tineNotes[i].note,
+        color: "transparent",
+        selected: false,
+        noteID: i,
+        imageToRender: Whole
+      });
+    }
+    var toInsert = {
+      key: id - 1,
+      time: 4,
+      rest: false,
+      color: "transparent",
+      id: id + 1,
+      notes: notesToInsert
+    };
+    console.log(toInsert);
+    temp.splice(id, 0, toInsert);
+    console.log(temp);
+    for (i = id; i < temp.length; i++) {
+      temp[i].key++;
+      temp[i].id++;
+    }
+    this.setState({ totalNotes: temp });
+    this.setState({ kalimbaLength: this.state.kalimbaLength + 1 });
+  };
+
   render() {
     let vari = "outline-info";
     if (this.state.isSaved === false) {
@@ -482,6 +516,7 @@ class NewTab extends Component {
           ref="child"
           curTime={this.state.curTime}
           imageToRender={this.state.imageToRender}
+          finalTickPass={this.addMeasure}
         />
         <Selector
           onChangeNoteTime={this.changeNoteTime}

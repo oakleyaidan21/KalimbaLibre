@@ -56,6 +56,7 @@ class KalimbaContainer extends Component {
           tempo={this.props.tempo}
           curTime={this.props.curTime}
           imageToRender={this.props.imageToRender}
+          onTickPassUp={this.props.finalTickPass}
         />
       </div>
     );
