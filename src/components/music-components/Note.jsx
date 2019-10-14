@@ -36,7 +36,18 @@ class Note extends Component {
     this.handleSelectionE = this.handleSelectionE.bind(this);
     this.handleSelectionL = this.handleSelectionL.bind(this);
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
+
+    this.state.imageToRender = this.getImageIndex(this.state.time);
   }
+
+  getImageIndex = time => {
+    for (var i = 0; i < this.state.images.length; i++) {
+      if (this.state.images[i].time === parseFloat(time)) {
+        return this.state.images[i].image;
+      }
+    }
+    return this.state.images[0].image;
+  };
 
   componentDidMount = () => {};
 
