@@ -65,16 +65,22 @@ class TotalNote extends Component {
     this.props.passUpTick(this.state.id);
   };
 
+  handleMinusClick = () => {
+    this.props.passUpMinus(this.state.id);
+  };
+
   render() {
-    let renderPlusContext = this.props.amountOfTNotes - this.state.id;
+    let renderPlusContext = "+";
+    let renderMinusContext = "-";
     if (!this.state.renderPlus) {
       renderPlusContext = "";
+      renderMinusContext = "";
     }
     return (
       <div
         id="totalNote"
         style={{
-          width: 590,
+          width: 630,
           height: 40,
           background: this.state.backgroundcolor,
           borderBottom: "2px solid transparent"
@@ -111,6 +117,23 @@ class TotalNote extends Component {
           onClick={this.handleTickClick}
         >
           {renderPlusContext}
+        </button>
+        <button
+          style={{
+            float: "left",
+            marginLeft: 4,
+            marginRight: 4,
+            background: "transparent",
+            border: 0,
+            width: 30,
+            height: 40,
+            textAlign: "center"
+          }}
+          onMouseEnter={this.handleSelectionE}
+          onMouseLeave={this.handleSelectionL}
+          onClick={this.handleMinusClick}
+        >
+          {renderMinusContext}
         </button>
       </div>
     );

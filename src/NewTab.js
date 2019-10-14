@@ -427,14 +427,11 @@ class NewTab extends Component {
       id: id + 1,
       notes: notesToInsert
     };
-    console.log(toInsert);
     temp.splice(id, 0, toInsert);
-    console.log(temp);
     for (i = id; i < temp.length; i++) {
       temp[i].key++;
       temp[i].id++;
       for (var j = 0; j < 17; j++) {
-        // console.log(this.getImageIndex(temp[i].notes[j].time));
         temp[i].notes[j].imageToRender = this.getImageIndex(
           temp[i].notes[j].time
         );
@@ -442,6 +439,23 @@ class NewTab extends Component {
     }
     this.setState({ totalNotes: temp });
     this.setState({ kalimbaLength: this.state.kalimbaLength + 1 });
+  };
+
+  removeMeasure = id => {
+    console.log(id);
+    var temp = this.state.totalNotes;
+    temp.splice(id, 1);
+    for (var i = id; i < temp.length; i++) {
+      temp[i].key--;
+      temp[i].id--;
+      for (var j = 0; j < 17; j++) {
+        temp[i].notes[j].imageToRender = this.getImageIndex(
+          temp[i].notes[j].time
+        );
+      }
+    }
+    this.setState({ totalNotes: temp });
+    this.setState({ kalimbaLength: this.state.kalimbaLength - 1 });
   };
 
   render() {
@@ -524,6 +538,7 @@ class NewTab extends Component {
           curTime={this.state.curTime}
           imageToRender={this.state.imageToRender}
           finalTickPass={this.addMeasure}
+          finalMinusPass={this.removeMeasure}
         />
         <Selector
           onChangeNoteTime={this.changeNoteTime}

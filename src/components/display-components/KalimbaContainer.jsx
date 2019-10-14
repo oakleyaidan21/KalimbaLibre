@@ -33,7 +33,7 @@ class KalimbaContainer extends Component {
       <div
         id="holder"
         style={{
-          width: 585,
+          width: 625,
           margin: "0 auto",
           height: 600,
           background: "#D4D4D4",
@@ -57,6 +57,7 @@ class KalimbaContainer extends Component {
           curTime={this.props.curTime}
           imageToRender={this.props.imageToRender}
           onTickPassUp={this.props.finalTickPass}
+          onMinusPassUp={this.props.finalMinusPass}
         />
       </div>
     );

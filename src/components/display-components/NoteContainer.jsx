@@ -58,7 +58,8 @@ class NoteContainer extends Component {
             notes={totalNote.notes}
             imageToRender={this.props.imageToRender}
             amountOfTNotes={this.props.totalNotes.length}
-            passUpTick={this.handlePassUpTick}
+            passUpTick={this.props.onTickPassUp}
+            passUpMinus={this.props.onMinusPassUp}
           />
         ))}
       </div>
