@@ -51,6 +51,7 @@ class NoteContainer extends Component {
             rest={totalNote.rest}
             color={totalNote.color}
             onPassingUpNote={this.handlePassingUpNote}
+            selected={totalNote.selected}
             id={totalNote.id}
             tineNotes={this.props.tineNotes}
             instrument={this.props.kalimba}

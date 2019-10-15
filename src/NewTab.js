@@ -137,6 +137,7 @@ class NewTab extends Component {
         time: 4,
         rest: false,
         color: "transparent",
+        selected: false,
         id: i,
         notes: tempN
       });
@@ -436,6 +437,7 @@ class NewTab extends Component {
       time: 4,
       rest: false,
       color: "transparent",
+      selected: "false",
       id: id + 1,
       notes: notesToInsert
     };

@@ -9,7 +9,8 @@ class TotalNote extends Component {
     this.state = {
       backgroundcolor: this.props.color,
       renderPlus: false,
-      id: this.props.id
+      id: this.props.id,
+      selected: this.props.selected
     };
     this.handleNoteClick = this.handleNoteClick.bind(this);
     this.handleSelection = this.handleSelection.bind(this);
@@ -17,7 +18,10 @@ class TotalNote extends Component {
   }
 
   handleSelection = childData => {
-    this.setState({ backgroundcolor: childData });
+    if (!this.state.selected) {
+      this.setState({ backgroundcolor: childData });
+    }
+
     if (childData === "transparent") {
       this.setState({ renderPlus: false });
     } else {
@@ -69,20 +73,31 @@ class TotalNote extends Component {
     this.props.passUpMinus(this.state.id);
   };
 
+  handleMeasureClick = () => {
+    this.setState({ selected: true });
+    this.props.passUpMeasure(this.state.id);
+  };
+
   render() {
+    var bg = this.state.backgroundcolor;
+    if (this.state.selected) {
+      bg = "rgb(117,121,255,0.5)";
+    }
     let renderPlusContext = "+";
     let renderMinusContext = "-";
+    let renderMeasure = this.props.amountOfTNotes - this.state.id;
     if (!this.state.renderPlus) {
       renderPlusContext = "";
       renderMinusContext = "";
+      renderMeasure = "";
     }
     return (
       <div
         id="totalNote"
         style={{
-          width: 630,
+          width: 670,
           height: 40,
-          background: this.state.backgroundcolor,
+          background: bg,
           borderBottom: "2px solid transparent"
         }}
       >
@@ -134,6 +149,23 @@ class TotalNote extends Component {
           onClick={this.handleMinusClick}
         >
           {renderMinusContext}
+        </button>
+        <button
+          style={{
+            float: "left",
+            marginLeft: 4,
+            marginRight: 4,
+            background: "transparent",
+            border: 0,
+            width: 30,
+            height: 40,
+            textAlign: "center"
+          }}
+          onMouseEnter={this.handleSelectionE}
+          onMouseLeave={this.handleSelectionL}
+          onClick={this.handleMeasureClick}
+        >
+          {renderMeasure}
         </button>
       </div>
     );

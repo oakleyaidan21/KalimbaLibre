@@ -205,7 +205,11 @@ class SongSquare extends Component {
         </div>
       );
     }
-    return <div style={{ marginTop: 10 }}>{toBeRendered}</div>;
+    return (
+      <div id="songSquare" style={{ marginTop: 10 }}>
+        {toBeRendered}
+      </div>
+    );
   }
 }
 

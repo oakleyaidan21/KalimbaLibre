@@ -33,7 +33,7 @@ class KalimbaContainer extends Component {
       <div
         id="holder"
         style={{
-          width: 625,
+          width: 665,
           margin: "0 auto",
           height: 600,
           background: "#D4D4D4",

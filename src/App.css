@@ -11,6 +11,15 @@
   opacity: 1 !important;
 }
 
+#songSquare {
+  transition: opacity 0.5s;
+  opacity: 1;
+}
+#holder {
+  scroll-behavior: smooth;
+  cursor: url("./noteImages/quarter_note.png"), auto;
+}
+
 @media only screen and (max-width: 744) {
   #selector {
     display: "none" !important;
@@ -31,9 +40,4 @@
   #navtop {
     display: none !important;
   }
-}
-
-#holder {
-  scroll-behavior: smooth;
-  cursor: url("./noteImages/quarter_note.png"), auto;
 }
