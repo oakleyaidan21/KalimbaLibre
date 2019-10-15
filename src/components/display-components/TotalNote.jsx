@@ -105,7 +105,7 @@ class TotalNote extends Component {
           <Note
             time={this.props.curTime}
             rest={note.rest}
-            name={this.props.tineNotes[index].note}
+            name={note.name}
             color={note.color}
             id={this.state.id}
             selected={note.selected}

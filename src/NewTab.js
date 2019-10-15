@@ -216,7 +216,6 @@ class NewTab extends Component {
     }
 
     //Instrument Initilization
-    await delay(500);
     const { instruments } = await getInstruments(["kalimba"]);
     this.setState({ kalimba: instruments.get("kalimba") });
     console.log("kalimba loaded");

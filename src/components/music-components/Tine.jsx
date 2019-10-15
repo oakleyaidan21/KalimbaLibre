@@ -54,7 +54,7 @@ class Tine extends Component {
             background: this.props.color,
             width: "28px",
             height: this.props.len * 15 + this.props.amountOfTNotes * 40,
-            border: "3px solid black",
+            border: "2px solid black",
             margin: "2px",
             borderRadius: "25px"
           }}
