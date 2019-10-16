@@ -42,7 +42,6 @@ class HomePage extends Component {
     fetch("https://warm-inlet-29455.herokuapp.com/kalimba_songs")
       .then(
         data => {
-          console.log(data);
           return data.json();
         },
         err => console.log(err)

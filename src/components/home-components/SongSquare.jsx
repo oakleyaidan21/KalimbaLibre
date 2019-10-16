@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
-import { Link, navigate } from "@reach/router";
+import { navigate } from "@reach/router";
 import { IoIosPlay } from "react-icons/io";
 
 class SongSquare extends Component {

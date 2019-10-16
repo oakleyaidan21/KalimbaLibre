@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { navigate } from "@reach/router";
 import crypto from "crypto";
+import { delay } from "q";
 
 class LoginBox extends Component {
   state = {
@@ -65,28 +66,56 @@ class LoginBox extends Component {
     return passwordData.passwordHash;
   }
 
-  logIn = () => {
+  logIn = async () => {
     //search for username
-    var cancel = false;
-    console.log("username: + '" + this.state.username + "'");
-    if (this.state.username === "none") {
+    var valid = false;
+    var tempHashP = "";
+    var tempSalt = "";
+    fetch("https://warm-inlet-29455.herokuapp.com/users")
+      .then(
+        data => {
+          return data.json();
+        },
+        err => console.log(err)
+      )
+      .then(
+        parsedData => {
+          for (var i = 0; i < parsedData.length; i++) {
+            if (parsedData[i].username === this.state.username) {
+              tempHashP = parsedData[i].hashp;
+              tempSalt = parsedData[i].salt;
+              valid = true;
+              return;
+            }
+          }
+        },
+        err => console.log(err)
+      );
+    await delay(250);
+
+    if (this.state.username === "none" || !valid) {
       this.setState({ incorrectUsername: true });
-      cancel = true;
+      return;
     }
-    //see if password is correct or not
+    //see if password is valid or not
     if (this.state.password === "none") {
       this.setState({ incorrectPassword: true });
-      cancel = true;
+
+      return;
     }
-    var salt = this.genRandomString(16);
-    var passwordData = this.sha512(this.state.password, salt);
-    var passwordData2 = this.sha512(this.state.password, salt);
-    if (passwordData.passwordHash === passwordData2.passwordHash) {
+
+    //see if password is correct or not
+    var salt = tempSalt;
+    var hashC = this.sha512(this.state.password, salt).passwordHash;
+
+    if (hashC === tempHashP) {
       console.log("match");
+    } else {
+      this.setState({ incorrectPassword: true });
+      return;
     }
-    if (!cancel) {
-      navigate("/homepage/", { state: { userID: this.state.username } });
-    }
+
+    navigate("/homepage/", { state: { userID: this.state.username } });
   };
 
   render() {

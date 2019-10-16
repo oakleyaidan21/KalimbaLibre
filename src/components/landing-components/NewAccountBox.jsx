@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import crypto from "crypto";
+import { delay } from "q";
+import { navigate } from "@reach/router";
 class NewAccountBox extends Component {
   state = {
     username: "none",
@@ -72,10 +74,38 @@ class NewAccountBox extends Component {
     return passwordData.passwordHash;
   }
 
-  createNewAccount = () => {
+  createNewAccount = async () => {
     //search to see if username is taken or invalid
+    var taken = false;
+    fetch("https://warm-inlet-29455.herokuapp.com/users")
+      .then(
+        data => {
+          return data.json();
+        },
+        err => console.log(err)
+      )
+      .then(
+        parsedData => {
+          for (var i = 0; i < parsedData.length; i++) {
+            if (parsedData[i].username === this.state.username) {
+              console.log("hi");
+              this.setState({ incorrectUsername: true });
+              taken = true;
+              return;
+            }
+          }
+        },
+        err => console.log(err)
+      );
+    await delay(500);
+    if (taken) {
+      console.log(taken);
+      this.setState({ incorrectUsername: true });
+      return;
+    }
     if (/\W/.test(this.state.username)) {
       this.setState({ incorrectUsername: true });
+      return;
     }
 
     //see if passwords are valid and match
@@ -89,8 +119,29 @@ class NewAccountBox extends Component {
     }
 
     // if all statements are successful, make new account in database and take them to their home page
+    var toBesalt = this.genRandomString(16);
+    var toBehashp = this.sha512(this.state.password, toBesalt).passwordHash;
+    console.log(toBehashp);
+    //upload to database
+    fetch("https://warm-inlet-29455.herokuapp.com/users", {
+      method: "POST",
+      body: JSON.stringify({
+        username: this.state.username,
+        hashp: toBehashp,
+        salt: toBesalt
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => res.json())
+      .then(resJSON => {
+        console.log(resJSON);
+      })
+      .catch(error => console.error({ Error: error }));
 
-    console.log("success!");
+    //navigate them to their homepage
+    navigate("/homepage/", { state: { userID: this.state.username } });
   };
 
   render() {
