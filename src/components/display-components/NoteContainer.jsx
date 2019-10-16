@@ -61,6 +61,7 @@ class NoteContainer extends Component {
             amountOfTNotes={this.props.totalNotes.length}
             passUpTick={this.props.onTickPassUp}
             passUpMinus={this.props.onMinusPassUp}
+            current={totalNote.current}
           />
         ))}
       </div>

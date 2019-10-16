@@ -126,7 +126,8 @@ class Note extends Component {
             background: this.state.color,
             border: 0,
             width: "24px",
-            height: "40px"
+            height: "40px",
+            outline: "none"
           }}
           onMouseEnter={this.handleSelectionE}
           onMouseLeave={this.handleSelectionL}

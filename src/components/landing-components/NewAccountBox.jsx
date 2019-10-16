@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-
+import crypto from "crypto";
 class NewAccountBox extends Component {
   state = {
     username: "none",
@@ -12,52 +12,109 @@ class NewAccountBox extends Component {
   };
 
   setUsername = event => {
-    this.setState({ username: event.target.value });
+    this.setState({ username: event.target.value, incorrectUsername: false });
   };
 
   setPassword = event => {
-    this.setState({ password: event.target.value });
+    this.setState({ password: event.target.value, incorrectPassword: false });
   };
 
   setMatchPassword = event => {
-    this.setState({ matchPassword: event.target.value });
+    this.setState({
+      matchPassword: event.target.value,
+      incorrectMatchPassword: false
+    });
   };
 
   unRender = () => {
     this.props.onUnRender();
   };
 
+  genRandomString = len => {
+    return crypto
+      .randomBytes(Math.ceil(len / 2))
+      .toString("hex")
+      .slice(0, len);
+  };
+
+  //password database logic:
+  // create new password
+  //   generate SALT
+  //   hash SALT with USERPASSWORD to make the HASHP
+  //   store the HASHP along with the SALT in the database
+  // validate login
+  //   validate that USER exists
+  //   retrieve USER's HASHP and SALT
+  //   hash the NEWLYENTEREDPASSWORD and SALT to make HASHC
+  //   compare HASHC and HASHP
+  //   if they are correct, then let them in
+
+  sha512 = (password, salt) => {
+    var hash = crypto.createHmac(
+      "sha512",
+      salt
+    ); /** Hashing algorithm sha512 */
+    hash.update(password);
+    var value = hash.digest("hex");
+    return {
+      salt: salt,
+      passwordHash: value
+    };
+  };
+
+  saltHashPassword(userpassword) {
+    var salt = this.genRandomString(16);
+    var passwordData = this.sha512(userpassword, salt);
+    console.log("UserPassword = " + userpassword);
+    console.log("Passwordhash = " + passwordData.passwordHash);
+    console.log("nSalt =" + passwordData.salt);
+    return passwordData.passwordHash;
+  }
+
   createNewAccount = () => {
     //search to see if username is taken
     //see if passwords are valid and match
-    if (this.state.password !== this.state.matchPassword) {
+    if (this.state.password.length < 8 || !/\d/.test(this.state.password)) {
       this.setState({ incorrectPassword: true });
       return;
     }
-    // if both are successful, make new account in database and take them to their home page
+    if (this.state.password !== this.state.matchPassword) {
+      this.setState({ incorrectMatchPassword: true });
+      return;
+    }
+    //testing
+    // this.saltHashPassword(this.state.password);
+
+    // if all statements are successful, make new account in database and take them to their home page
 
     console.log("success!");
   };
 
   render() {
     let incorrectUsername = <></>;
+    let incorrectMatchPassword = <></>;
     let incorrectPassword = <></>;
     if (this.state.incorrectUsername) {
       incorrectUsername = (
-        <div style={{ color: "red" }}>Invalid or non-existing username</div>
+        <div style={{ color: "red" }}>Invalid or already taken username</div>
+      );
+    }
+    if (this.state.incorrectMatchPassword) {
+      incorrectMatchPassword = (
+        <div style={{ color: "red" }}>Passwords do not match</div>
       );
     }
     if (this.state.incorrectPassword) {
       incorrectPassword = (
-        <div style={{ color: "red" }}>Passwords do not match</div>
+        <div style={{ color: "red" }}>Password does not follow criteria</div>
       );
     }
     return (
       <div
         style={{
           width: 300,
-          height: 370,
-          backgroundColor: "lightgrey",
+          height: 400,
+          backgroundColor: "white",
           margin: "0 auto",
           marginTop: 100,
           borderRadius: 10,
@@ -66,6 +123,9 @@ class NewAccountBox extends Component {
           zIndex: "10"
         }}
       >
+        <div style={{ fontSize: 20, fontWeight: "bold", margin: "0 auto" }}>
+          New Account
+        </div>
         <Form>
           <Form.Group controlId="formUser">
             <Form.Label>Username</Form.Label>
@@ -84,8 +144,9 @@ class NewAccountBox extends Component {
               onChange={this.setPassword}
               type="password"
             />
+            <Form.Text>{incorrectPassword}</Form.Text>
           </Form.Group>
-          <Form.Group controlId="formPass">
+          <Form.Group controlId="formPassMatch">
             <Form.Label>Confirm Password</Form.Label>
             <Form.Control
               size="sm"
@@ -93,7 +154,7 @@ class NewAccountBox extends Component {
               onChange={this.setMatchPassword}
               type="password"
             />
-            <Form.Text>{incorrectPassword}</Form.Text>
+            <Form.Text>{incorrectMatchPassword}</Form.Text>
           </Form.Group>
 
           <Button

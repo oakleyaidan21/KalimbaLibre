@@ -108,6 +108,10 @@ class NewTab extends Component {
     var tempTNotes = [];
     // first, initialize all the tNotes
     for (var i = 0; i < this.state.kalimbaLength; i++) {
+      var cur = false;
+      if (i === this.state.kalimbaLength - 1) {
+        cur = true;
+      }
       var tempN = [];
       for (var j = 0; j < 17; j++) {
         tempN.push({
@@ -127,7 +131,8 @@ class NewTab extends Component {
         color: "transparent",
         selected: false,
         id: i,
-        notes: tempN
+        notes: tempN,
+        current: cur
       });
     }
     //now, go through song string and change tnote array accordingly
@@ -196,7 +201,8 @@ class NewTab extends Component {
           rest: false,
           color: "transparent",
           id: i,
-          notes: tempN
+          notes: tempN,
+          current: false
         });
       }
       this.setState({ totalNotes: tempTNotes });
@@ -355,6 +361,8 @@ class NewTab extends Component {
       temp2[tNote].notes[noteID].selected = false;
     } else {
       console.log(tNote + " " + noteID);
+      temp2[tNote].current = true;
+      temp2[this.state.idToStartFrom].current = false;
       temp2[tNote].notes[noteID].selected = true;
       temp2[tNote].notes[noteID].time = time;
       temp2[tNote].notes[noteID].imageToRender = this.getImageIndex(time);
@@ -367,6 +375,7 @@ class NewTab extends Component {
         this.setState({ idToPlayUntil: tNote });
       }
     }
+
     temp2[tNote].notes[noteID].name = noteName;
     this.setState({ totalNotes: temp2 });
     this.setState({ isSaved: false });
@@ -529,8 +538,12 @@ class NewTab extends Component {
               <Button
                 onClick={() => {
                   this.refs.child.handleScrollBottom();
+                  var temp = this.state.totalNotes;
+                  temp[this.state.idToStartFrom].current = false;
+                  temp[this.state.kalimbaLength - 1].current = true;
                   this.setState({
-                    idToStartFrom: this.state.kalimbaLength - 1
+                    idToStartFrom: this.state.kalimbaLength - 1,
+                    totalNotes: temp
                   });
                 }}
                 id="my-input"
