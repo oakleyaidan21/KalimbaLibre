@@ -221,6 +221,9 @@ class NewTab extends Component {
 
   //goes through each TotalNote and plays the selected notes
   handlePlay = async () => {
+    if (this.state.idToPlayUntil === -1) {
+      return;
+    }
     this.setState({ isPlaying: true });
     document.getElementById("holder").style.scrollBehavior = "auto";
     var notesToPlay = [];
@@ -265,13 +268,11 @@ class NewTab extends Component {
       document.getElementById("holder").scrollTop =
         temp.length * 40 - 250 - 40 * (this.state.kalimbaLength - i);
     }
-    if (this.state.idToPlayUntil !== -1) {
-      temp[this.state.idToPlayUntil].color = "transparent";
-      this.setState({ totalNotes: temp });
-    } else {
-      temp[0].color = "transparent";
-      this.setState({ totalNotes: temp });
-    }
+
+    await delay(500);
+    temp[this.state.idToPlayUntil].color = "transparent";
+    this.setState({ totalNotes: temp });
+
     document.getElementById("holder").style.scrollBehavior = "smooth";
     this.setState({ stopPlaying: false });
     this.setState({ isPlaying: false });
