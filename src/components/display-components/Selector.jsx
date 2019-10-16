@@ -15,7 +15,8 @@ class Selector extends Component {
         { label: 8 },
         { label: 16 },
         { label: 32 },
-        { label: "." }
+        { label: "." },
+        { label: "R" }
       ]
     };
     this.handleSelectionP = this.handleSelectionP.bind(this);

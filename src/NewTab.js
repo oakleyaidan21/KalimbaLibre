@@ -9,7 +9,7 @@ import "./App.css";
 import ConfigContainer from "./components/display-components/ConfigContainer";
 import { getInstruments } from "mobx-music";
 import { delay } from "q";
-import scaleKeys from "./constants.js";
+import scaleKeys, { tineNotesC } from "./constants.js";
 import Quarter from "./noteImages/quarter_note.png";
 import Eighth from "./noteImages/eighth_note.png";
 import Half from "./noteImages/half_note.png";
@@ -24,25 +24,7 @@ class NewTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tineNotes: [
-        { note: "D6", color: "white", len: 1, id: 1 },
-        { note: "B5", color: "white", len: 2, id: 2 },
-        { note: "G5", color: "rgb(0,123,255)", len: 3, id: 3 },
-        { note: "E5", color: "white", len: 4, id: 4 },
-        { note: "C5", color: "white", len: 5 },
-        { note: "A4", color: "rgb(0,123,255)", len: 6, id: 6 },
-        { note: "F4", color: "white", len: 7, id: 7 },
-        { note: "D4", color: "white", len: 8, id: 8 },
-        { note: "C4", color: "rgb(0,123,255)", len: 9, id: 9 },
-        { note: "E4", color: "white", len: 8, id: 10 },
-        { note: "G4", color: "white", len: 7, id: 11 },
-        { note: "B4", color: "rgb(0,123,255)", len: 6, id: 12 },
-        { note: "D5", color: "white", len: 5, id: 13 },
-        { note: "F5", color: "white", len: 4, id: 14 },
-        { note: "A5", color: "rgb(0,123,255)", len: 3, id: 15 },
-        { note: "C6", color: "white", len: 2, id: 16 },
-        { note: "E6", color: "white", len: 1, id: 17 }
-      ],
+      tineNotes: tineNotesC,
       totalNotes: [],
       kalimbaLength: 200, //will change to get from router props
       kalimba: null,
@@ -50,6 +32,7 @@ class NewTab extends Component {
       keySig: "C", //will change to get from router props
       songTitle: "None", //will change to get from router props
       curTime: 4,
+      resting: false,
       songString: "None", //will change to get from router props
       isSaved: true,
       isLoading: true,
@@ -88,13 +71,17 @@ class NewTab extends Component {
   //changes the current note for editing
   //current problem: doesn't render images of dotted notes, for whatever reason
   changeNoteTime = childData => {
-    if (childData === ".") {
-      var t = this.state.curTime;
-      var addition = (t + t) / 3;
-
-      this.setState({ curTime: addition });
+    if (childData !== "R") {
+      if (childData === ".") {
+        var t = this.state.curTime;
+        var addition = (t + t) / 3;
+        this.setState({ curTime: addition });
+      } else {
+        this.setState({ curTime: childData });
+      }
+      this.setState({ resting: false });
     } else {
-      this.setState({ curTime: childData });
+      this.setState({ resting: true });
     }
   };
 
