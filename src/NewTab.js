@@ -50,7 +50,8 @@ class NewTab extends Component {
         { time: 8, image: Eighth },
         { time: 16, image: Sixteenth }
       ],
-      dbID: this.props.dbID
+      dbID: this.props.dbID,
+      userID: this.props.userID
     };
 
     this.handlePlay = this.handlePlay.bind(this);
@@ -388,7 +389,7 @@ class NewTab extends Component {
         tempo: this.state.tempo,
         length: this.state.kalimbaLength,
         songString: songS,
-        username: "carrot"
+        username: this.state.userID
       }),
       headers: {
         "Content-Type": "application/json"
@@ -501,6 +502,9 @@ class NewTab extends Component {
         <Navbar bg="dark" variant="dark">
           <Navbar.Brand href="/">Kalimba Libre</Navbar.Brand>
           <Nav className="mr-auto">
+            <Nav.Link href={"/homepage/" + this.state.userID + "/"}>
+              Your Songs
+            </Nav.Link>
             <Nav.Link>Song Database</Nav.Link>
             <Nav.Link>About</Nav.Link>
             <Nav.Link

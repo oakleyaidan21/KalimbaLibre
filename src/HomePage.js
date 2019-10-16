@@ -65,6 +65,7 @@ class HomePage extends Component {
           tempo={songSquare.tempo}
           length={songSquare.length}
           id={songSquare.id}
+          user={this.state.user}
           songString={songSquare.songString}
           onDelete={this.deleteSongSquare}
           onCopy={this.copySongSquare}
@@ -109,13 +110,15 @@ class HomePage extends Component {
             </Nav.Link>
           </Nav>
           <Form inline>
-            <Button variant="outline-primary">Login</Button>
+            <Link to="/">
+              <Button variant="outline-primary">Logout</Button>
+            </Link>
           </Form>
         </Navbar>
         <div className="home-page">
           <b>
             Your Songs{" "}
-            <Link to="/newtab/0" target="_blank">
+            <Link to={"/newtab/" + this.state.user + "/0"} target="_blank">
               <Button variant="primary">+ Create</Button>
             </Link>
           </b>

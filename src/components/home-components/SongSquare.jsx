@@ -12,6 +12,7 @@ class SongSquare extends Component {
       tempo: this.props.tempo,
       length: this.props.length,
       id: this.props.id,
+      user: this.props.user,
       curLocalStorage: [],
       songString: this.props.songString,
       hidden: false
@@ -42,7 +43,7 @@ class SongSquare extends Component {
         tempo: this.state.tempo,
         length: this.state.length,
         songString: this.props.songString,
-        username: "carrot"
+        username: this.state.user
       }),
       headers: {
         "Content-Type": "application/json"
@@ -151,7 +152,10 @@ class SongSquare extends Component {
           >
             <IoIosPlay />
           </Button>
-          <Link to={"/newtab/" + this.state.id} target="_blank">
+          <Link
+            to={"/newtab/" + this.state.user + "/" + this.state.id}
+            target="_blank"
+          >
             <Button
               style={{
                 width: 70,
