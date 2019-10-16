@@ -131,7 +131,7 @@ class LandingPage extends Component {
           </div>
           <div
             style={{
-              width: 200,
+              width: 400,
               height: 200,
               borderRadius: 10,
               background: "lightgrey",
@@ -141,21 +141,22 @@ class LandingPage extends Component {
               marginTop: 50
             }}
           >
-            How about a <i>rectangle</i>?
+            How about a <i>rectangle</i>? Psst, scroll down
           </div>
           <div
             style={{
-              width: 200,
-              height: 200,
+              width: 450,
+              height: 300,
               borderRadius: 10,
               background: "lightgrey",
               margin: "0 auto",
               textAlign: "center",
-              paddingTop: 90,
+              paddingTop: 140,
               marginTop: 50
             }}
           >
-            How about <i>yet another quadrilateral</i>?
+            How about <i>yet another quadrilateral</i>? This is certainly not
+            filler!
           </div>
         </div>
       </div>

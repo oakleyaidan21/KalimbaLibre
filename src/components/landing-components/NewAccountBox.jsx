@@ -72,7 +72,11 @@ class NewAccountBox extends Component {
   }
 
   createNewAccount = () => {
-    //search to see if username is taken
+    //search to see if username is taken or invalid
+    if (/\w/.test(this.state.username)) {
+      this.setState({ incorrectUsername: true });
+    }
+
     //see if passwords are valid and match
     if (this.state.password.length < 8 || !/\d/.test(this.state.password)) {
       this.setState({ incorrectPassword: true });
@@ -82,8 +86,6 @@ class NewAccountBox extends Component {
       this.setState({ incorrectMatchPassword: true });
       return;
     }
-    //testing
-    // this.saltHashPassword(this.state.password);
 
     // if all statements are successful, make new account in database and take them to their home page
 
@@ -91,9 +93,13 @@ class NewAccountBox extends Component {
   };
 
   render() {
-    let incorrectUsername = <></>;
+    let incorrectUsername = (
+      <div>At least 5 characters long with only alphanumeric characters</div>
+    );
     let incorrectMatchPassword = <></>;
-    let incorrectPassword = <></>;
+    let incorrectPassword = (
+      <div>At least 8 characters long with at least 1 number</div>
+    );
     if (this.state.incorrectUsername) {
       incorrectUsername = (
         <div style={{ color: "red" }}>Invalid or already taken username</div>
@@ -112,8 +118,8 @@ class NewAccountBox extends Component {
     return (
       <div
         style={{
-          width: 300,
-          height: 400,
+          width: 350,
+          height: 450,
           backgroundColor: "white",
           margin: "0 auto",
           marginTop: 100,
