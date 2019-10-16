@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { navigate } from "@reach/router";
 
-class LoginBox extends Component {
+class NewAccountBox extends Component {
   state = {
     username: "none",
     password: "none",
+    matchPassword: "none",
     incorrectUsername: false,
     incorrectPassword: false
   };
@@ -19,26 +19,24 @@ class LoginBox extends Component {
     this.setState({ password: event.target.value });
   };
 
+  setMatchPassword = event => {
+    this.setState({ matchPassword: event.target.value });
+  };
+
   unRender = () => {
     this.props.onUnRender();
   };
 
-  logIn = () => {
-    //search for username
-    var cancel = false;
-    console.log("username: + '" + this.state.username + "'");
-    if (this.state.username === "none") {
-      this.setState({ incorrectUsername: true });
-      cancel = true;
-    }
-    //see if password is correct or not
-    if (this.state.password === "none") {
+  createNewAccount = () => {
+    //search to see if username is taken
+    //see if passwords are valid and match
+    if (this.state.password !== this.state.matchPassword) {
       this.setState({ incorrectPassword: true });
-      cancel = true;
+      return;
     }
-    if (!cancel) {
-      navigate("/homepage/" + this.state.username);
-    }
+    // if both are successful, make new account in database and take them to their home page
+
+    console.log("success!");
   };
 
   render() {
@@ -51,14 +49,14 @@ class LoginBox extends Component {
     }
     if (this.state.incorrectPassword) {
       incorrectPassword = (
-        <div style={{ color: "red" }}>Invalid or non-existing password</div>
+        <div style={{ color: "red" }}>Passwords do not match</div>
       );
     }
     return (
       <div
         style={{
           width: 300,
-          height: 330,
+          height: 370,
           backgroundColor: "lightgrey",
           margin: "0 auto",
           marginTop: 100,
@@ -73,7 +71,7 @@ class LoginBox extends Component {
             <Form.Label>Username</Form.Label>
             <Form.Control
               size="sm"
-              placeholder={"Enter your Username"}
+              placeholder={"Enter a Username"}
               onChange={this.setUsername}
             />
             <Form.Text>{incorrectUsername}</Form.Text>
@@ -82,8 +80,17 @@ class LoginBox extends Component {
             <Form.Label>Password</Form.Label>
             <Form.Control
               size="sm"
-              placeholder={"Enter your Password"}
+              placeholder={"Enter a Password"}
               onChange={this.setPassword}
+              type="password"
+            />
+          </Form.Group>
+          <Form.Group controlId="formPass">
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control
+              size="sm"
+              placeholder={"Confirm Password"}
+              onChange={this.setMatchPassword}
               type="password"
             />
             <Form.Text>{incorrectPassword}</Form.Text>
@@ -94,10 +101,10 @@ class LoginBox extends Component {
             size="sm"
             id="loginBtn"
             onClick={() => {
-              this.logIn();
+              this.createNewAccount();
             }}
           >
-            Login
+            Create
           </Button>
           <br></br>
           <br></br>
@@ -112,24 +119,9 @@ class LoginBox extends Component {
             Cancel
           </Button>
         </Form>
-        <div style={{ marginTop: 10 }}>
-          Dont have an account?{" "}
-          <button
-            onClick={() => {
-              this.props.onShowNewAccount();
-            }}
-            style={{
-              border: "none",
-              background: "lightgrey",
-              color: "rgb(0,123,255)"
-            }}
-          >
-            Create one!
-          </button>
-        </div>
       </div>
     );
   }
 }
 
-export default LoginBox;
+export default NewAccountBox;

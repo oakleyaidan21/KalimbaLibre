@@ -4,10 +4,12 @@ import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import LoginBox from "./components/landing-components/LoginBox";
+import NewAccountBox from "./components/landing-components/NewAccountBox";
 
 class LandingPage extends Component {
   state = {
-    showLogin: false
+    showLogin: false,
+    showNewAccount: false
   };
 
   login = () => {
@@ -33,7 +35,29 @@ class LandingPage extends Component {
             onUnRender={() => {
               this.setState({ showLogin: false });
             }}
+            onShowNewAccount={() => {
+              this.setState({ showNewAccount: true });
+            }}
           ></LoginBox>
+        </div>
+      );
+    }
+    if (this.state.showNewAccount) {
+      logBox = (
+        <div
+          style={{
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgb(128,128,128,0.5)",
+            zIndex: 7
+          }}
+        >
+          <NewAccountBox
+            onUnRender={() => {
+              this.setState({ showNewAccount: false, showLogin: false });
+            }}
+          ></NewAccountBox>
         </div>
       );
     }
