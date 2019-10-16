@@ -11,8 +11,8 @@ import LandingPage from "./LandingPage";
 ReactDOM.render(
   <Router>
     <LandingPage path="/"></LandingPage>
-    <NewTab path="/newtab/:userID/:dbID" />
-    <HomePage path="/homepage/:userID" />
+    <NewTab path="/newtab/" />
+    <HomePage path="/homepage/" />
   </Router>,
   document.getElementById("root")
 );

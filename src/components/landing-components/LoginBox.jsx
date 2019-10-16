@@ -85,7 +85,7 @@ class LoginBox extends Component {
       console.log("match");
     }
     if (!cancel) {
-      navigate("/homepage/" + this.state.username);
+      navigate("/homepage/", { state: { userID: this.state.username } });
     }
   };
 

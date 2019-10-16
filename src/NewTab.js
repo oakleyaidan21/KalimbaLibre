@@ -19,6 +19,7 @@ import D_Eighth from "./noteImages/dotted_eighth.png";
 import D_Quarter from "./noteImages/dotted_quarter.png";
 import Whole from "./noteImages/whole_note.png";
 import LoadingScreen from "./components/home-components/LoadingScreen";
+import { navigate } from "@reach/router";
 
 class NewTab extends Component {
   constructor(props) {
@@ -50,8 +51,8 @@ class NewTab extends Component {
         { time: 8, image: Eighth },
         { time: 16, image: Sixteenth }
       ],
-      dbID: this.props.dbID,
-      userID: this.props.userID
+      dbID: this.props.location.state.dbID,
+      userID: this.props.location.state.userID
     };
 
     this.handlePlay = this.handlePlay.bind(this);
@@ -90,7 +91,7 @@ class NewTab extends Component {
   reRenderSongData = data => {
     var temp = "none";
     for (var a = 0; a < data.length; a++) {
-      if (data[a].id === parseInt(this.props.dbID)) {
+      if (data[a].id === parseInt(this.state.dbID)) {
         this.setState({
           songTitle: data[a].title,
           keySig: data[a].keysig,
@@ -167,7 +168,7 @@ class NewTab extends Component {
   //initialization
   componentDidMount = async () => {
     //fetches song data from API if it is not a new song
-    if (this.props.dbID !== "0") {
+    if (this.state.dbID !== "0") {
       fetch("https://warm-inlet-29455.herokuapp.com/kalimba_songs")
         .then(
           data => {
@@ -386,8 +387,8 @@ class NewTab extends Component {
   handleSave = () => {
     var concat = "";
     var method = "POST";
-    if (this.props.dbID !== "0") {
-      concat = "/" + this.props.dbID;
+    if (this.state.dbID !== "0") {
+      concat = "/" + this.state.dbID;
       method = "PUT";
     }
     var songS = this.handleNoteExport(false);
@@ -512,7 +513,13 @@ class NewTab extends Component {
         <Navbar bg="dark" variant="dark">
           <Navbar.Brand href="/">Kalimba Libre</Navbar.Brand>
           <Nav className="mr-auto">
-            <Nav.Link href={"/homepage/" + this.state.userID + "/"}>
+            <Nav.Link
+              onClick={() => {
+                navigate("/homepage/", {
+                  state: { userID: this.state.userID, dbID: this.state.dbID }
+                });
+              }}
+            >
               Your Songs
             </Nav.Link>
             <Nav.Link>Song Database</Nav.Link>

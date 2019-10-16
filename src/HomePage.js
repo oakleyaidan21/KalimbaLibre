@@ -14,7 +14,7 @@ class HomePage extends Component {
       songSquares: [],
       curLocalStorage: [],
       didConnect: false,
-      user: this.props.userID
+      user: this.props.location.state.userID
     };
   }
 
@@ -118,7 +118,7 @@ class HomePage extends Component {
         <div className="home-page">
           <b>
             Your Songs{" "}
-            <Link to={"/newtab/" + this.state.user + "/0"} target="_blank">
+            <Link to={"/newtab/"} target="_blank" state={{ dbID: 0 }}>
               <Button variant="primary">+ Create</Button>
             </Link>
           </b>

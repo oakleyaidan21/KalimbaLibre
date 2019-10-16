@@ -8,7 +8,8 @@ class NewAccountBox extends Component {
     password: "none",
     matchPassword: "none",
     incorrectUsername: false,
-    incorrectPassword: false
+    incorrectPassword: false,
+    incorrectMatchPassword: false
   };
 
   setUsername = event => {
@@ -73,7 +74,7 @@ class NewAccountBox extends Component {
 
   createNewAccount = () => {
     //search to see if username is taken or invalid
-    if (/\w/.test(this.state.username)) {
+    if (/\W/.test(this.state.username)) {
       this.setState({ incorrectUsername: true });
     }
 
@@ -119,7 +120,7 @@ class NewAccountBox extends Component {
       <div
         style={{
           width: 350,
-          height: 450,
+          height: 470,
           backgroundColor: "white",
           margin: "0 auto",
           marginTop: 100,

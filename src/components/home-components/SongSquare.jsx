@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
-import { Link } from "@reach/router";
+import { Link, navigate } from "@reach/router";
 import { IoIosPlay } from "react-icons/io";
 
 class SongSquare extends Component {
@@ -56,6 +56,12 @@ class SongSquare extends Component {
       })
       .catch(error => console.error({ Error: error }));
     this.props.reFetch();
+  };
+
+  goToSong = () => {
+    navigate("/newtab/", {
+      state: { userID: this.state.user, dbID: this.state.id }
+    });
   };
 
   render() {
@@ -152,25 +158,28 @@ class SongSquare extends Component {
           >
             <IoIosPlay />
           </Button>
-          <Link
+          {/* <Link
             to={"/newtab/" + this.state.user + "/" + this.state.id}
             target="_blank"
+          > */}
+          <Button
+            style={{
+              width: 70,
+              margin: 5,
+              height: 40,
+              borderRadius: 25,
+              fontSize: 20,
+              verticalAlign: "middle",
+              textAlign: "center",
+              lineHeight: "20px"
+            }}
+            onClick={() => {
+              this.goToSong();
+            }}
           >
-            <Button
-              style={{
-                width: 70,
-                margin: 5,
-                height: 40,
-                borderRadius: 25,
-                fontSize: 20,
-                verticalAlign: "middle",
-                textAlign: "center",
-                lineHeight: "20px"
-              }}
-            >
-              EDIT
-            </Button>
-          </Link>
+            EDIT
+          </Button>
+          {/* </Link> */}
           <Button
             variant="warning"
             style={{
