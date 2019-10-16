@@ -117,7 +117,11 @@ class HomePage extends Component {
         <div className="home-page">
           <b>
             Your Songs{" "}
-            <Link to={"/newtab/"} target="_blank" state={{ dbID: 0 }}>
+            <Link
+              to={"/newtab/"}
+              target="_blank"
+              state={{ dbID: 0, userID: this.state.user }}
+            >
               <Button variant="primary">+ Create</Button>
             </Link>
           </b>

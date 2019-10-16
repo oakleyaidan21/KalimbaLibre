@@ -384,12 +384,14 @@ class NewTab extends Component {
     this.setState({ idToStartFrom: tNote });
   };
 
-  handleSave = () => {
-    var concat = "";
+  handleSave = async () => {
+    var concat = "/";
     var method = "POST";
-    if (this.state.dbID !== "0") {
-      concat = "/" + this.state.dbID;
+    if (this.state.dbID !== parseInt(this.state.dbID)) {
+      concat = "/" + this.state.dbID + "/";
       method = "PUT";
+    } else {
+      concat = "/";
     }
     var songS = this.handleNoteExport(false);
     fetch("https://warm-inlet-29455.herokuapp.com/kalimba_songs" + concat, {
