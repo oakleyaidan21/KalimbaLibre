@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { Link } from "@reach/router";
+
+import { navigate } from "@reach/router";
 
 class LoginBox extends Component {
   state = {
@@ -19,8 +20,19 @@ class LoginBox extends Component {
     this.setState({ password: event.target.value });
   };
 
+  unRender = () => {
+    this.props.onUnRender();
+  };
+
   logIn = () => {
-    console.log(this.state.username + " " + this.state.password);
+    //search for username
+    console.log("username: + " + this.state.username);
+    if (this.state.username !== "none" || this.state.username != null) {
+      navigate("/homepage/" + this.state.username);
+    } else {
+      console.log("peepepepep");
+      window.alert("invalid");
+    }
   };
 
   render() {
@@ -33,24 +45,52 @@ class LoginBox extends Component {
           margin: "0 auto",
           marginTop: 100,
           borderRadius: 10,
-          padding: 15
+          padding: 15,
+          opacity: 1.0,
+          zIndex: "10"
         }}
       >
         <Form>
           <Form.Group controlId="formBasic">
             <Form.Label>Username</Form.Label>
-            <Form.Control size="sm" onChange={this.setUsername} />
+            <Form.Control
+              size="sm"
+              placeholder={"Enter your Username"}
+              onChange={this.setUsername}
+            />
           </Form.Group>
           <Form.Group controlId="formBasic">
             <Form.Label>Password</Form.Label>
-            <Form.Control size="sm" onChange={this.setPassword} />
+            <Form.Control
+              size="sm"
+              placeholder={"Enter your Password"}
+              onChange={this.setPassword}
+              type="password"
+            />
           </Form.Group>
 
-          <Link to={"/homepage/" + this.state.username} target="_blank">
-            <Button variant="primary" type="submit" size="sm" id="confBtn">
-              Login
-            </Button>
-          </Link>
+          <Button
+            variant="primary"
+            size="sm"
+            id="loginBtn"
+            onClick={() => {
+              this.logIn();
+            }}
+          >
+            Login
+          </Button>
+          <br></br>
+          <br></br>
+          <Button
+            variant="outline-primary"
+            size="sm"
+            id="confBtn"
+            onClick={() => {
+              this.unRender();
+            }}
+          >
+            Cancel
+          </Button>
         </Form>
       </div>
     );

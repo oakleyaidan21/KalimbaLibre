@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
-import SongSquare from "./components/home-components/SongSquare";
 import Form from "react-bootstrap/Form";
-import { Link } from "@reach/router";
 import LoginBox from "./components/landing-components/LoginBox";
 
 class LandingPage extends Component {
@@ -21,11 +19,32 @@ class LandingPage extends Component {
     let logBox = <div></div>;
 
     if (this.state.showLogin) {
-      logBox = <LoginBox></LoginBox>;
+      logBox = (
+        <div
+          style={{
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgb(128,128,128,0.5)",
+            zIndex: 7
+          }}
+        >
+          <LoginBox
+            onUnRender={() => {
+              this.setState({ showLogin: false });
+            }}
+          ></LoginBox>
+        </div>
+      );
     }
     return (
       <div>
-        <Navbar bg="dark" variant="dark">
+        {logBox}
+        <Navbar
+          bg="dark"
+          variant="dark"
+          style={{ position: "relative", zIndex: 5 }}
+        >
           <Navbar.Brand href="localhost:3000">Kalimba Libre</Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link>Song Database</Nav.Link>
@@ -48,7 +67,6 @@ class LandingPage extends Component {
             </Button>
           </Form>
         </Navbar>
-        {logBox}
       </div>
     );
   }
