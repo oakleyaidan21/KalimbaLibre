@@ -6,11 +6,13 @@ import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Router } from "@reach/router";
 import HomePage from "./HomePage.js";
+import LandingPage from "./LandingPage";
 
 ReactDOM.render(
   <Router>
+    <LandingPage path="/"></LandingPage>
     <NewTab path="/newtab/:dbID" />
-    <HomePage path="/" />
+    <HomePage path="/homepage/:userID" />
   </Router>,
   document.getElementById("root")
 );

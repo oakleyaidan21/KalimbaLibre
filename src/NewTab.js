@@ -140,7 +140,6 @@ class NewTab extends Component {
             var noteName = temp3[0];
             var noteTime = temp3[1];
             var noteID = temp3[2];
-
             if (noteName != null || noteName !== "") {
               tempTNotes[tNoteID].notes[noteID].selected = true;
               tempTNotes[tNoteID].notes[noteID].time = parseFloat(noteTime);

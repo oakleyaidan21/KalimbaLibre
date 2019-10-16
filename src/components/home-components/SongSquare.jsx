@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import { Link } from "@reach/router";
 import { IoIosPlay } from "react-icons/io";
+
 class SongSquare extends Component {
   constructor(props) {
     super(props);
@@ -150,7 +151,7 @@ class SongSquare extends Component {
           >
             <IoIosPlay />
           </Button>
-          <Link to={"/newtab/" + this.state.id}>
+          <Link to={"/newtab/" + this.state.id} target="_blank">
             <Button
               style={{
                 width: 70,

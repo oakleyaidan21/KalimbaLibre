@@ -8,12 +8,13 @@ import Form from "react-bootstrap/Form";
 import { Link } from "@reach/router";
 
 class HomePage extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       songSquares: [],
       curLocalStorage: [],
-      didConnect: false
+      didConnect: false,
+      user: this.props.userID
     };
   }
 
@@ -22,7 +23,7 @@ class HomePage extends Component {
       var temp = [];
       this.setState({ didConnect: true });
       for (var i = 0; i < data.length; i++) {
-        if (data[i].username === "carrot") {
+        if (data[i].username === this.state.user) {
           temp.push({
             title: data[i].title,
             keySig: data[i].keysig,
@@ -96,7 +97,7 @@ class HomePage extends Component {
     return (
       <div>
         <Navbar bg="dark" variant="dark">
-          <Navbar.Brand href="localhost:3000">Kalimba Libre</Navbar.Brand>
+          <Navbar.Brand href="/">Kalimba Libre</Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link>Song Database</Nav.Link>
             <Nav.Link>About</Nav.Link>
