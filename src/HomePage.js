@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import SongSquare from "./components/home-components/SongSquare";
 import Form from "react-bootstrap/Form";
 import { Link } from "@reach/router";
+import dbLocation from "./localVariables";
 
 class HomePage extends Component {
   constructor(props) {
@@ -39,7 +40,7 @@ class HomePage extends Component {
   };
 
   componentDidMount = () => {
-    fetch("https://warm-inlet-29455.herokuapp.com/kalimba_songs")
+    fetch(dbLocation + "/kalimba_songs")
       .then(
         data => {
           return data.json();

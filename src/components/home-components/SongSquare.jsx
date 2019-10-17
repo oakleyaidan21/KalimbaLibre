@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import { navigate } from "@reach/router";
 import { IoIosPlay } from "react-icons/io";
+import dbLocation from "../../localVariables";
 
 class SongSquare extends Component {
   constructor(props) {
@@ -24,18 +25,15 @@ class SongSquare extends Component {
       "Are you sure you want to delete " + this.state.title + "?"
     );
     if (r === true) {
-      fetch(
-        "https://warm-inlet-29455.herokuapp.com/kalimba_songs/" + this.state.id,
-        {
-          method: "DELETE"
-        }
-      ).then(response => {});
+      fetch(dbLocation + "/kalimba_songs/" + this.state.id, {
+        method: "DELETE"
+      }).then(response => {});
       this.setState({ hidden: true });
     }
   };
 
   copySelf = () => {
-    fetch("https://warm-inlet-29455.herokuapp.com/kalimba_songs", {
+    fetch(dbLocation + "/kalimba_songs", {
       method: "POST",
       body: JSON.stringify({
         title: this.state.title + "(copy)",

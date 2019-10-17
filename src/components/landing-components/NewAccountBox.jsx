@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import crypto from "crypto";
 import { delay } from "q";
 import { navigate } from "@reach/router";
+import dbLocation from "../../localVariables";
 class NewAccountBox extends Component {
   state = {
     username: "none",
@@ -77,7 +78,7 @@ class NewAccountBox extends Component {
   createNewAccount = async () => {
     //search to see if username is taken or invalid
     var taken = false;
-    fetch("https://warm-inlet-29455.herokuapp.com/users")
+    fetch(dbLocation + "/users")
       .then(
         data => {
           return data.json();

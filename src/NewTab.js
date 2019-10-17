@@ -20,6 +20,7 @@ import D_Quarter from "./noteImages/dotted_quarter.png";
 import Whole from "./noteImages/whole_note.png";
 import LoadingScreen from "./components/home-components/LoadingScreen";
 import { navigate } from "@reach/router";
+import dbLocation from "./localVariables.jsx";
 
 class NewTab extends Component {
   constructor(props) {
@@ -168,8 +169,8 @@ class NewTab extends Component {
   //initialization
   componentDidMount = async () => {
     //fetches song data from API if it is not a new song
-    if (this.state.dbID !== "0") {
-      fetch("https://warm-inlet-29455.herokuapp.com/kalimba_songs")
+    if (this.state.dbID !== "0" || this.state.dbID !== 0) {
+      fetch(dbLocation + "/kalimba_songs")
         .then(
           data => {
             return data.json();
@@ -177,7 +178,10 @@ class NewTab extends Component {
           err => console.log(err)
         )
         .then(
-          parsedData => this.reRenderSongData(parsedData),
+          parsedData => {
+            console.log(parsedData);
+            this.reRenderSongData(parsedData);
+          },
           err => console.log(err)
         );
     } else {
@@ -393,7 +397,7 @@ class NewTab extends Component {
       concat = "/";
     }
     var songS = this.handleNoteExport(false);
-    fetch("https://warm-inlet-29455.herokuapp.com/kalimba_songs" + concat, {
+    fetch(dbLocation + "/kalimba_songs" + concat, {
       method: method,
       body: JSON.stringify({
         title: this.state.songTitle,

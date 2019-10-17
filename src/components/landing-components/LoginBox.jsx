@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import { navigate } from "@reach/router";
 import crypto from "crypto";
 import { delay } from "q";
+import dbLocation from "../../localVariables";
 
 class LoginBox extends Component {
   state = {
@@ -71,7 +72,7 @@ class LoginBox extends Component {
     var valid = false;
     var tempHashP = "";
     var tempSalt = "";
-    fetch("https://warm-inlet-29455.herokuapp.com/users")
+    fetch(dbLocation + "/users")
       .then(
         data => {
           return data.json();
