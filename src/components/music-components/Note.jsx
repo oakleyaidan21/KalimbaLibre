@@ -83,7 +83,6 @@ class Note extends Component {
       );
     } else {
       //add it to the notes to be played
-      console.log(this.state.time);
       this.setState({ selected: true });
       this.props.instrument.play(this.props.name);
       this.props.onHandleNoteClick(

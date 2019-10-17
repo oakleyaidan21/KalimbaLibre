@@ -6,31 +6,10 @@ class Tine extends Component {
     super(props);
     this.state = {
       color: this.props.color,
-      len: this.props.len * 15 + this.props.amountOfTNotes * 40,
-      buttons: [
-        { id: 1, time: 4, rest: false, name: "C" },
-        { id: 2, time: 4, rest: false, name: "C" },
-        { id: 3, time: 4, rest: false, name: "C" },
-        { id: 4, time: 4, rest: false, name: "C" },
-        { id: 5, time: 4, rest: false, name: "C" },
-        { id: 6, time: 4, rest: false, name: "C" },
-        { id: 7, time: 4, rest: false, name: "C" },
-        { id: 8, time: 4, rest: false, name: "C" },
-        { id: 9, time: 4, rest: false, name: "C" },
-        { id: 10, time: 4, rest: false, name: "C" },
-        { id: 11, time: 4, rest: false, name: "C" },
-        { id: 12, time: 4, rest: false, name: "C" },
-        { id: 13, time: 4, rest: false, name: "C" },
-        { id: 14, time: 4, rest: false, name: "C" },
-        { id: 15, time: 4, rest: false, name: "C" },
-        { id: 16, time: 4, rest: false, name: "C" },
-        { id: 17, time: 4, rest: false, name: "C" },
-        { id: 18, time: 4, rest: false, name: "C" }
-      ]
+      len: this.props.len * 15 + this.props.amountOfTNotes * 40
     };
   }
   handleClick = () => {
-    console.log("tile " + this.state.note);
     var newNote = "";
     while (newNote === "") {
       newNote = prompt("Please enter a new note");

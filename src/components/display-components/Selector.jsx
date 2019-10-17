@@ -40,10 +40,6 @@ class Selector extends Component {
     this.props.onChangeNoteTime(childData);
   };
 
-  handlePlay() {
-    console.log("play pressed");
-  }
-
   getBadgeClass = () => {
     return "primary";
   };

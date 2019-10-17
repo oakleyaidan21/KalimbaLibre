@@ -179,7 +179,6 @@ class NewTab extends Component {
         )
         .then(
           parsedData => {
-            console.log(parsedData);
             this.reRenderSongData(parsedData);
           },
           err => console.log(err)
@@ -363,11 +362,8 @@ class NewTab extends Component {
   handleLastPassUp = (tNote, noteName, time, remove, noteID) => {
     var temp2 = this.state.totalNotes;
     if (remove) {
-      console.log(tNote + " " + noteID);
       temp2[tNote].notes[noteID].selected = false;
     } else {
-      console.log(tNote + " " + noteID);
-
       temp2[tNote].notes[noteID].selected = true;
       temp2[tNote].notes[noteID].time = time;
       temp2[tNote].notes[noteID].imageToRender = this.getImageIndex(time);
@@ -420,7 +416,6 @@ class NewTab extends Component {
   };
 
   addMeasure = id => {
-    console.log(id);
     var temp = this.state.totalNotes;
     var notesToInsert = [];
     for (var i = 0; i < 17; i++) {
@@ -458,7 +453,6 @@ class NewTab extends Component {
   };
 
   removeMeasure = id => {
-    console.log(id);
     var temp = this.state.totalNotes;
     temp.splice(id, 1);
     for (var i = id; i < temp.length; i++) {
@@ -509,8 +503,6 @@ class NewTab extends Component {
     if (!this.state.isPlaying) {
       stopButton = <></>;
     }
-
-    // console.log("dbid: " + this.state.dbID);
 
     return (
       <div className="App">

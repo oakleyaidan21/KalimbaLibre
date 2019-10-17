@@ -29,22 +29,18 @@ class ConfigContainer extends Component {
   };
 
   configStrings = event => {
-    console.log(event.target.value);
     this.setState({ stringToGive: event.target.value });
   };
 
   configTitle() {
-    console.log(this.state.stringToGive);
     this.props.onConfigButton(this.state.stringToGive, "title");
   }
 
   configKey() {
     this.props.onConfigButton(this.state.stringToGive, "key");
-    console.log("hi");
   }
   configTempo() {
     this.props.onConfigButton(this.state.stringToGive, "tempo");
-    console.log("hi");
   }
   configSongString() {
     this.props.onConfigButton(this.state.stringToGive, "songString");

@@ -48,10 +48,7 @@ class SongSquare extends Component {
       }
     })
       .then(res => res.json())
-      .then(resJSON => {
-        console.log("got here");
-        console.log(resJSON);
-      })
+      .then(resJSON => {})
       .catch(error => console.error({ Error: error }));
     this.props.reFetch();
   };

@@ -65,7 +65,6 @@ class TotalNote extends Component {
   };
 
   handleTickClick = () => {
-    console.log(this.state.id);
     this.props.passUpTick(this.state.id);
   };
 

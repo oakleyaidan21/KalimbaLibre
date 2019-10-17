@@ -6,30 +6,12 @@ class SelectorButton extends Component {
     label: this.props.label
   };
   buttonStyle = {
-    // float: "left",
-    // // marginLeft: "35px",
-    // // marginRight: "35px",
-    // left: "10px",
-    // marginLeft: "auto",
-    // marginRight: "auto",
-    // display: "block",
-    // marginTop: "20px",
-    // right: 0,
-    // // marginBottom: "20px",
-    // border: "0",
-    // width: "30px",
-    // height: "30px"
     margin: "0 auto",
     marginTop: 20
   };
 
   handleSelection = () => {
-    if (this.state.label === "PLAY") {
-      this.props.onPlay();
-    } else {
-      console.log(this.state.label);
-      this.props.onSelectNote(this.state.label);
-    }
+    this.props.onSelectNote(this.state.label);
   };
 
   render() {

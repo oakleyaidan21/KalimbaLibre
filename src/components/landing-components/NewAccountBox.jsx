@@ -66,15 +66,6 @@ class NewAccountBox extends Component {
     };
   };
 
-  saltHashPassword(userpassword) {
-    var salt = this.genRandomString(16);
-    var passwordData = this.sha512(userpassword, salt);
-    console.log("UserPassword = " + userpassword);
-    console.log("Passwordhash = " + passwordData.passwordHash);
-    console.log("nSalt =" + passwordData.salt);
-    return passwordData.passwordHash;
-  }
-
   createNewAccount = async () => {
     //search to see if username is taken or invalid
     var taken = false;
@@ -89,7 +80,6 @@ class NewAccountBox extends Component {
         parsedData => {
           for (var i = 0; i < parsedData.length; i++) {
             if (parsedData[i].username === this.state.username) {
-              console.log("hi");
               this.setState({ incorrectUsername: true });
               taken = true;
               return;
@@ -100,7 +90,6 @@ class NewAccountBox extends Component {
       );
     await delay(500);
     if (taken) {
-      console.log(taken);
       this.setState({ incorrectUsername: true });
       return;
     }
@@ -122,7 +111,7 @@ class NewAccountBox extends Component {
     // if all statements are successful, make new account in database and take them to their home page
     var toBesalt = this.genRandomString(16);
     var toBehashp = this.sha512(this.state.password, toBesalt).passwordHash;
-    console.log(toBehashp);
+
     //upload to database
     fetch("https://warm-inlet-29455.herokuapp.com/users", {
       method: "POST",

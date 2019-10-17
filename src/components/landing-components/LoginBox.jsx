@@ -58,15 +58,6 @@ class LoginBox extends Component {
     };
   };
 
-  saltHashPassword(userpassword) {
-    var salt = this.genRandomString(16);
-    var passwordData = this.sha512(userpassword, salt);
-    console.log("UserPassword = " + userpassword);
-    console.log("Passwordhash = " + passwordData.passwordHash);
-    console.log("nSalt =" + passwordData.salt);
-    return passwordData.passwordHash;
-  }
-
   logIn = async () => {
     //search for username
     var valid = false;
