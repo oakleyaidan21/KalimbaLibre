@@ -21,6 +21,7 @@ import Whole from "./noteImages/whole_note.png";
 import LoadingScreen from "./components/home-components/LoadingScreen";
 import { navigate } from "@reach/router";
 import dbLocation from "./localVariables.jsx";
+import ComingSoon from "./components/display-components/ComingSoon";
 
 class NewTab extends Component {
   constructor(props) {
@@ -53,7 +54,8 @@ class NewTab extends Component {
         { time: 16, image: Sixteenth }
       ],
       dbID: this.props.location.state.dbID,
-      userID: this.props.location.state.userID
+      userID: this.props.location.state.userID,
+      hovered: false
     };
 
     this.handlePlay = this.handlePlay.bind(this);
@@ -504,6 +506,11 @@ class NewTab extends Component {
       stopButton = <></>;
     }
 
+    let coming = <ComingSoon></ComingSoon>;
+    if (!this.state.hovered) {
+      coming = <></>;
+    }
+
     return (
       <div className="App">
         {rend}
@@ -519,7 +526,19 @@ class NewTab extends Component {
             >
               Your Songs
             </Nav.Link>
-            <Nav.Link>Song Database</Nav.Link>
+            <Nav.Link
+              onMouseEnter={() => {
+                this.setState({ hovered: true });
+                console.log("hovered");
+              }}
+              onMouseLeave={() => {
+                this.setState({ hovered: false });
+                console.log("left");
+              }}
+            >
+              Song Database
+            </Nav.Link>
+            {coming}
             <Nav.Link>About</Nav.Link>
             <Nav.Link
               href="https://github.com/oakleyaidan21/KalimbaLibre"
