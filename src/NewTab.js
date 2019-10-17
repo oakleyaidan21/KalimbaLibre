@@ -363,8 +363,7 @@ class NewTab extends Component {
       temp2[tNote].notes[noteID].selected = false;
     } else {
       console.log(tNote + " " + noteID);
-      temp2[tNote].current = true;
-      temp2[this.state.idToStartFrom].current = false;
+
       temp2[tNote].notes[noteID].selected = true;
       temp2[tNote].notes[noteID].time = time;
       temp2[tNote].notes[noteID].imageToRender = this.getImageIndex(time);
@@ -387,7 +386,7 @@ class NewTab extends Component {
   handleSave = async () => {
     var concat = "/";
     var method = "POST";
-    if (this.state.dbID !== parseInt(this.state.dbID)) {
+    if (this.state.dbID !== 0 || this.state.dbID) {
       concat = "/" + this.state.dbID + "/";
       method = "PUT";
     } else {
@@ -549,8 +548,6 @@ class NewTab extends Component {
                 onClick={() => {
                   this.refs.child.handleScrollBottom();
                   var temp = this.state.totalNotes;
-                  temp[this.state.idToStartFrom].current = false;
-                  temp[this.state.kalimbaLength - 1].current = true;
                   this.setState({
                     idToStartFrom: this.state.kalimbaLength - 1,
                     totalNotes: temp

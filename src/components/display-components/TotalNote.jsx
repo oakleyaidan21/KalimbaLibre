@@ -79,10 +79,6 @@ class TotalNote extends Component {
   };
 
   render() {
-    var borderBottom = "none";
-    if (this.props.current) {
-      borderBottom = "4px solid black";
-    }
     var bg = this.state.backgroundcolor;
     if (this.state.selected) {
       bg = "rgb(117,121,255,0.5)";
@@ -101,8 +97,7 @@ class TotalNote extends Component {
         style={{
           width: 670,
           height: 40,
-          background: bg,
-          borderBottom: borderBottom
+          background: bg
         }}
       >
         {this.props.notes.map((note, index) => (
