@@ -28,14 +28,16 @@ class SongDatabasePage extends Component {
       var temp = [];
       this.setState({ didConnect: true });
       for (var i = 0; i < data.length; i++) {
-        temp.push({
-          title: data[i].title,
-          keySig: data[i].keysig,
-          tempo: data[i].tempo,
-          length: data[i].length,
-          id: data[i].id,
-          songString: data[i].songString
-        });
+        if (this.state.userID !== data[i].username) {
+          temp.push({
+            title: data[i].title,
+            keySig: data[i].keysig,
+            tempo: data[i].tempo,
+            length: data[i].length,
+            id: data[i].id,
+            songString: data[i].songString
+          });
+        }
       }
       this.setState({ songSquares: temp });
     }
@@ -138,6 +140,7 @@ class SongDatabasePage extends Component {
         length={songSquare.length}
         id={songSquare.id}
         user={songSquare.username}
+        curUser={this.state.userID}
         songString={songSquare.songString}
         onDelete={this.deleteSongSquare}
         onCopy={this.copySongSquare}
@@ -153,7 +156,7 @@ class SongDatabasePage extends Component {
           variant="dark"
           style={{ position: "relative", zIndex: 5 }}
         >
-          <Navbar.Brand href="localhost:3000">Kalimba Libre</Navbar.Brand>
+          <Navbar.Brand href="/">Kalimba Libre</Navbar.Brand>
           <Nav className="mr-auto">
             {songsLink}
             <Nav.Link>About</Nav.Link>

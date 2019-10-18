@@ -33,6 +33,11 @@ class SongSquare extends Component {
   };
 
   copySelf = () => {
+    var userNameToPutIn = this.state.user;
+    if (this.props.curUser !== "none") {
+      console.log("here");
+      userNameToPutIn = this.props.curUser;
+    }
     fetch(dbLocation + "/kalimba_songs", {
       method: "POST",
       body: JSON.stringify({
@@ -41,7 +46,7 @@ class SongSquare extends Component {
         tempo: this.state.tempo,
         length: this.state.length,
         songString: this.props.songString,
-        username: this.state.user
+        username: userNameToPutIn
       }),
       headers: {
         "Content-Type": "application/json"

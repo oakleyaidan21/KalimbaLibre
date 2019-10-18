@@ -66,6 +66,7 @@ class HomePage extends Component {
           tempo={songSquare.tempo}
           length={songSquare.length}
           id={songSquare.id}
+          curUser={"none"}
           user={this.state.user}
           songString={songSquare.songString}
           onDelete={this.deleteSongSquare}
@@ -124,7 +125,7 @@ class HomePage extends Component {
         </Navbar>
         <div className="home-page">
           <b>
-            Your Songs{" "}
+            {this.state.user}'s Songs{" "}
             <Link
               to={"/newtab/"}
               target="_blank"
@@ -133,6 +134,7 @@ class HomePage extends Component {
               <Button variant="primary">+ Create</Button>
             </Link>
           </b>
+
           {/* just a line break */}
           <div style={{ height: 2, backgroundColor: "grey" }}></div>
           {squares}
