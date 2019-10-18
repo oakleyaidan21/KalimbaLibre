@@ -387,12 +387,20 @@ class NewTab extends Component {
 
   handleSave = async () => {
     var concat = "/";
+    var isPrivate = 0;
     var method = "POST";
-    if (this.state.dbID !== 0 || this.state.dbID) {
+    if (this.state.dbID !== 0) {
       concat = "/" + this.state.dbID + "/";
       method = "PUT";
     } else {
       concat = "/";
+      var r = window.confirm(
+        "Do you want to make your song private? (won't show up in public database)"
+      );
+      if (r === true) {
+        isPrivate = 1;
+        console.log("set private to " + isPrivate);
+      }
     }
     var songS = this.handleNoteExport(false);
     fetch(dbLocation + "/kalimba_songs" + concat, {
@@ -403,7 +411,8 @@ class NewTab extends Component {
         tempo: this.state.tempo,
         length: this.state.kalimbaLength,
         songString: songS,
-        username: this.state.userID
+        username: this.state.userID,
+        private: isPrivate
       }),
       headers: {
         "Content-Type": "application/json"

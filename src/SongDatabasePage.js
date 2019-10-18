@@ -30,7 +30,7 @@ class SongDatabasePage extends Component {
       for (var i = 0; i < data.length; i++) {
         if (
           this.state.userID !== data[i].username &&
-          (data[i].private == null || data[i].private == 0)
+          (data[i].private == null || data[i].private === 0)
         ) {
           temp.push({
             title: data[i].title,
