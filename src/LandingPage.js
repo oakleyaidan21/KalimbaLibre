@@ -74,7 +74,7 @@ class LandingPage extends Component {
           <Nav className="mr-auto">
             <Nav.Link
               onClick={() => {
-                navigate("/database/");
+                navigate("/database/", { state: { userID: 0 } });
               }}
             >
               Song Database

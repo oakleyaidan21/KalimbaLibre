@@ -60,7 +60,92 @@ class SongSquare extends Component {
   };
 
   render() {
+    let buttons;
+
+    if (!this.props.isDb) {
+      buttons = (
+        <div style={{ float: "left" }}>
+          <Button
+            style={{
+              width: 70,
+              margin: 5,
+              height: 40,
+              borderRadius: 25,
+              fontSize: 20,
+              verticalAlign: "middle",
+              textAlign: "center",
+              lineHeight: "20px"
+            }}
+            onClick={() => {
+              this.goToSong();
+            }}
+          >
+            EDIT
+          </Button>
+          <Button
+            variant="warning"
+            style={{
+              width: 70,
+              height: 40,
+              margin: 5,
+              fontSize: 20,
+              verticalAlign: "middle",
+              borderRadius: 25,
+              textAlign: "center",
+              lineHeight: "20px"
+            }}
+            onClick={() => {
+              this.copySelf();
+            }}
+          >
+            COPY
+          </Button>
+          <Button
+            variant="danger"
+            style={{
+              width: 70,
+              height: 40,
+              margin: 5,
+              borderRadius: "25px",
+              fontSize: 20,
+              verticalAlign: "middle",
+              textAlign: "center",
+              lineHeight: "20px"
+            }}
+            onClick={() => {
+              this.deleteSelf();
+            }}
+          >
+            X
+          </Button>
+        </div>
+      );
+    } else {
+      buttons = (
+        <div style={{ float: "left" }}>
+          <Button
+            variant="success"
+            style={{
+              width: 230,
+              height: 40,
+              margin: 5,
+              fontSize: 20,
+              verticalAlign: "middle",
+              borderRadius: 25,
+              textAlign: "center",
+              lineHeight: "20px"
+            }}
+            onClick={() => {
+              this.copySelf();
+            }}
+          >
+            Save to your songs
+          </Button>
+        </div>
+      );
+    }
     let toBeRendered;
+
     if (this.state.hidden === false) {
       toBeRendered = (
         <div
@@ -139,78 +224,24 @@ class SongSquare extends Component {
               {" " + this.state.length}
             </div>
           </div>
-          <Button
-            style={{
-              width: 40,
-              marginRight: 20,
-              height: 40,
-              borderRadius: 25,
-              // fontSize: 20,
-              verticalAlign: "middle",
-              textAlign: "center",
-              lineHeight: "15px"
-            }}
-          >
-            <IoIosPlay />
-          </Button>
-          {/* <Link
-            to={"/newtab/" + this.state.user + "/" + this.state.id}
-            target="_blank"
-          > */}
-          <Button
-            style={{
-              width: 70,
-              margin: 5,
-              height: 40,
-              borderRadius: 25,
-              fontSize: 20,
-              verticalAlign: "middle",
-              textAlign: "center",
-              lineHeight: "20px"
-            }}
-            onClick={() => {
-              this.goToSong();
-            }}
-          >
-            EDIT
-          </Button>
-          {/* </Link> */}
-          <Button
-            variant="warning"
-            style={{
-              width: 70,
-              height: 40,
-              margin: 5,
-              fontSize: 20,
-              verticalAlign: "middle",
-              borderRadius: 25,
-              textAlign: "center",
-              lineHeight: "20px"
-            }}
-            onClick={() => {
-              this.copySelf();
-            }}
-          >
-            COPY
-          </Button>
-          <Button
-            variant="danger"
-            style={{
-              width: 70,
-              height: 40,
-              margin: 5,
-              borderRadius: "25px",
-              fontSize: 20,
-              verticalAlign: "middle",
-              textAlign: "center",
-              lineHeight: "20px"
-            }}
-            onClick={() => {
-              this.deleteSelf();
-            }}
-          >
-            X
-          </Button>
+          <div>
+            <Button
+              style={{
+                width: 40,
+                marginRight: 20,
+                marginTop: 23,
+                height: 40,
+                borderRadius: 25,
+                float: "left",
+                verticalAlign: "middle",
+                textAlign: "center",
+                lineHeight: "15px"
+              }}
+            >
+              <IoIosPlay />
+            </Button>
+            {buttons}
+          </div>
         </div>
       );
     }

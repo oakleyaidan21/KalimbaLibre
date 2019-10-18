@@ -103,7 +103,7 @@ class HomePage extends Component {
           <Nav className="mr-auto">
             <Nav.Link
               onClick={() => {
-                navigate("/database/");
+                navigate("/database/", { state: { userID: this.state.user } });
               }}
             >
               Song Database

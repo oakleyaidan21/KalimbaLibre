@@ -6,11 +6,15 @@ import Form from "react-bootstrap/Form";
 import LoginBox from "./components/landing-components/LoginBox";
 import NewAccountBox from "./components/landing-components/NewAccountBox";
 import { navigate } from "@reach/router";
+import dbLocation from "./localVariables";
+import SongSquare from "./components/home-components/SongSquare";
 
-class LandingPage extends Component {
+class SongDatabasePage extends Component {
   state = {
     showLogin: false,
-    showNewAccount: false
+    showNewAccount: false,
+    songSquares: [],
+    userID: this.props.location.state.userID
   };
 
   login = () => {
@@ -18,9 +22,73 @@ class LandingPage extends Component {
     this.setState({ showLogin: true });
   };
 
+  //should eventually set this up to only retreive public songs
+  parseText = data => {
+    if (data != null) {
+      var temp = [];
+      this.setState({ didConnect: true });
+      for (var i = 0; i < data.length; i++) {
+        temp.push({
+          title: data[i].title,
+          keySig: data[i].keysig,
+          tempo: data[i].tempo,
+          length: data[i].length,
+          id: data[i].id,
+          songString: data[i].songString
+        });
+      }
+      this.setState({ songSquares: temp });
+    }
+  };
+
+  componentDidMount = () => {
+    fetch(dbLocation + "/kalimba_songs")
+      .then(
+        data => {
+          return data.json();
+        },
+        err => console.log(err)
+      )
+      .then(parsedData => this.parseText(parsedData), err => console.log(err));
+  };
+
   render() {
     let logBox = <div></div>;
-
+    let songsLink;
+    let logButton;
+    console.log(this.state.userID);
+    if (this.state.userID === 0) {
+      logButton = (
+        <Button
+          variant="outline-primary"
+          onClick={() => {
+            this.login();
+          }}
+        >
+          Login
+        </Button>
+      );
+    } else {
+      logButton = (
+        <Button
+          variant="outline-primary"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          Logout
+        </Button>
+      );
+      songsLink = (
+        <Nav.Link
+          onClick={() => {
+            navigate("/homepage/", { state: { userID: this.state.userID } });
+          }}
+        >
+          Your Songs
+        </Nav.Link>
+      );
+    }
     if (this.state.showLogin) {
       logBox = (
         <div
@@ -62,6 +130,21 @@ class LandingPage extends Component {
         </div>
       );
     }
+    let squares = this.state.songSquares.map(songSquare => (
+      <SongSquare
+        title={songSquare.title}
+        keySig={songSquare.keySig}
+        tempo={songSquare.tempo}
+        length={songSquare.length}
+        id={songSquare.id}
+        user={songSquare.username}
+        songString={songSquare.songString}
+        onDelete={this.deleteSongSquare}
+        onCopy={this.copySongSquare}
+        reFetch={this.componentDidMount}
+        isDb={true}
+      ></SongSquare>
+    ));
     return (
       <div>
         {logBox}
@@ -72,13 +155,7 @@ class LandingPage extends Component {
         >
           <Navbar.Brand href="localhost:3000">Kalimba Libre</Navbar.Brand>
           <Nav className="mr-auto">
-            <Nav.Link
-              onClick={() => {
-                navigate("/database/");
-              }}
-            >
-              Song Database
-            </Nav.Link>
+            {songsLink}
             <Nav.Link>About</Nav.Link>
             <Nav.Link
               href="https://github.com/oakleyaidan21/KalimbaLibre"
@@ -87,21 +164,16 @@ class LandingPage extends Component {
               Github
             </Nav.Link>
           </Nav>
-          <Form inline>
-            <Button
-              variant="outline-primary"
-              onClick={() => {
-                this.login();
-              }}
-            >
-              Login
-            </Button>
-          </Form>
+          <Form inline>{logButton}</Form>
         </Navbar>
-        <div></div>
+        <div className="home-page">
+          <b>Songs</b>
+          <div style={{ height: 2, backgroundColor: "grey" }}></div>
+          {squares}
+        </div>
       </div>
     );
   }
 }
 
-export default LandingPage;
+export default SongDatabasePage;
