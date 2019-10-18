@@ -98,74 +98,7 @@ class LandingPage extends Component {
             </Button>
           </Form>
         </Navbar>
-        {/** filler stuff */}
-        <div
-          style={{
-            margin: "O auto",
-            width: "100%",
-            height: "100%",
-            textAlign: "center"
-          }}
-        >
-          <div style={{ fontSize: "50px" }}>Welcome to Kalimba Libre!</div>
-          <div
-            style={{
-              width: 200,
-              height: 200,
-              borderRadius: 10,
-              background: "lightgrey",
-              margin: "0 auto",
-              textAlign: "center",
-              paddingTop: 90,
-              marginTop: 10
-            }}
-          >
-            This is a box!
-          </div>
-          <div
-            style={{
-              width: 200,
-              height: 200,
-              borderRadius: 10,
-              background: "lightgrey",
-              margin: "0 auto",
-              textAlign: "center",
-              paddingTop: 90,
-              marginTop: 50
-            }}
-          >
-            This is <b>another</b> box!
-          </div>
-          <div
-            style={{
-              width: 400,
-              height: 200,
-              borderRadius: 10,
-              background: "lightgrey",
-              margin: "0 auto",
-              textAlign: "center",
-              paddingTop: 90,
-              marginTop: 50
-            }}
-          >
-            How about a <i>rectangle</i>? Psst, scroll down
-          </div>
-          <div
-            style={{
-              width: 450,
-              height: 300,
-              borderRadius: 10,
-              background: "lightgrey",
-              margin: "0 auto",
-              textAlign: "center",
-              paddingTop: 140,
-              marginTop: 50
-            }}
-          >
-            How about <i>yet another quadrilateral</i>? This is certainly not
-            filler!
-          </div>
-        </div>
+        <div></div>
       </div>
     );
   }

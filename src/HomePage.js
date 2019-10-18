@@ -7,6 +7,7 @@ import SongSquare from "./components/home-components/SongSquare";
 import Form from "react-bootstrap/Form";
 import { Link } from "@reach/router";
 import dbLocation from "./localVariables";
+import { navigate } from "@reach/router";
 
 class HomePage extends Component {
   constructor(props) {
@@ -100,7 +101,13 @@ class HomePage extends Component {
         <Navbar bg="dark" variant="dark">
           <Navbar.Brand href="/">Kalimba Libre</Navbar.Brand>
           <Nav className="mr-auto">
-            <Nav.Link>Song Database</Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                navigate("/database/");
+              }}
+            >
+              Song Database
+            </Nav.Link>
             <Nav.Link>About</Nav.Link>
             <Nav.Link
               href="https://github.com/oakleyaidan21/KalimbaLibre"

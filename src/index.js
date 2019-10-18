@@ -7,12 +7,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Router } from "@reach/router";
 import HomePage from "./HomePage.js";
 import LandingPage from "./LandingPage";
+import SongDatabasePage from "./SongDatabasePage.js";
 
 ReactDOM.render(
   <Router>
-    <LandingPage path="/"></LandingPage>
+    <LandingPage path="/" />
     <NewTab path="/newtab/" />
     <HomePage path="/homepage/" />
+    <SongDatabasePage path="/database/" />
   </Router>,
   document.getElementById("root")
 );
