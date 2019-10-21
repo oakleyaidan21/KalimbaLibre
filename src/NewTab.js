@@ -21,7 +21,6 @@ import Whole from "./noteImages/whole_note.png";
 import LoadingScreen from "./components/home-components/LoadingScreen";
 import { navigate } from "@reach/router";
 import dbLocation from "./localVariables.jsx";
-import ComingSoon from "./components/display-components/ComingSoon";
 
 class NewTab extends Component {
   constructor(props) {
@@ -172,7 +171,7 @@ class NewTab extends Component {
   componentDidMount = async () => {
     //fetches song data from API if it is not a new song
     if (this.state.dbID !== "0" || this.state.dbID !== 0) {
-      fetch(dbLocation + "/kalimba_songs")
+      fetch(dbLocation + "/ksongs")
         .then(
           data => {
             return data.json();
@@ -385,25 +384,26 @@ class NewTab extends Component {
     this.setState({ idToStartFrom: tNote });
   };
 
-  handleSave = async () => {
+  handleSave = () => {
     var concat = "/";
-    var isPrivate = 0;
     var method = "POST";
     if (this.state.dbID !== 0) {
       concat = "/" + this.state.dbID + "/";
       method = "PUT";
     } else {
       concat = "/";
-      var r = window.confirm(
-        "Do you want to make your song private? (won't show up in public database)"
-      );
-      if (r === true) {
-        isPrivate = 1;
-        console.log("set private to " + isPrivate);
-      }
+    }
+    var priv = window.confirm(
+      "Do you want to make your song private? (won't show up in public database) (cancel to save it publicly)"
+    );
+    if (priv) {
+      priv = 1;
+    } else {
+      priv = 0;
     }
     var songS = this.handleNoteExport(false);
-    fetch(dbLocation + "/kalimba_songs" + concat, {
+    console.log("making it " + priv);
+    fetch(dbLocation + "/ksongs" + concat, {
       method: method,
       body: JSON.stringify({
         title: this.state.songTitle,
@@ -412,9 +412,10 @@ class NewTab extends Component {
         length: this.state.kalimbaLength,
         songString: songS,
         username: this.state.userID,
-        private: isPrivate
+        private: priv
       }),
       headers: {
+        Accept: "application/json",
         "Content-Type": "application/json"
       }
     })
@@ -515,11 +516,6 @@ class NewTab extends Component {
       stopButton = <></>;
     }
 
-    let coming = <ComingSoon></ComingSoon>;
-    if (!this.state.hovered) {
-      coming = <></>;
-    }
-
     return (
       <div className="App">
         {rend}
@@ -536,18 +532,14 @@ class NewTab extends Component {
               Your Songs
             </Nav.Link>
             <Nav.Link
-              onMouseEnter={() => {
-                this.setState({ hovered: true });
-                console.log("hovered");
-              }}
-              onMouseLeave={() => {
-                this.setState({ hovered: false });
-                console.log("left");
+              onClick={() => {
+                navigate("/database/", {
+                  state: { userID: this.state.userID }
+                });
               }}
             >
               Song Database
             </Nav.Link>
-            {coming}
             <Nav.Link>About</Nav.Link>
             <Nav.Link
               href="https://github.com/oakleyaidan21/KalimbaLibre"
@@ -601,6 +593,7 @@ class NewTab extends Component {
           tempo={this.state.tempo}
           playing={this.state.playing}
           ref="child"
+          isRest={this.state.resting}
           curTime={this.state.curTime}
           imageToRender={this.state.imageToRender}
           finalTickPass={this.addMeasure}

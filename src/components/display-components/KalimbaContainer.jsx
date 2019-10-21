@@ -58,6 +58,7 @@ class KalimbaContainer extends Component {
           imageToRender={this.props.imageToRender}
           onTickPassUp={this.props.finalTickPass}
           onMinusPassUp={this.props.finalMinusPass}
+          isResting={this.props.isRest}
         />
       </div>
     );

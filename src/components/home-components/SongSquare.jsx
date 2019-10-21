@@ -14,6 +14,7 @@ class SongSquare extends Component {
       length: this.props.length,
       id: this.props.id,
       user: this.props.user,
+      private: this.props.private,
       curLocalStorage: [],
       songString: this.props.songString,
       hidden: false
@@ -25,7 +26,7 @@ class SongSquare extends Component {
       "Are you sure you want to delete " + this.state.title + "?"
     );
     if (r === true) {
-      fetch(dbLocation + "/kalimba_songs/" + this.state.id, {
+      fetch(dbLocation + "/ksongs/" + this.state.id, {
         method: "DELETE"
       }).then(response => {});
       this.setState({ hidden: true });
@@ -38,7 +39,7 @@ class SongSquare extends Component {
       console.log("here");
       userNameToPutIn = this.props.curUser;
     }
-    fetch(dbLocation + "/kalimba_songs", {
+    fetch(dbLocation + "/ksongs", {
       method: "POST",
       body: JSON.stringify({
         title: this.state.title + "(copy)",
@@ -46,7 +47,8 @@ class SongSquare extends Component {
         tempo: this.state.tempo,
         length: this.state.length,
         songString: this.props.songString,
-        username: userNameToPutIn
+        username: userNameToPutIn,
+        private: this.state.private
       }),
       headers: {
         "Content-Type": "application/json"

@@ -47,7 +47,7 @@ class SongDatabasePage extends Component {
   };
 
   componentDidMount = () => {
-    fetch(dbLocation + "/kalimba_songs")
+    fetch(dbLocation + "/ksongs")
       .then(
         data => {
           return data.json();

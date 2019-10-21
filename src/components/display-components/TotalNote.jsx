@@ -112,6 +112,7 @@ class TotalNote extends Component {
             noteID={note.noteID}
             instrument={this.props.instrument}
             imageToRender={note.imageToRender}
+            isResting={this.props.isResting}
           />
         ))}
         <button

@@ -15,6 +15,7 @@ class Note extends Component {
     this.state = {
       name: this.props.name,
       time: this.props.time,
+      resting: this.props.isResting,
       rest: this.props.rest,
       color: this.props.color,
       selected: this.props.selected,
@@ -58,6 +59,7 @@ class Note extends Component {
 
   componentWillReceiveProps = nextProps => {
     this.setState({ time: nextProps.time });
+    this.setState({ resting: nextProps.isResting });
     this.setState({ selected: nextProps.selected });
     this.setState({ imageToRender: nextProps.imageToRender });
   };
@@ -114,7 +116,6 @@ class Note extends Component {
   };
 
   render() {
-    // this.setState({ imageToRender: this.getImageIndex(this.state.time) });
     return (
       <div id="note">
         <button

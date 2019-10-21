@@ -65,6 +65,7 @@ class LandingPage extends Component {
     return (
       <div>
         {logBox}
+
         <Navbar
           bg="dark"
           variant="dark"

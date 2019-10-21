@@ -32,7 +32,8 @@ class HomePage extends Component {
             tempo: data[i].tempo,
             length: data[i].length,
             id: data[i].id,
-            songString: data[i].songString
+            songString: data[i].songString,
+            private: data[i].private
           });
         }
       }
@@ -41,7 +42,7 @@ class HomePage extends Component {
   };
 
   componentDidMount = () => {
-    fetch(dbLocation + "/kalimba_songs")
+    fetch(dbLocation + "/ksongs")
       .then(
         data => {
           return data.json();
@@ -69,6 +70,7 @@ class HomePage extends Component {
           curUser={"none"}
           user={this.state.user}
           songString={songSquare.songString}
+          private={songSquare.private}
           onDelete={this.deleteSongSquare}
           onCopy={this.copySongSquare}
           reFetch={this.componentDidMount}
