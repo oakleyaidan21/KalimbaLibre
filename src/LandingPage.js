@@ -7,7 +7,8 @@ import LoginBox from "./components/landing-components/LoginBox";
 import NewAccountBox from "./components/landing-components/NewAccountBox";
 import { navigate } from "@reach/router";
 import dbLocation from "./localVariables";
-import SongSquare from "./components/home-components/SongSquare";
+// import SongSquare from "./components/home-components/SongSquare";
+import KalImg from "./kalimba.png";
 
 class LandingPage extends Component {
   state = {
@@ -62,22 +63,22 @@ class LandingPage extends Component {
 
   render() {
     let logBox = <div></div>;
-    let newSquares = this.state.newSquares.map(songSquare => (
-      <SongSquare
-        title={songSquare.title}
-        keySig={songSquare.keySig}
-        tempo={songSquare.tempo}
-        length={songSquare.length}
-        id={songSquare.id}
-        user={songSquare.username}
-        curUser={"none"}
-        songString={songSquare.songString}
-        onDelete={this.deleteSongSquare}
-        onCopy={this.copySongSquare}
-        reFetch={this.componentDidMount}
-        isDb={true}
-      ></SongSquare>
-    ));
+    // let newSquares = this.state.newSquares.map(songSquare => (
+    //   <SongSquare
+    //     title={songSquare.title}
+    //     keySig={songSquare.keySig}
+    //     tempo={songSquare.tempo}
+    //     length={songSquare.length}
+    //     id={songSquare.id}
+    //     user={songSquare.username}
+    //     curUser={"none"}
+    //     songString={songSquare.songString}
+    //     onDelete={this.deleteSongSquare}
+    //     onCopy={this.copySongSquare}
+    //     reFetch={this.componentDidMount}
+    //     isDb={true}
+    //   ></SongSquare>
+    // ));
 
     if (this.state.showLogin) {
       logBox = (
@@ -125,8 +126,8 @@ class LandingPage extends Component {
         {logBox}
 
         <Navbar
-          bg="light"
-          variant="light"
+          bg="dark"
+          variant="dark"
           style={{ position: "relative", zIndex: 5 }}
         >
           <Navbar.Brand href="localhost:3000">Kalimba Libre</Navbar.Brand>
@@ -171,6 +172,14 @@ class LandingPage extends Component {
           <div style={{ color: "grey" }}>
             Click 'Login' in the top right to create a completely free account!
           </div>
+          <img
+            src={KalImg}
+            alt="kalimba_image"
+            style={{
+              height: 1000,
+              width: "auto"
+            }}
+          />
         </div>
       </div>
     );
