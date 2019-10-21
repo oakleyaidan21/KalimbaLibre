@@ -40,6 +40,7 @@ Here's how the app looks at this stage in development:
 - [ ] Add rest functionality (along with corresponding export handling)
 - [ ] Add a savable description
 - [ ] Add tied note functionality (along with corresponding export handling)
+- [ ] Move database to higher priority server
 
 ## CURRENT ISSUES
 
