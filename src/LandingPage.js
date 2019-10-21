@@ -6,11 +6,14 @@ import Form from "react-bootstrap/Form";
 import LoginBox from "./components/landing-components/LoginBox";
 import NewAccountBox from "./components/landing-components/NewAccountBox";
 import { navigate } from "@reach/router";
+import dbLocation from "./localVariables";
+import SongSquare from "./components/home-components/SongSquare";
 
 class LandingPage extends Component {
   state = {
     showLogin: false,
-    showNewAccount: false
+    showNewAccount: false,
+    newSquares: []
   };
 
   login = () => {
@@ -18,8 +21,63 @@ class LandingPage extends Component {
     this.setState({ showLogin: true });
   };
 
+  handleNewSongs = data => {
+    var temp = [];
+    var length = 5;
+    if (length > data.length) {
+      length = data.length;
+    }
+    for (var i = 0; i < length; i++) {
+      if (data[i].private !== 1) {
+        temp.push({
+          title: data[i].title,
+          keySig: data[i].keysig,
+          tempo: data[i].tempo,
+          length: data[i].length,
+          id: data[i].id,
+          songString: data[i].songString,
+          private: data[i].private
+        });
+      }
+    }
+    this.setState({ newSquares: temp });
+  };
+
+  parseText = data => {
+    this.handleNewSongs(data);
+    //will also handle featured songs
+    //should be ordered by popularity -- how that will happen, I don't know
+  };
+
+  componentDidMount = () => {
+    fetch(dbLocation + "/ksongs")
+      .then(
+        data => {
+          return data.json();
+        },
+        err => console.log(err)
+      )
+      .then(parsedData => this.parseText(parsedData), err => console.log(err));
+  };
+
   render() {
     let logBox = <div></div>;
+    let newSquares = this.state.newSquares.map(songSquare => (
+      <SongSquare
+        title={songSquare.title}
+        keySig={songSquare.keySig}
+        tempo={songSquare.tempo}
+        length={songSquare.length}
+        id={songSquare.id}
+        user={songSquare.username}
+        curUser={"none"}
+        songString={songSquare.songString}
+        onDelete={this.deleteSongSquare}
+        onCopy={this.copySongSquare}
+        reFetch={this.componentDidMount}
+        isDb={true}
+      ></SongSquare>
+    ));
 
     if (this.state.showLogin) {
       logBox = (
@@ -63,12 +121,12 @@ class LandingPage extends Component {
       );
     }
     return (
-      <div>
+      <div style={{ height: "100%", width: "100%" }}>
         {logBox}
 
         <Navbar
-          bg="dark"
-          variant="dark"
+          bg="light"
+          variant="light"
           style={{ position: "relative", zIndex: 5 }}
         >
           <Navbar.Brand href="localhost:3000">Kalimba Libre</Navbar.Brand>
@@ -99,72 +157,19 @@ class LandingPage extends Component {
             </Button>
           </Form>
         </Navbar>
-        {/** filler stuff */}
         <div
+          id="haha"
           style={{
             margin: "O auto",
             width: "100%",
-            height: "100%",
+            height: 1920,
+            padding: 100,
             textAlign: "center"
           }}
         >
-          <div style={{ fontSize: "50px" }}>Welcome to Kalimba Libre!</div>
-          <div
-            style={{
-              width: 200,
-              height: 200,
-              borderRadius: 10,
-              background: "lightgrey",
-              margin: "0 auto",
-              textAlign: "center",
-              paddingTop: 90,
-              marginTop: 10
-            }}
-          >
-            This is a box!
-          </div>
-          <div
-            style={{
-              width: 200,
-              height: 200,
-              borderRadius: 10,
-              background: "lightgrey",
-              margin: "0 auto",
-              textAlign: "center",
-              paddingTop: 90,
-              marginTop: 50
-            }}
-          >
-            This is <b>another</b> box!
-          </div>
-          <div
-            style={{
-              width: 400,
-              height: 200,
-              borderRadius: 10,
-              background: "lightgrey",
-              margin: "0 auto",
-              textAlign: "center",
-              paddingTop: 90,
-              marginTop: 50
-            }}
-          >
-            How about a <i>rectangle</i>? Psst, scroll down
-          </div>
-          <div
-            style={{
-              width: 450,
-              height: 300,
-              borderRadius: 10,
-              background: "lightgrey",
-              margin: "0 auto",
-              textAlign: "center",
-              paddingTop: 140,
-              marginTop: 50
-            }}
-          >
-            How about <i>yet another quadrilateral</i>? This is certainly not
-            filler!
+          <b style={{ fontSize: 50 }}>Welcome to Kalimba Libre!</b>
+          <div style={{ color: "grey" }}>
+            Click 'Login' in the top right to create a completely free account!
           </div>
         </div>
       </div>

@@ -3,6 +3,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import FormControl from "react-bootstrap/FormControl";
 import LoginBox from "./components/landing-components/LoginBox";
 import NewAccountBox from "./components/landing-components/NewAccountBox";
 import { navigate } from "@reach/router";
@@ -80,6 +81,7 @@ class SongDatabasePage extends Component {
           onClick={() => {
             navigate("/");
           }}
+          style={{ marginLeft: 10 }}
         >
           Logout
         </Button>
@@ -89,6 +91,7 @@ class SongDatabasePage extends Component {
           onClick={() => {
             navigate("/homepage/", { state: { userID: this.state.userID } });
           }}
+          style={{ marginLeft: 10 }}
         >
           Your Songs
         </Nav.Link>
@@ -170,6 +173,14 @@ class SongDatabasePage extends Component {
               Github
             </Nav.Link>
           </Nav>
+          <Form inline>
+            <FormControl
+              type="text"
+              placeholder="Search Songs"
+              className="mr-sm-2"
+            />
+            <Button variant="outline-success">Search</Button>
+          </Form>
           <Form inline>{logButton}</Form>
         </Navbar>
         <div className="home-page">
