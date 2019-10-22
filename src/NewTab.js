@@ -513,7 +513,11 @@ class NewTab extends Component {
       </Button>
     );
     if (!this.state.isPlaying) {
-      stopButton = <></>;
+      stopButton = (
+        <Button variant="primary" onClick={this.handlePlay}>
+          PLAY
+        </Button>
+      );
     }
 
     return (
@@ -578,9 +582,6 @@ class NewTab extends Component {
             </div>
             {saveButton}
             {stopButton}
-            <Button variant="primary" onClick={this.handlePlay}>
-              PLAY
-            </Button>
           </Form>
         </Navbar>
 
