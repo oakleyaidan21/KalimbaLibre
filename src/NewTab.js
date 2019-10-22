@@ -374,7 +374,7 @@ class NewTab extends Component {
 
   //the last of the functions that retrieve note data. sets this state's note data
   handleLastPassUp = (tNote, noteName, time, remove, noteID) => {
-    this.setState({ tieMode: false });
+    this.setState({ tieMode: false, tiedNote: [] });
     var temp2 = this.state.totalNotes;
     if (remove) {
       temp2[tNote].notes[noteID].selected = false;

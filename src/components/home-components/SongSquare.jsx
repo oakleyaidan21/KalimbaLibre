@@ -47,8 +47,7 @@ class SongSquare extends Component {
         tempo: this.state.tempo,
         length: this.state.length,
         songString: this.props.songString,
-        username: userNameToPutIn,
-        private: this.state.private
+        username: userNameToPutIn
       }),
       headers: {
         "Content-Type": "application/json"
