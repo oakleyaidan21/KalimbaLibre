@@ -32,7 +32,7 @@ class NewTab extends Component {
       kalimba: null,
       tempo: 120, //will change to get from router props
       keySig: "C", //will change to get from router props
-      songTitle: "None", //will change to get from router props
+      songTitle: this.props.location.state.passedTitle, //will change to get from router props
       curTime: 4,
       resting: false,
       songString: "None", //will change to get from router props
@@ -179,7 +179,7 @@ class NewTab extends Component {
   //initialization
   componentDidMount = async () => {
     //fetches song data from API if it is not a new song
-    if (this.state.dbID !== "0" || this.state.dbID !== 0) {
+    if (this.state.dbID !== 0) {
       fetch(dbLocation + "/ksongs")
         .then(
           data => {
@@ -194,6 +194,10 @@ class NewTab extends Component {
           err => console.log(err)
         );
     } else {
+      //first, set the keysignature
+      await delay(500);
+      console.log("got here");
+      this.configure(this.props.location.state.passedKeySig, "key");
       //initialize tnotes regularly
       var tempTNotes = [];
       for (var i = 0; i < this.state.kalimbaLength; i++) {
@@ -300,8 +304,8 @@ class NewTab extends Component {
       return;
     }
     if (type === "key") {
+      console.log("doing this");
       this.setState({ keySig: value });
-
       var index = 0;
       for (var i = 0; i < scaleKeys.keySignatures.length; i++) {
         if (scaleKeys.keySignatures[i][0] === value) {
@@ -370,6 +374,7 @@ class NewTab extends Component {
 
   //the last of the functions that retrieve note data. sets this state's note data
   handleLastPassUp = (tNote, noteName, time, remove, noteID) => {
+    this.setState({ tieMode: false });
     var temp2 = this.state.totalNotes;
     if (remove) {
       temp2[tNote].notes[noteID].selected = false;

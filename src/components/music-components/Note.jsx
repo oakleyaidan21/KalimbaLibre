@@ -8,7 +8,7 @@ import D_Half from "../../noteImages/dotted_half.png";
 import D_Eighth from "../../noteImages/dotted_eighth.png";
 import D_Quarter from "../../noteImages/dotted_quarter.png";
 import Whole from "../../noteImages/whole_note.png";
-import algebra, { Equation, Expression } from "algebra.js";
+import algebra, { Equation } from "algebra.js";
 
 class Note extends Component {
   constructor(props) {
@@ -91,14 +91,16 @@ class Note extends Component {
   //changes the clicked note to an image of a note, and also sends which notes to play to the NoteContainer
   handleNoteClick = () => {
     var t = this.state.time;
+    var c = "transparent";
+
     if (this.props.tieMode) {
       t = this.remakeTime();
-      this.props.toggleTied();
+      c = "rgb(143, 186, 255, 0.5)";
     }
     if (this.state.selected === true) {
       //remove it from the notes to be played
       this.setState({ selected: false });
-      // this.setState({ color: "transparent" });
+      this.setState({ color: "transparent" });
       this.props.onHandleNoteClick(
         this.state.noteID,
         this.state.id,
@@ -110,7 +112,7 @@ class Note extends Component {
       //add it to the notes to be played
       this.setState({ selected: true });
       this.props.instrument.play(this.props.name);
-      // this.setState({ color: "blue" });
+      this.setState({ color: c });
       this.props.onHandleNoteClick(
         this.state.noteID,
         this.state.id,

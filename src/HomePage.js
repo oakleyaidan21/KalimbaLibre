@@ -8,6 +8,7 @@ import Form from "react-bootstrap/Form";
 import { Link } from "@reach/router";
 import dbLocation from "./localVariables";
 import { navigate } from "@reach/router";
+import SongCreator from "./components/home-components/SongCreator";
 
 class HomePage extends Component {
   constructor(props) {
@@ -16,7 +17,8 @@ class HomePage extends Component {
       songSquares: [],
       curLocalStorage: [],
       didConnect: false,
-      user: this.props.location.state.userID
+      user: this.props.location.state.userID,
+      showCreateBox: false
     };
   }
 
@@ -99,8 +101,26 @@ class HomePage extends Component {
       );
     }
 
+    let createBox = (
+      <div
+        style={{
+          position: "absolute",
+          width: "100%",
+          height: "100%",
+          backgroundColor: "rgb(128,128,128,0.5)",
+          zIndex: 7
+        }}
+      >
+        <SongCreator user={this.state.user}></SongCreator>
+      </div>
+    );
+    if (!this.state.showCreateBox) {
+      createBox = <></>;
+    }
+
     return (
-      <div>
+      <div style={{ height: "100%", width: "100%" }}>
+        {createBox}
         <Navbar bg="dark" variant="dark">
           <Navbar.Brand href="/">Kalimba Libre</Navbar.Brand>
           <Nav className="mr-auto">
@@ -128,17 +148,26 @@ class HomePage extends Component {
         <div className="home-page">
           <b>
             {this.state.user}'s Songs{" "}
-            <Link
+            {/* <Link
               to={"/newtab/"}
               target="_blank"
               state={{ dbID: 0, userID: this.state.user }}
             >
               <Button variant="primary">+ Create</Button>
-            </Link>
+            </Link> */}
+            <Button
+              variant="primary"
+              onClick={() => {
+                this.setState({ showCreateBox: true });
+              }}
+            >
+              + Create
+            </Button>
           </b>
 
           {/* just a line break */}
           <div style={{ height: 2, backgroundColor: "grey" }}></div>
+
           {squares}
         </div>
       </div>

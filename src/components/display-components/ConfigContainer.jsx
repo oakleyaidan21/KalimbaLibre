@@ -52,7 +52,7 @@ class ConfigContainer extends Component {
         id="configContainer"
         style={{
           display: "inline-block",
-          height: 420,
+          height: 300,
           width: "21%",
           background: "#D4D4D4",
           borderRadius: 10,
@@ -69,7 +69,6 @@ class ConfigContainer extends Component {
               size="sm"
               placeholder={this.state.title}
               onChange={this.configStrings}
-              style={{ textAlign: "center" }}
             />
           </Form.Group>
           <Button
@@ -82,36 +81,10 @@ class ConfigContainer extends Component {
               this.configTitle();
             }}
           >
-            Set Title
+            Change Title
           </Button>
         </Form>
-
-        <Form>
-          <Form.Group controlId="formBasic">
-            <Form.Label>Key Signature</Form.Label>
-            <Form.Control
-              size="sm"
-              placeholder={this.state.keySig}
-              onChange={this.configStrings}
-            />
-            <Form.Text className="text-muted">
-              Example: "C", where uppercase letter = major and lowercase letter
-              = minor
-            </Form.Text>
-          </Form.Group>
-          <Button
-            variant="primary"
-            type="submit"
-            size="sm"
-            onClick={event => {
-              event.preventDefault();
-              this.configKey();
-            }}
-          >
-            Set Major
-          </Button>
-        </Form>
-        <Form>
+        <Form style={{ marginTop: 30 }}>
           <Form.Group controlId="formBasic">
             <Form.Label>Tempo</Form.Label>
             <Form.Control
@@ -130,7 +103,7 @@ class ConfigContainer extends Component {
               this.configTempo();
             }}
           >
-            Set Tempo
+            Change Tempo
           </Button>
         </Form>
       </div>
