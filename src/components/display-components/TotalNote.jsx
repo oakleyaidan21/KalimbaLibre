@@ -115,6 +115,7 @@ class TotalNote extends Component {
             isResting={this.props.isResting}
             tieMode={this.props.tieMode}
             tiedNote={this.props.tiedNote}
+            toggleTied={this.props.toggleTied}
           />
         ))}
         <button

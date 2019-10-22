@@ -610,6 +610,9 @@ class NewTab extends Component {
           finalMinusPass={this.removeMeasure}
           tieMode={this.state.tieMode}
           tiedNote={this.state.tiedNote}
+          toggleTied={() => {
+            this.setState({ tieMode: false, tiedNote: [] });
+          }}
         />
         <Selector
           onChangeNoteTime={this.changeNoteTime}

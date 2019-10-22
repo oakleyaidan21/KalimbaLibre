@@ -61,6 +61,7 @@ class KalimbaContainer extends Component {
           isResting={this.props.isRest}
           tieMode={this.props.tieMode}
           tiedNote={this.props.tiedNote}
+          toggleTied={this.props.toggleTied}
         />
       </div>
     );

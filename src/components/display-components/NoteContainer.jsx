@@ -63,6 +63,7 @@ class NoteContainer extends Component {
             passUpMinus={this.props.onMinusPassUp}
             tieMode={this.props.tieMode}
             tiedNote={this.props.tiedNote}
+            toggleTied={this.props.toggleTied}
           />
         ))}
       </div>

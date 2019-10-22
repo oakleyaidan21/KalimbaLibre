@@ -93,6 +93,7 @@ class Note extends Component {
     var t = this.state.time;
     if (this.props.tieMode) {
       t = this.remakeTime();
+      this.props.toggleTied();
     }
     if (this.state.selected === true) {
       //remove it from the notes to be played
