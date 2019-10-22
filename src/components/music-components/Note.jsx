@@ -8,6 +8,7 @@ import D_Half from "../../noteImages/dotted_half.png";
 import D_Eighth from "../../noteImages/dotted_eighth.png";
 import D_Quarter from "../../noteImages/dotted_quarter.png";
 import Whole from "../../noteImages/whole_note.png";
+import algebra, { Equation, Expression } from "algebra.js";
 
 class Note extends Component {
   constructor(props) {
@@ -48,6 +49,22 @@ class Note extends Component {
     return this.state.images[0].image;
   };
 
+  //for tied notes it adds up all the notes in the array and finds what time it needs to be
+  remakeTime = () => {
+    var totalMS = 0;
+    for (var i = 0; i < this.props.tiedNote.length; i++) {
+      totalMS += (4 * (1000 / (120 / 60))) / this.props.tiedNote[i];
+    }
+    console.log(totalMS);
+    var exp1 = algebra.parse("x*" + totalMS.toString());
+    var exp2 = algebra.parse("4*(1000/(120/60))");
+    var eq = new Equation(exp1, exp2);
+    console.log(eq);
+    var answer = eq.solveFor("x");
+    console.log("x = " + answer.toString());
+    return answer;
+  };
+
   componentDidMount = () => {};
 
   handleSelectionE = () => {
@@ -73,29 +90,35 @@ class Note extends Component {
 
   //changes the clicked note to an image of a note, and also sends which notes to play to the NoteContainer
   handleNoteClick = () => {
+    var t = this.state.time;
+    if (this.props.tieMode) {
+      t = this.remakeTime();
+    }
     if (this.state.selected === true) {
       //remove it from the notes to be played
       this.setState({ selected: false });
+      // this.setState({ color: "transparent" });
       this.props.onHandleNoteClick(
         this.state.noteID,
         this.state.id,
         this.props.name,
-        this.state.time,
+        t,
         true
       );
     } else {
       //add it to the notes to be played
       this.setState({ selected: true });
       this.props.instrument.play(this.props.name);
+      // this.setState({ color: "blue" });
       this.props.onHandleNoteClick(
         this.state.noteID,
         this.state.id,
         this.props.name,
-        this.state.time,
+        t,
         false
       );
       //change its image
-      this.setState({ imageToRender: this.getImageIndex(this.state.time) });
+      this.setState({ imageToRender: this.getImageIndex(t) });
     }
   };
 

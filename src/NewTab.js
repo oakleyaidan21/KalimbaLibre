@@ -54,7 +54,9 @@ class NewTab extends Component {
       ],
       dbID: this.props.location.state.dbID,
       userID: this.props.location.state.userID,
-      hovered: false
+      hovered: false,
+      tieMode: false,
+      tiedNote: []
     };
 
     this.handlePlay = this.handlePlay.bind(this);
@@ -75,17 +77,24 @@ class NewTab extends Component {
   //changes the current note for editing
   //current problem: doesn't render images of dotted notes, for whatever reason
   changeNoteTime = childData => {
-    if (childData !== "R") {
-      if (childData === ".") {
-        var t = this.state.curTime;
-        var addition = (t + t) / 3;
-        this.setState({ curTime: addition });
-      } else {
-        this.setState({ curTime: childData });
-      }
-      this.setState({ resting: false });
+    if (this.state.tieMode) {
+      console.log("tie " + childData);
+      var temp = this.state.tiedNote;
+      temp.push(childData);
+      this.setState({ tiedNote: temp });
     } else {
-      this.setState({ resting: true });
+      if (childData !== "R") {
+        if (childData === ".") {
+          var t = this.state.curTime;
+          var addition = (t + t) / 3;
+          this.setState({ curTime: addition });
+        } else {
+          this.setState({ curTime: childData });
+        }
+        this.setState({ resting: false });
+      } else {
+        this.setState({ resting: true });
+      }
     }
   };
 
@@ -599,10 +608,19 @@ class NewTab extends Component {
           imageToRender={this.state.imageToRender}
           finalTickPass={this.addMeasure}
           finalMinusPass={this.removeMeasure}
+          tieMode={this.state.tieMode}
+          tiedNote={this.state.tiedNote}
         />
         <Selector
           onChangeNoteTime={this.changeNoteTime}
           curNote={this.state.curTime}
+          onTieSelection={() => {
+            if (this.state.tieMode) {
+              this.setState({ tieMode: false });
+            } else {
+              this.setState({ tieMode: true });
+            }
+          }}
         />
         <ConfigContainer
           title={this.state.songTitle}

@@ -70,6 +70,15 @@ class Selector extends Component {
             label={selectorButton.label}
           />
         ))}
+        <button
+          style={{ marginTop: 10 }}
+          onClick={() => {
+            this.props.onTieSelection();
+          }}
+          className="btn btn-primary btn-sm"
+        >
+          tie
+        </button>
         <div style={{ fontSize: 30, marginTop: 10 }}>
           <br></br>
           <Badge

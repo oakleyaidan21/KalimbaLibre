@@ -59,6 +59,8 @@ class KalimbaContainer extends Component {
           onTickPassUp={this.props.finalTickPass}
           onMinusPassUp={this.props.finalMinusPass}
           isResting={this.props.isRest}
+          tieMode={this.props.tieMode}
+          tiedNote={this.props.tiedNote}
         />
       </div>
     );

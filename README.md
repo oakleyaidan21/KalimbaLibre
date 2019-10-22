@@ -41,6 +41,7 @@ Here's how the app looks at this stage in development:
 - [ ] Add a savable description
 - [ ] Add tied note functionality (along with corresponding export handling)
 - [ ] Move database to higher priority server
+- [ ] Add functionality for copying a selection of notes
 
 ## CURRENT ISSUES
 
