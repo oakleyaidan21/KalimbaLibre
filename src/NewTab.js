@@ -624,6 +624,7 @@ class NewTab extends Component {
               this.setState({ tieMode: true });
             }
           }}
+          tieMode={this.state.tieMode}
         />
         <ConfigContainer
           title={this.state.songTitle}

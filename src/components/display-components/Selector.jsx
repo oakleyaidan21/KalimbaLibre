@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import SelectorButton from "./SelectorButton";
 import Badge from "react-bootstrap/Badge";
+import Button from "react-bootstrap/Button";
 
 class Selector extends Component {
   constructor(props) {
@@ -49,6 +50,10 @@ class Selector extends Component {
   };
 
   render() {
+    var type = "primary";
+    if (this.props.tieMode) {
+      type = "warning";
+    }
     return (
       <div
         id="selector"
@@ -70,15 +75,15 @@ class Selector extends Component {
             label={selectorButton.label}
           />
         ))}
-        <button
+        <Button
           style={{ marginTop: 10 }}
           onClick={() => {
             this.props.onTieSelection();
           }}
-          className="btn btn-primary btn-sm"
+          variant={type}
         >
           tie
-        </button>
+        </Button>
         <div style={{ fontSize: 30, marginTop: 10 }}>
           <br></br>
           <Badge
