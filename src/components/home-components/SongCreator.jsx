@@ -25,7 +25,7 @@ class SongCreator extends Component {
       <div
         style={{
           width: 500,
-          height: 300,
+          height: 320,
           backgroundColor: "white",
           position: "relative",
           margin: "0 auto",
@@ -74,6 +74,19 @@ class SongCreator extends Component {
             }}
           >
             Create
+          </Button>
+
+          <br></br>
+          <Button
+            variant="outline-primary"
+            size="sm"
+            id="loginBtn"
+            onClick={() => {
+              this.props.onCancel();
+            }}
+            style={{ marginTop: 10 }}
+          >
+            Cancel
           </Button>
         </Form>
       </div>

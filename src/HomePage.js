@@ -111,7 +111,12 @@ class HomePage extends Component {
           zIndex: 7
         }}
       >
-        <SongCreator user={this.state.user}></SongCreator>
+        <SongCreator
+          user={this.state.user}
+          onCancel={() => {
+            this.setState({ showCreateBox: false });
+          }}
+        ></SongCreator>
       </div>
     );
     if (!this.state.showCreateBox) {
@@ -148,13 +153,6 @@ class HomePage extends Component {
         <div className="home-page">
           <b>
             {this.state.user}'s Songs{" "}
-            {/* <Link
-              to={"/newtab/"}
-              target="_blank"
-              state={{ dbID: 0, userID: this.state.user }}
-            >
-              <Button variant="primary">+ Create</Button>
-            </Link> */}
             <Button
               variant="primary"
               onClick={() => {
