@@ -2,9 +2,6 @@
 
 A WIP React Web App for creating Kalimba tablatures for free (see: _Libre_)
 
-Link for what I've created so far: http://kalimba-libre.herokuapp.com/.
-If it takes a long time to load, it's because heroku has put it on low priority. It will take around ~30 seconds. **If you notice any bugs while using it, report them here!** Also, heroku seems to be building the development version of the app, so songs could play pretty slowly. If you really want smooth playing, you can download the code yourself and run it as a production build, which is detailed down below.
-
 ## Development
 
 ### Setup
@@ -42,7 +39,3 @@ Here's how the app looks at this stage in development:
 - [ ] Add tied note functionality (along with corresponding export handling)
 - [ ] Move database to higher priority server
 - [ ] Add functionality for copying a selection of notes
-
-## CURRENT ISSUES
-
-- Sometimes, units of rhythm different from a quarter note will seem longer or shorter than they should be, even though they are getting the correct amount of delay time

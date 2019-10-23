@@ -33,18 +33,6 @@ class LoginBox extends Component {
       .slice(0, len);
   };
 
-  //password database logic:
-  // create new password
-  //   generate SALT
-  //   hash SALT with USERPASSWORD to make the HASHP
-  //   store the HASHP along with the SALT in the database
-  // validate login
-  //   validate that USER exists
-  //   retrieve USER's HASHP and SALT
-  //   hash the NEWLYENTEREDPASSWORD and SALT to make HASHC
-  //   compare HASHC and HASHP
-  //   if they are correct, then let them in
-
   sha512 = (password, salt) => {
     var hash = crypto.createHmac(
       "sha512",
