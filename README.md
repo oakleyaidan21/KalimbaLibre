@@ -1,6 +1,7 @@
 # Kalimba Libre
 
 A WIP React Web App for creating Kalimba tablatures for free (see: _Libre_)
+You can currently find the WIP app at http://52.14.142.34:5000/. As it being just an IP Address suggests, it's not a completely finished site; don't be surprised if you suddenly find songs you've saved to be gone. You can still play around and save songs, just don't get too attached to what you make. If you find a bug, report it here! 
 
 ## Development
 
