@@ -2,9 +2,11 @@
 
 A WIP React Web App for creating Kalimba tablatures for free (see: _Libre_)
 You can currently find the WIP app at http://52.14.142.34:5000/. As it being just an IP Address suggests, it's not a completely finished site; don't be surprised if you suddenly find songs you've saved to be gone, as I'm semi-frequently resetting the database for testing.
-You can still play around and save songs, just don't get too attached to what you make. If you _really_ want to keep those songs, you can `Export to Txt` them and I'll have a function later to convert those text files back into editable tablatures. However, once I publish the site, that won't be a worry.
 
-**If you find a bug, report it here!**
+You can still play around and save songs, just don't get too attached to what you make.
+If you _really_ want to keep those songs, you can `Export to Txt` them and I'll have a function later to convert those text files back into editable tablatures. However, once I publish the site, that won't be a worry.
+
+**If you find a bug, report it here!** There are probably a lot right now that I never encounter, so please let me know! That goes for suggestions, too.
 
 ## Development
 
