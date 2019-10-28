@@ -23,7 +23,7 @@ And you're done! The app will be running on `localhost:3000`. If by any chance n
 
 #### Production Build
 
-If you want to run the app as a production build, use these commands:
+If you want to run the app as a production build (loading note sounds takes no time at all), use these commands:
 
 1. `npm run build`
 2. `serve -s build`

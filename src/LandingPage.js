@@ -63,23 +63,6 @@ class LandingPage extends Component {
 
   render() {
     let logBox = <div></div>;
-    // let newSquares = this.state.newSquares.map(songSquare => (
-    //   <SongSquare
-    //     title={songSquare.title}
-    //     keySig={songSquare.keySig}
-    //     tempo={songSquare.tempo}
-    //     length={songSquare.length}
-    //     id={songSquare.id}
-    //     user={songSquare.username}
-    //     curUser={"none"}
-    //     songString={songSquare.songString}
-    //     onDelete={this.deleteSongSquare}
-    //     onCopy={this.copySongSquare}
-    //     reFetch={this.componentDidMount}
-    //     isDb={true}
-    //   ></SongSquare>
-    // ));
-
     if (this.state.showLogin) {
       logBox = (
         <div
@@ -146,6 +129,21 @@ class LandingPage extends Component {
             >
               Github
             </Nav.Link>
+            {/* <Nav.Link
+              onClick={() => {
+                navigate("/newtab/", {
+                  state: {
+                    userID: "none",
+                    dbID: 0,
+                    passedKeySig: "C",
+                    passedTitle: "production test",
+                    dev: true
+                  }
+                });
+              }}
+            >
+              Dev
+            </Nav.Link> */}
           </Nav>
           <Form inline>
             <Button

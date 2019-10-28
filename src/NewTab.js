@@ -510,6 +510,9 @@ class NewTab extends Component {
         Save
       </Button>
     );
+    if (this.props.location.state.dev) {
+      saveButton = <></>;
+    }
     let rend = <LoadingScreen />;
     if (!this.state.isLoading) {
       rend = <></>;
