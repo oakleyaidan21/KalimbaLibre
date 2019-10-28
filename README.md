@@ -19,6 +19,8 @@ If you _really_ want to keep those songs, you can `Export to Txt` them and I'll 
 
 3. Run `npm start`
 
+4. Uncomment the Nav.Link element in `LandingPage.js` that is titled "Dev". This will take you to a NewTab that cannot do anything related to the database, as your local copy of this repo will not be able to connect to it.
+
 And you're done! The app will be running on `localhost:3000`. If by any chance npm yelled at you to install certain dependencies, do so.
 
 #### Production Build
