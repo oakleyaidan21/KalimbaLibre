@@ -20,6 +20,7 @@ class HomePage extends Component {
       user: this.props.location.state.userID,
       showCreateBox: false
     };
+    this.componentDidMount = this.componentDidMount.bind(this);
   }
 
   parseText = data => {
@@ -44,6 +45,7 @@ class HomePage extends Component {
   };
 
   componentDidMount = () => {
+    console.log("getting songs");
     fetch(dbLocation + "/ksongs")
       .then(
         data => {
