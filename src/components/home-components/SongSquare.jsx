@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import { navigate } from "@reach/router";
-import { IoIosPlay } from "react-icons/io";
+import ReactTooltip from "react-tooltip";
+import { FaCopy, FaPencilAlt, FaTrash, FaPlay } from "react-icons/fa";
 import dbLocation from "../../localVariables";
 
 class SongSquare extends Component {
@@ -72,6 +73,7 @@ class SongSquare extends Component {
       buttons = (
         <div style={{ float: "left" }}>
           <Button
+            data-tip="Edit"
             style={{
               width: 70,
               margin: 5,
@@ -86,9 +88,10 @@ class SongSquare extends Component {
               this.goToSong();
             }}
           >
-            EDIT
+            <FaPencilAlt />
           </Button>
           <Button
+            data-tip="Make a copy"
             variant="warning"
             style={{
               width: 70,
@@ -104,9 +107,10 @@ class SongSquare extends Component {
               this.copySelf();
             }}
           >
-            COPY
+            <FaCopy />
           </Button>
           <Button
+            data-tip="Delete"
             variant="danger"
             style={{
               width: 70,
@@ -122,7 +126,7 @@ class SongSquare extends Component {
               this.deleteSelf();
             }}
           >
-            X
+            <FaTrash />
           </Button>
         </div>
       );
@@ -234,8 +238,8 @@ class SongSquare extends Component {
             <Button
               style={{
                 width: 40,
+                marginTop: 25,
                 marginRight: 20,
-                marginTop: 23,
                 height: 40,
                 borderRadius: 25,
                 float: "left",
@@ -244,7 +248,7 @@ class SongSquare extends Component {
                 lineHeight: "15px"
               }}
             >
-              <IoIosPlay />
+              <FaPlay data-tip="Preview (coming soon!)" />
             </Button>
             {buttons}
           </div>
@@ -253,6 +257,7 @@ class SongSquare extends Component {
     }
     return (
       <div id="songSquare" style={{ marginTop: 10 }}>
+        <ReactTooltip />
         {toBeRendered}
       </div>
     );
