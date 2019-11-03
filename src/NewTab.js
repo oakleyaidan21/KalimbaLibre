@@ -436,6 +436,7 @@ class NewTab extends Component {
       .then(res => res.json())
       .then(resJSON => {
         console.log(resJSON);
+        this.setState({ dbID: resJSON.id });
       })
       .catch(error => console.error({ Error: error }));
     this.setState({ isSaved: true });
