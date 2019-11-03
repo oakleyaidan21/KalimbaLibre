@@ -3,29 +3,34 @@ import React, { Component } from "react";
 import SelectorButton from "./SelectorButton";
 import Badge from "react-bootstrap/Badge";
 import Button from "react-bootstrap/Button";
+import Quarter from "../../noteImages/quarter_note.png";
+import Eighth from "../../noteImages/eighth_note.png";
+import Half from "../../noteImages/half_note.png";
+import Sixteenth from "../../noteImages/sixteenth_note.png";
+import Whole from "../../noteImages/whole_note.png";
 
 class Selector extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentNote: this.props.curNote,
+      imageToRender: Quarter,
       selectors: [
-        { label: 1 },
-        { label: 2 },
-        { label: 4 },
-        { label: 8 },
-        { label: 16 },
-        { label: 32 },
-        { label: "." },
-        { label: "R" }
+        { label: 1, image: Whole },
+        { label: 2, image: Half },
+        { label: 4, image: Quarter },
+        { label: 8, image: Eighth },
+        { label: 16, image: Sixteenth },
+        { label: "." }
+        // { label: "R" }
       ]
     };
     this.handleSelectionP = this.handleSelectionP.bind(this);
   }
 
-  handleSelectionP = childData => {
-    if (childData !== ".") {
-      this.setState({ currentNote: childData });
+  handleSelectionP = (label, image) => {
+    if (label !== ".") {
+      this.setState({ currentNote: label, imageToRender: image });
     } else {
       if (typeof this.state.currentNote === "string") {
         if (this.state.currentNote[this.state.currentNote.length - 1] === "+") {
@@ -38,19 +43,24 @@ class Selector extends Component {
       this.setState({ currentNote: temp });
     }
 
-    this.props.onChangeNoteTime(childData);
-  };
-
-  getBadgeClass = () => {
-    return "primary";
+    this.props.onChangeNoteTime(label);
   };
 
   displayNote = () => {
-    return this.state.currentNote;
+    return (
+      <img
+        src={this.state.imageToRender}
+        alt=""
+        style={{
+          maxWidth: "100%",
+          maxHeight: "100%"
+        }}
+      />
+    );
   };
 
   render() {
-    var type = "primary";
+    var type = "secondary";
     if (this.props.tieMode) {
       type = "warning";
     }
@@ -59,7 +69,7 @@ class Selector extends Component {
         id="selector"
         style={{
           width: 75,
-          height: 580,
+          height: 500,
           background: "#D4D4D4",
           borderRadius: 10,
           right: 50,
@@ -73,6 +83,7 @@ class Selector extends Component {
             key={selectorButton.label}
             onSelectNote={this.handleSelectionP}
             label={selectorButton.label}
+            image={selectorButton.image}
           />
         ))}
         <Button
@@ -86,11 +97,7 @@ class Selector extends Component {
         </Button>
         <div style={{ fontSize: 30, marginTop: 10 }}>
           <br></br>
-          <Badge
-            variant={this.getBadgeClass()}
-            size="lg"
-            style={{ margin: "0 auto" }}
-          >
+          <Badge variant={"primary"} style={{ margin: "0 auto", maxWidth: 40 }}>
             {this.displayNote()}
           </Badge>
         </div>

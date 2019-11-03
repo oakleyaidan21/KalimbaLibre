@@ -7,22 +7,36 @@ class SelectorButton extends Component {
   };
   buttonStyle = {
     margin: "0 auto",
-    marginTop: 20
+    marginTop: 20,
+    maxWidth: 30
   };
 
   handleSelection = () => {
-    this.props.onSelectNote(this.state.label);
+    this.props.onSelectNote(this.state.label, this.props.image);
   };
 
   render() {
+    let whatToRender = this.state.label;
+    if (this.props.image != null) {
+      whatToRender = (
+        <img
+          src={this.props.image}
+          alt=""
+          style={{
+            maxWidth: "100%",
+            maxHeight: "100%"
+          }}
+        />
+      );
+    }
     return (
       <div id="selector">
         <button
           onClick={this.handleSelection.bind(this)}
           style={this.buttonStyle}
-          className="btn btn-primary btn-sm"
+          className="btn btn-secondary btn-sm"
         >
-          {this.state.label}
+          {whatToRender}
         </button>
       </div>
     );
