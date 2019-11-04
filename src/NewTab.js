@@ -524,7 +524,6 @@ class NewTab extends Component {
         onClick={() => {
           this.setState({ stopPlaying: true });
         }}
-        style={{ marginRight: 10 }}
       >
         STOP
       </Button>
