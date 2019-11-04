@@ -20,7 +20,6 @@ import D_Quarter from "./noteImages/dotted_quarter.png";
 import Whole from "./noteImages/whole_note.png";
 import LoadingScreen from "./components/home-components/LoadingScreen";
 import { navigate } from "@reach/router";
-import dbLocation from "./localVariables.jsx";
 
 class NewTab extends Component {
   constructor(props) {

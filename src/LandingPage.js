@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form";
 import LoginBox from "./components/landing-components/LoginBox";
 import NewAccountBox from "./components/landing-components/NewAccountBox";
 import { navigate } from "@reach/router";
-import dbLocation from "./localVariables";
+
 // import SongSquare from "./components/home-components/SongSquare";
 import KalImg from "./kalimba.png";
 

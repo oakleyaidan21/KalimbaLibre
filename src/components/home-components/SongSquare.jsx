@@ -3,7 +3,6 @@ import Button from "react-bootstrap/Button";
 import { navigate } from "@reach/router";
 import ReactTooltip from "react-tooltip";
 import { FaCopy, FaPencilAlt, FaTrash, FaPlay } from "react-icons/fa";
-import dbLocation from "../../localVariables";
 
 class SongSquare extends Component {
   constructor(props) {

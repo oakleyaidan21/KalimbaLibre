@@ -4,7 +4,6 @@ import Button from "react-bootstrap/Button";
 import { navigate } from "@reach/router";
 import crypto from "crypto";
 import { delay } from "q";
-import dbLocation from "../../localVariables";
 
 class LoginBox extends Component {
   state = {

@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 import SongSquare from "./components/home-components/SongSquare";
 import Form from "react-bootstrap/Form";
 import { Link } from "@reach/router";
-import dbLocation from "./localVariables";
+
 import { navigate } from "@reach/router";
 import SongCreator from "./components/home-components/SongCreator";
 

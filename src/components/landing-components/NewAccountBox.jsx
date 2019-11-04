@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import crypto from "crypto";
 import { delay } from "q";
 import { navigate } from "@reach/router";
-import dbLocation from "../../localVariables";
+
 class NewAccountBox extends Component {
   state = {
     username: "none",

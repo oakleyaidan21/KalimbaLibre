@@ -7,7 +7,7 @@ import FormControl from "react-bootstrap/FormControl";
 import LoginBox from "./components/landing-components/LoginBox";
 import NewAccountBox from "./components/landing-components/NewAccountBox";
 import { navigate } from "@reach/router";
-import dbLocation from "./localVariables";
+
 import SongSquare from "./components/home-components/SongSquare";
 
 class SongDatabasePage extends Component {
