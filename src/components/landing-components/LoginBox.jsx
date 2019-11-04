@@ -51,7 +51,8 @@ class LoginBox extends Component {
     var valid = false;
     var tempHashP = "";
     var tempSalt = "";
-    fetch(dbLocation + "/users")
+    console.log(process.env.REACT_APP_DB_LOCATION);
+    fetch(process.env.REACT_APP_DB_LOCATION + "/users")
       .then(
         data => {
           return data.json();

@@ -51,7 +51,7 @@ class LandingPage extends Component {
   };
 
   componentDidMount = () => {
-    fetch(dbLocation + "/ksongs")
+    fetch(process.env.REACT_APP_DB_LOCATION + "/ksongs")
       .then(
         data => {
           return data.json();

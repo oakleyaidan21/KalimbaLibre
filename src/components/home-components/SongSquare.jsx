@@ -27,7 +27,7 @@ class SongSquare extends Component {
       "Are you sure you want to delete " + this.state.title + "?"
     );
     if (r === true) {
-      fetch(dbLocation + "/ksongs/" + this.state.id, {
+      fetch(process.env.REACT_APP_DB_LOCATION + "/ksongs/" + this.state.id, {
         method: "DELETE"
       }).then(response => {});
       this.setState({ hidden: true });
@@ -40,7 +40,7 @@ class SongSquare extends Component {
       console.log("here");
       userNameToPutIn = this.props.curUser;
     }
-    fetch(dbLocation + "/ksongs", {
+    fetch(process.env.REACT_APP_DB_LOCATION + "/ksongs", {
       method: "POST",
       body: JSON.stringify({
         title: this.state.title + "(copy)",

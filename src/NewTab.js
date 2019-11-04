@@ -180,7 +180,7 @@ class NewTab extends Component {
   componentDidMount = async () => {
     //fetches song data from API if it is not a new song
     if (this.state.dbID !== 0) {
-      fetch(dbLocation + "/ksongs")
+      fetch(process.env.REACT_APP_DB_LOCATION + "/ksongs")
         .then(
           data => {
             return data.json();
@@ -417,7 +417,7 @@ class NewTab extends Component {
     }
     var songS = this.handleNoteExport(false);
     console.log("making it " + priv);
-    fetch(dbLocation + "/ksongs" + concat, {
+    fetch(process.env.REACT_APP_DB_LOCATION + "/ksongs" + concat, {
       method: method,
       body: JSON.stringify({
         title: this.state.songTitle,

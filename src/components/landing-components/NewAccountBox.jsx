@@ -69,7 +69,7 @@ class NewAccountBox extends Component {
   createNewAccount = async () => {
     //search to see if username is taken or invalid
     var taken = false;
-    fetch(dbLocation + "/users")
+    fetch(process.env.REACT_APP_DB_LOCATION + "/users")
       .then(
         data => {
           return data.json();

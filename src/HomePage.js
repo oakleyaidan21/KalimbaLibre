@@ -46,7 +46,7 @@ class HomePage extends Component {
 
   componentDidMount = () => {
     console.log("getting songs");
-    fetch(dbLocation + "/ksongs")
+    fetch(process.env.REACT_APP_DB_LOCATION + "/ksongs")
       .then(
         data => {
           return data.json();
