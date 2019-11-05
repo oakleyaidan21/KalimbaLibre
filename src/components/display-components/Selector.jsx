@@ -60,9 +60,9 @@ class Selector extends Component {
   };
 
   render() {
-    var type = "secondary";
+    var type = "btn btn-outline-primary btn-sm";
     if (this.props.tieMode) {
-      type = "warning";
+      type = "btn btn-warning btn-sm";
     }
     return (
       <div
@@ -86,15 +86,15 @@ class Selector extends Component {
             image={selectorButton.image}
           />
         ))}
-        <Button
+        <button
           style={{ marginTop: 10 }}
           onClick={() => {
             this.props.onTieSelection();
           }}
-          variant={type}
+          className={type}
         >
           tie
-        </Button>
+        </button>
         <div style={{ fontSize: 30, marginTop: 10 }}>
           <br></br>
           <Badge variant={"primary"} style={{ margin: "0 auto", maxWidth: 40 }}>

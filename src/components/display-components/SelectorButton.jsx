@@ -3,7 +3,8 @@ import React, { Component } from "react";
 
 class SelectorButton extends Component {
   state = {
-    label: this.props.label
+    label: this.props.label,
+    selected: this.props.selected
   };
   buttonStyle = {
     margin: "0 auto",
@@ -16,6 +17,10 @@ class SelectorButton extends Component {
   };
 
   render() {
+    let type = "btn btn-outline-primary btn-sm";
+    if (this.props.selected) {
+      type = "btn btn-primary btn-sm";
+    }
     let whatToRender = this.state.label;
     if (this.props.image != null) {
       whatToRender = (
@@ -34,7 +39,7 @@ class SelectorButton extends Component {
         <button
           onClick={this.handleSelection.bind(this)}
           style={this.buttonStyle}
-          className="btn btn-secondary btn-sm"
+          className={type}
         >
           {whatToRender}
         </button>
