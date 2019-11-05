@@ -2,7 +2,6 @@
 import React, { Component } from "react";
 import SelectorButton from "./SelectorButton";
 import Badge from "react-bootstrap/Badge";
-import Button from "react-bootstrap/Button";
 import Quarter from "../../noteImages/quarter_note.png";
 import Eighth from "../../noteImages/eighth_note.png";
 import Half from "../../noteImages/half_note.png";

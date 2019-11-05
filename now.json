@@ -1,7 +1,7 @@
 {
   "build": {
     "env": {
-      "REACT_APP_DB_LOCATION": "@react_app_db_location"
+      "REACT_APP_DB_LOCATION": "@react_app_api_location"
     }
   }
 }
