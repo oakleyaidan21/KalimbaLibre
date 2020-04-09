@@ -1,3 +1,8 @@
+# OBSOLETE
+
+I've moved the purpose of kalimba libre over to [Kalimba Tabs](https://github.com/oakleyaidan21/kalimba-tabs), which should be a superior version of this in every way. Kalimba Libre was created as my first foray into javascript and React, and it's filled with less than desireable standards and coding. 
+
+
 # Kalimba Libre
 
 A WIP React Web App for creating Kalimba tablatures for free (see: _Libre_)
