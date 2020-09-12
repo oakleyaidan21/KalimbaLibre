@@ -14,7 +14,7 @@
     "jquery": ">=3.4.0",
     "jspdf": "^1.5.3",
     "mobx-music": "^1.1.1",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "react": "^16.10.1",
     "react-bootstrap": "^1.0.0-beta.12",
     "react-dom": "^16.10.1",
