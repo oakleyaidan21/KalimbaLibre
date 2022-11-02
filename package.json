@@ -12,7 +12,7 @@
     "crypto": "^1.0.1",
     "html2canvas": "^1.0.0-rc.5",
     "jquery": ">=3.4.0",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.5.1",
     "mobx-music": "^1.1.1",
     "node-fetch": "^2.6.0",
     "react": "^16.10.1",
